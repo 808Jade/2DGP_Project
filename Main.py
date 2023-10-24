@@ -32,12 +32,26 @@ def load_resources():
 
 def reset_world():
     global running
+    global menu_picking_easy, menu_picking_normal, menu_picking_hard, menu_picking_hell
+    menu_picking_easy, menu_picking_normal, menu_picking_hard, menu_picking_hell = False, False, False, False
     running = True
 
 
 def render_world():
     clear_canvas()
     background_menu.draw(canvas_x // 2, canvas_y // 2)
+    if menu_picking_hell == True:
+        background_menu_hell.draw(canvas_x // 2, canvas_y // 2)
+
+    if menu_picking_easy == True:
+        menu_pick.draw(100, 350, menu_pick.w // 5, menu_pick.h // 11)
+    elif menu_picking_normal == True:
+        menu_pick.draw(100, 280, menu_pick.w // 5, menu_pick.h // 11)
+    elif menu_picking_hard == True:
+        menu_pick.draw(100, 210, menu_pick.w // 5, menu_pick.h // 11)
+    elif menu_picking_hell == True:
+        menu_pick.draw(100, 140, menu_pick.w // 5, menu_pick.h // 11)
+
     easy.draw(196, 350, easy.w // 5, easy.h // 5)
     normal.draw(198, 280, normal.w // 4, normal.h // 4)
     hard.draw(196, 210, hard.w // 5, hard.h // 5)
@@ -50,12 +64,25 @@ def render_world():
 def handle_events():
     global running
     global x, y
+    global menu_picking_easy, menu_picking_normal, menu_picking_hard, menu_picking_hell
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
             running = False
         elif event.type == SDL_MOUSEMOTION:
             x, y = event.x, canvas_y - 1 - event.y
+            if x > 100 and x < 300 and y > 330 and y < 370:
+                menu_picking_easy = True
+            elif x > 100 and x < 300 and y > 260 and y < 300:
+                menu_picking_normal = True
+            elif x > 100 and x < 300 and y > 190 and y < 230:
+                menu_picking_hard = True
+            elif x > 100 and x < 300 and y > 120 and y < 160:
+                menu_picking_hell = True
+            else:
+                menu_picking_easy, menu_picking_normal, menu_picking_hard, menu_picking_hell = False, False, False, False
+
+
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
     pass
