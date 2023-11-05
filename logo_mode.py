@@ -30,7 +30,7 @@ def update():
 
 def draw():
     clear_canvas()
-    image.draw(640, 360)
+    image.draw(640, 300)
     update_canvas()
 
 
