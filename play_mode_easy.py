@@ -5,8 +5,6 @@ import game_world
 from hitter import Hitter
 from pitcher import Pitcher
 from playground import Playground
-from boy import Boy
-from bird import Bird
 
 # boy = None
 
@@ -25,7 +23,6 @@ def init():
     global hitter
     global pitcher
 
-    running = True
 
     playground = Playground()
     game_world.add_object(playground, 0)

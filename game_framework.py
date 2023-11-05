@@ -1,5 +1,8 @@
 import time
 
+from game_world import objects
+
+
 def change_mode(mode):
     global stack
     if (len(stack) > 0):

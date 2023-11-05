@@ -9,13 +9,19 @@
 # 8주차 : 최종 점검
 
 from pico2d import *
-
+import game_framework
+import game_world
+import play_mode_easy, play_mode_normal, play_mode_hard, play_mode_hell
 
 # 초기 화면 구성
-def load_resources():
+def init():
     global background_menu, background_menu_hell, background_play, background_play_hell, menu_pick
     global easy, hard, normal, hell
-    global hitter, pitcher
+    global menu_picking_easy, menu_picking_normal, menu_picking_hard, menu_picking_hell
+    menu_picking_easy, menu_picking_normal, menu_picking_hard, menu_picking_hell = False, False, False, False
+    global canvas_x,canvas_y
+    canvas_x, canvas_y = 1280, 720
+    # global hitter, pitcher
 
     background_menu = load_image('background_menu.png')
     background_menu_hell = load_image('background_menu_hell.png')
@@ -30,15 +36,7 @@ def load_resources():
     # pitcher = load_image('Pitcher.png)
 
 
-def reset_world():
-    global running
-    global menu_picking_easy, menu_picking_normal, menu_picking_hard, menu_picking_hell
-    menu_picking_easy, menu_picking_normal, menu_picking_hard, menu_picking_hell = False, False, False, False
-    running = True
-
-
 def render_world():
-    clear_canvas()
     background_menu.draw(canvas_x // 2, canvas_y // 2)
     if menu_picking_hell == True:
         background_menu_hell.draw(canvas_x // 2, canvas_y // 2)
@@ -58,43 +56,58 @@ def render_world():
 
     # hard.draw()
     # hell.draw()
-    update_canvas()
 
 
 def handle_events():
-    global running
     global x, y
     global menu_picking_easy, menu_picking_normal, menu_picking_hard, menu_picking_hell
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
-            running = False
+            game_framework.quit()
         elif event.type == SDL_MOUSEMOTION:
             x, y = event.x, canvas_y - 1 - event.y
-            if x > 100 and x < 300 and y > 330 and y < 370:
+            if 100 < x < 300 and 330 < y < 370:
                 menu_picking_easy = True
-            elif x > 100 and x < 300 and y > 260 and y < 300:
+            elif 100 < x < 300 and 260 < y < 300:
                 menu_picking_normal = True
-            elif x > 100 and x < 300 and y > 190 and y < 230:
+            elif 100 < x < 300 and 190 < y < 230:
                 menu_picking_hard = True
-            elif x > 100 and x < 300 and y > 120 and y < 160:
+            elif 100 < x < 300 and 120 < y < 160:
                 menu_picking_hell = True
             else:
                 menu_picking_easy, menu_picking_normal, menu_picking_hard, menu_picking_hell = False, False, False, False
+        elif event.type == SDL_MOUSEBUTTONDOWN:
+            x, y = event.x, canvas_y - 1 - event.y
+            if 100 < x < 300 and 330 < y < 370:
+                game_framework.change_mode(play_mode_easy)
+            elif 100 < x < 300 and 260 < y < 300:
+                game_framework.change_mode(play_mode_normal)
+            elif 100 < x < 300 and 190 < y < 230:
+                game_framework.change_mode(play_mode_hard)
+            elif 100 < x < 300 and 120 < y < 160:
+                game_framework.change_mode(play_mode_hell)
+            else:
+                pass
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            running = False
+            game_framework.quit()
     pass
 
 
-# main
-canvas_x, canvas_y = 1280, 720
-open_canvas(canvas_x, canvas_y)
-load_resources()
-reset_world()
+def update():
+    game_world.update()
 
-while running:
+
+def draw():
+    clear_canvas()
     render_world()
-    handle_events()
+    update_canvas()
 
-close_canvas()
+
+
+def finish():
+    game_world.clear()
+
+def pause(): pass
+def resume(): pass
