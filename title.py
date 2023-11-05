@@ -60,6 +60,7 @@ def render_world():
     # hell.draw()
     update_canvas()
 
+
 def handle_events():
     global running
     global x, y
@@ -84,6 +85,7 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
     pass
+
 
 # main
 canvas_x, canvas_y = 1280, 720
