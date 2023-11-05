@@ -42,7 +42,6 @@ def render_world():
     background_menu.draw(canvas_x // 2, canvas_y // 2)
     if menu_picking_hell == True:
         background_menu_hell.draw(canvas_x // 2, canvas_y // 2)
-
     if menu_picking_easy == True:
         menu_pick.draw(100, 350, menu_pick.w // 5, menu_pick.h // 11)
     elif menu_picking_normal == True:
@@ -81,7 +80,6 @@ def handle_events():
                 menu_picking_hell = True
             else:
                 menu_picking_easy, menu_picking_normal, menu_picking_hard, menu_picking_hell = False, False, False, False
-
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
