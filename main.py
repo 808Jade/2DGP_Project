@@ -1,8 +1,10 @@
-from pico2d import open_canvas, delay, close_canvas
+from pico2d import *
 import game_framework
 
 import play_mode as start_mode
+import logo_mode
+# import title_mode
 
-open_canvas(1280, 720)
+open_canvas()
 game_framework.run(start_mode)
 close_canvas()
