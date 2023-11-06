@@ -9,15 +9,13 @@ def swing_time_out(e):
     return e[0] == 'SWING_TIME_OUT'
 
 def left_click(e):
-    return e[0] == 'INPUT' and e[1].type == SDL_MOUSEBUTTONDOWN and e[1].key == SDL_BUTTON_LEFT
-    # return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_LEFT
+    return e[0] == 'INPUT' and e[1].type == SDL_MOUSEBUTTONDOWN and e[1].button == SDL_BUTTON_LEFT
 
 def right_click(e):
-    return e[0] == 'INPUT' and e[1].type == SDL_MOUSEBUTTONDOWN and e[1].key == SDL_BUTTON_RIGHT
-    # return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_RIGHT
+    return e[0] == 'INPUT' and e[1].type == SDL_MOUSEBUTTONDOWN and e[1].button == SDL_BUTTON_RIGHT
 
 def right_click_up(e):
-    return e[0] == 'INPUT' and e[1].type == SDL_MOUSEBUTTONUP and e[1].key == SDL_BUTTON_RIGHT
+    return e[0] == 'INPUT' and e[1].type == SDL_MOUSEBUTTONUP and e[1].button == SDL_BUTTON_RIGHT
 
 def mouse_motion(e):
     return e[0] == 'INPUT' and e[1].type == SDL_MOUSEMOTION
@@ -176,10 +174,6 @@ class Hitter:
         self.image = load_image('Hitter.png')
         self.state_machine = StateMachine(self)
         self.state_machine.start()
-        self.item = None
-
-    def swing(self):
-        pass
 
     def update(self):
         self.state_machine.update()
