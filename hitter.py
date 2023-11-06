@@ -193,6 +193,7 @@ class Hitter:
 
     def update(self):
         self.state_machine.update()
+        delay(0.05)
 
     def handle_event(self, event):
         self.state_machine.handle_event(('INPUT', event))
