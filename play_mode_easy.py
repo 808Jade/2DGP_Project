@@ -18,10 +18,11 @@ def handle_events():
         else:
             hitter.handle_event(event)
 
+
 def init():
     global background
     global hitter
-    global pitcher
+    # global pitcher
 
 
     playground = Playground()
@@ -30,8 +31,8 @@ def init():
     hitter = Hitter()
     game_world.add_object(hitter, 1)
 
-    pitcher = Pitcher()
-    game_world.add_object(pitcher, 1)
+    # pitcher = Pitcher()
+    # game_world.add_object(pitcher, 1)
 
 
 def finish():
