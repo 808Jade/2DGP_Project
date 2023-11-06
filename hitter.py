@@ -39,7 +39,7 @@ class Entering:
     def do(hitter):
         hitter.frame = (hitter.frame + 1) % 6
         hitter.dir = 0.1
-        hitter.x += hitter.dir * 4
+        hitter.x += hitter.dir * 100
         hitter.action = 3
         if get_time() - hitter.wait_time > 2:
             hitter.state_machine.handle_event(('ENTERING_TIME_OUT', 0))
@@ -91,7 +91,7 @@ class Swing:
     def do(hitter):
         hitter.frame = (hitter.frame + 1) % 6
         hitter.action = 5
-        if get_time() - hitter.wait_time > 1:
+        if get_time() - hitter.wait_time > 0.25:
             hitter.state_machine.handle_event(('SWING_TIME_OUT', 0))
         pass
 
