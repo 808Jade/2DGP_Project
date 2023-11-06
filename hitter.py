@@ -72,7 +72,8 @@ class Idle:
 
 class Swing:
     @staticmethod
-    def enter(hitter,e):
+    def enter(hitter, e):
+        hitter.wait_time = get_time()
         print("swing enter")
         pass
 
@@ -83,7 +84,8 @@ class Swing:
 
     @staticmethod
     def do(hitter):
-        print("swing do")
+        if get_time() - hitter.wait_time > 1:
+            hitter.state_machine.handle_event(('SWING_TIME_OUT', 0))
         pass
 
     @staticmethod
@@ -92,6 +94,27 @@ class Swing:
 
 
 class Charging:
+    @staticmethod
+    def enter(hitter, e):
+        print("charging enter")
+        pass
+
+    @staticmethod
+    def exit(hitter, e):
+        print("charging exit")
+        pass
+
+    @staticmethod
+    def do(hitter):
+        print("charging do")
+        pass
+
+    @staticmethod
+    def draw(hitter):
+        pass
+
+
+class Moving:
     @staticmethod
     def enter(hitter, e):
         print("charging enter")
@@ -151,6 +174,7 @@ class Hitter:
         self.image = load_image('Hitter.png')
         self.state_machine = StateMachine(self)
         self.state_machine.start()
+        self.item = None
 
     def swing(self):
         pass
