@@ -2,27 +2,46 @@ from pico2d import *
 
 # ---state event check
 
-def time_out(e):
-    return e[0] == 'TIME_OUT'
+def entering_time_out(e):
+    return e[0] == 'ENTERING_TIME_OUT'
+
+def swing_time_out(e):
+    return e[0] == 'SWING_TIME_OUT'
 
 def left_click(e):
     return e[0] == 'INPUT' and e[1].type == SDL_MOUSEBUTTONDOWN and e[1].key == SDL_BUTTON_LEFT
 
+def right_click(e):
+    return e[0] == 'INPUT' and e[1].type == SDL_MOUSEBUTTONDOWN and e[1].key == SDL_BUTTON_RIGHT
+
+def right_click_up(e):
+    return e[0] == 'INPUT' and e[1].type == SDL_MOUSEBUTTONUP and e[1].key == SDL_BUTTON_RIGHT
+
+def mouse_motion(e):
+    return e[0] == 'INPUT' and e[1].type == SDL_MOUSEMOTION
+
 # ---state event check
+
 
 class Entering:
     @staticmethod
     def enter(hitter, e):
+        print("Entering enter")
+        hitter.wait_time = get_time()
         pass
 
     @staticmethod
     def exit(hitter, e):
+        print("Entering exit")
         pass
 
     @staticmethod
     def do(hitter):
-        hitter.frame = (hitter.frame + 1) % 8
-        hitter.x += hitter.dir * 5
+        # hitter.frame = (hitter.frame + 1) % 8
+        # hitter.x += hitter.dir * 5
+        if get_time() - hitter.wait_time > 2:
+            hitter.state_machine.handle_event(('ENTERING_TIME_OUT', 0))
+        # print("Entering do")
         pass
 
     @staticmethod
@@ -33,14 +52,17 @@ class Entering:
 class Idle:
     @staticmethod
     def enter(hitter, e):
+        print("idle enter")
         pass
 
     @staticmethod
     def exit(hitter, e):
+        print("idle exit")
         pass
 
     @staticmethod
     def do(hitter):
+        # print("idle do")
         pass
 
     @staticmethod
@@ -51,14 +73,38 @@ class Idle:
 class Swing:
     @staticmethod
     def enter(hitter,e):
+        print("swing enter")
         pass
 
     @staticmethod
     def exit(hitter, e):
+        print("swing exit")
         pass
 
     @staticmethod
     def do(hitter):
+        print("swing do")
+        pass
+
+    @staticmethod
+    def draw(hitter):
+        pass
+
+
+class Charging:
+    @staticmethod
+    def enter(hitter, e):
+        print("charging enter")
+        pass
+
+    @staticmethod
+    def exit(hitter, e):
+        print("charging exit")
+        pass
+
+    @staticmethod
+    def do(hitter):
+        print("charging do")
         pass
 
     @staticmethod
@@ -71,9 +117,10 @@ class StateMachine:
         self.hitter = hitter
         self.cur_state = Entering
         self.transitions = {
-            Idle: {left_click: Swing},
-            Entering: {time_out: Idle},
-            Swing: {}
+            Idle: {left_click: Swing, right_click: Charging},
+            Entering: {entering_time_out: Idle},
+            Swing: {swing_time_out: Idle},
+            Charging: {left_click: Swing, right_click_up: Idle}
         }
 
     def start(self):
@@ -109,10 +156,11 @@ class Hitter:
         pass
 
     def update(self):
-        pass
+        self.state_machine.update()
 
-    def handle_event(self, e):
-        pass
+    def handle_event(self, event):
+        self.state_machine.handle_event(('INPUT', event))
 
     def draw(self):
+        # self.state_machine.draw()
         pass
