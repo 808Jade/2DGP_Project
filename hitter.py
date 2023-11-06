@@ -37,8 +37,10 @@ class Entering:
 
     @staticmethod
     def do(hitter):
-        # hitter.frame = (hitter.frame + 1) % 8
-        # hitter.x += hitter.dir * 5
+        hitter.frame = (hitter.frame + 1) % 6
+        hitter.dir = 0.1
+        hitter.x += hitter.dir * 4
+        hitter.action = 3
         if get_time() - hitter.wait_time > 2:
             hitter.state_machine.handle_event(('ENTERING_TIME_OUT', 0))
         # print("Entering do")
@@ -46,7 +48,7 @@ class Entering:
 
     @staticmethod
     def draw(hitter):
-        hitter.image.clip_draw(hitter.frame * 100, hitter.action * 100, 100, 100, hitter.x, hitter.y)
+        hitter.image.clip_draw(hitter.frame * 170, hitter.action * 170, 170, 170, hitter.x, hitter.y, 500, 500)
 
 
 class Idle:
@@ -62,11 +64,14 @@ class Idle:
 
     @staticmethod
     def do(hitter):
+        hitter.frame = (hitter.frame + 1) % 3
+        hitter.action = 6
         # print("idle do")
         pass
 
     @staticmethod
     def draw(hitter):
+        hitter.image.clip_draw(hitter.frame * 170, hitter.action * 170, 170, 170, hitter.x, hitter.y, 500, 500)
         pass
 
 
@@ -84,12 +89,15 @@ class Swing:
 
     @staticmethod
     def do(hitter):
+        hitter.frame = (hitter.frame + 1) % 6
+        hitter.action = 5
         if get_time() - hitter.wait_time > 1:
             hitter.state_machine.handle_event(('SWING_TIME_OUT', 0))
         pass
 
     @staticmethod
     def draw(hitter):
+        hitter.image.clip_draw(hitter.frame * 170, hitter.action * 170, 170, 170, hitter.x, hitter.y, 500, 500)
         pass
 
 
@@ -106,11 +114,14 @@ class Charging:
 
     @staticmethod
     def do(hitter):
+        hitter.frame = (hitter.frame + 1) % 3
+        hitter.action = 0
         print("charging do")
         pass
 
     @staticmethod
     def draw(hitter):
+        hitter.image.clip_draw(hitter.frame * 170, hitter.action * 170, 170, 170, hitter.x, hitter.y, 500, 500)
         pass
 
 
@@ -127,11 +138,13 @@ class Moving:
 
     @staticmethod
     def do(hitter):
-        print("charging do")
+        hitter.frame = (hitter.frame + 1) % 6
+        hitter.action = 6
         pass
 
     @staticmethod
     def draw(hitter):
+        hitter.image.clip_draw(hitter.frame * 170, hitter.action * 170, 170, 170, hitter.x, hitter.y, 500, 500)
         pass
 
 
@@ -143,7 +156,8 @@ class StateMachine:
             Idle: {left_click: Swing, right_click: Charging},
             Entering: {entering_time_out: Idle},
             Swing: {swing_time_out: Idle},
-            Charging: {left_click: Swing, right_click_up: Idle}
+            Charging: {left_click: Swing, right_click_up: Idle},
+            # Moving: {left_click: Swing, right_click: Charging}
         }
 
     def start(self):
@@ -168,9 +182,11 @@ class StateMachine:
 
 class Hitter:
     def __init__(self):
-        self.x, self.y = 400, 100
+        self.x, self.y = -100, 250
         self.frame = 0
-        self.action = 3  # ?
+        self.action = 7
+        self.face_dir = 1
+        self.dir = 0
         self.image = load_image('Hitter.png')
         self.state_machine = StateMachine(self)
         self.state_machine.start()
@@ -182,5 +198,5 @@ class Hitter:
         self.state_machine.handle_event(('INPUT', event))
 
     def draw(self):
-        # self.state_machine.draw()
+        self.state_machine.draw()
         pass
