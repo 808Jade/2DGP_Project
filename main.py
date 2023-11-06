@@ -9,7 +9,6 @@ open_canvas(1280, 720)
 game_framework.run(start_mode)
 close_canvas()
 
-
 # 개발 일정
 # 1주차 : 리소스 스집
 # 2주차 : 초기 화면 구성

@@ -1,9 +1,8 @@
-
-
 from pico2d import *
 import game_framework
 import game_world
 import play_mode_easy, play_mode_normal, play_mode_hard, play_mode_hell
+
 
 # 초기 화면 구성
 def init():
@@ -11,7 +10,7 @@ def init():
     global easy, hard, normal, hell
     global menu_picking_easy, menu_picking_normal, menu_picking_hard, menu_picking_hell
     menu_picking_easy, menu_picking_normal, menu_picking_hard, menu_picking_hell = False, False, False, False
-    global canvas_x,canvas_y
+    global canvas_x, canvas_y
     canvas_x, canvas_y = 1280, 720
     # global hitter, pitcher
 
@@ -97,9 +96,11 @@ def draw():
     update_canvas()
 
 
-
 def finish():
     game_world.clear()
 
+
 def pause(): pass
+
+
 def resume(): pass

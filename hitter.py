@@ -1,21 +1,27 @@
 from pico2d import *
 
+
 # ---state event check
 
 def entering_time_out(e):
     return e[0] == 'ENTERING_TIME_OUT'
 
+
 def swing_time_out(e):
     return e[0] == 'SWING_TIME_OUT'
+
 
 def left_click(e):
     return e[0] == 'INPUT' and e[1].type == SDL_MOUSEBUTTONDOWN and e[1].button == SDL_BUTTON_LEFT
 
+
 def right_click(e):
     return e[0] == 'INPUT' and e[1].type == SDL_MOUSEBUTTONDOWN and e[1].button == SDL_BUTTON_RIGHT
 
+
 def right_click_up(e):
     return e[0] == 'INPUT' and e[1].type == SDL_MOUSEBUTTONUP and e[1].button == SDL_BUTTON_RIGHT
+
 
 def mouse_motion(e):
     return e[0] == 'INPUT' and e[1].type == SDL_MOUSEMOTION

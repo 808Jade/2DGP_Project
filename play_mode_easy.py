@@ -6,6 +6,7 @@ from hitter import Hitter
 from pitcher import Pitcher
 from playground import Playground
 
+
 # boy = None
 
 def handle_events():
@@ -23,7 +24,6 @@ def init():
     global background
     global hitter
     # global pitcher
-
 
     playground = Playground()
     game_world.add_object(playground, 0)
