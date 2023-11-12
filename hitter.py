@@ -206,4 +206,3 @@ class Hitter:
 
     def draw(self):
         self.state_machine.draw()
-        pass
