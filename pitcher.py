@@ -124,7 +124,7 @@ class Pitcher:
     def update(self):
         self.state_machine.update()
 
-    def handle_event(self):
+    def handle_event(self, event):
         self.state_machine.handle_event(('INPUT', event))
 
     def draw(self):
