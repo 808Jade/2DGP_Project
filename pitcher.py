@@ -5,6 +5,12 @@ from pico2d import *
 def entering_time_out(e):
     return e[0] == 'ENTERING_TIME_OUT'
 
+def idle_time_out(e):
+    return e[0] == 'IDLE_TIME_OUT'
+
+def pitching_time_out(e):
+    return e[0] == 'PITCHING_TIME_OUT'
+
 # ---state event check
 
 class Entering:
@@ -55,8 +61,9 @@ class Idle:
 
     @staticmethod
     def draw(pitcher):
-        hitter.image.clip_draw(hitter.frame * 170, hitter.action * 170, 170, 170, hitter.x, hitter.y, 500, 500)
+        pitcher.image.clip_draw(pitcher.frame * 170, pitcher.action * 170, 170, 170, pitcher.x, pitcher.y, 500, 500)
         pass
+
 
 class Pitching:
     @staticmethod
@@ -81,8 +88,9 @@ class StateMachine:
         self.pitcher = pitcher
         self.cur_state = Entering
         self.transitions = {
-            Idle: {left_click: Swing, right_click: Charging},
+            Idle: {idle_time_out : Pitching},
             Entering: {entering_time_out: Idle},
+            Pitching: {pitching_time_out: Idle}
         }
 
     def start(self):
@@ -98,7 +106,6 @@ class StateMachine:
                 self.cur_state = next_state
                 self.cur_state.enter(self.pitcher, e)
                 return True
-
         return False
 
     def draw(self):
@@ -111,6 +118,8 @@ class Pitcher:
         self.frame = 0
         self.action = 3
         self.image = load_image('Pitcher.png')
+        self.state_machine = StateMachine(self)
+        self.state_machine.start()
 
     def update(self):
         self.state_machine.update()

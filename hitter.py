@@ -179,7 +179,6 @@ class StateMachine:
                 self.cur_state = next_state
                 self.cur_state.enter(self.hitter, e)
                 return True
-
         return False
 
     def draw(self):
