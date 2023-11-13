@@ -13,6 +13,7 @@ def pitching_time_out(e):
 
 # ---state event check
 
+
 class Entering:
     @staticmethod
     def enter(pitcher, e):
@@ -27,42 +28,38 @@ class Entering:
 
     @staticmethod
     def do(pitcher):
-        pitcher.frame = (pitcher.frame + 1) % 6
-        pitcher.dir = 0.1
+        pitcher.frame = (pitcher.frame + 1) % 16
+        pitcher.dir -= 0.01
         pitcher.x += pitcher.dir * 100
-        pitcher.action = 3
+        pitcher.action = 15
         if get_time() - pitcher.wait_time > 2:
             pitcher.state_machine.handle_event(('ENTERING_TIME_OUT', 0))
-        # print("Entering do")
-        pass
+        print("Entering do")
 
     @staticmethod
     def draw(pitcher):
-        pitcher.image.clip_draw(pitcher.frame * 170, pitcher.action * 170, 170, 170, pitcher.x, pitcher.y, 500, 500)
+        pitcher.image.clip_composite_draw(pitcher.frame * 128, pitcher.action * 128, 128, 128, 0,'h',pitcher.x, pitcher.y, 80, 80)
 
 
 class Idle:
     @staticmethod
     def enter(pitcher, e):
-        print("idle enter")
-        pass
+        pitcher.wait_time = get_time()
 
     @staticmethod
     def exit(pitcher, e):
         print("idle exit")
-        pass
 
     @staticmethod
     def do(pitcher):
-        pitcher.frame = (pitcher.frame + 1) % 3
-        pitcher.action = 6
-        # print("idle do")
-        pass
+        pitcher.frame = (pitcher.frame + 1) % 11
+        pitcher.action = 11
+        if get_time() - pitcher.wait_time > 2:
+            pitcher.state_machine.handle_event(('IDLE_TIME_OUT', 0))
 
     @staticmethod
     def draw(pitcher):
-        pitcher.image.clip_draw(pitcher.frame * 170, pitcher.action * 170, 170, 170, pitcher.x, pitcher.y, 500, 500)
-        pass
+        pitcher.image.clip_draw(pitcher.frame * 128, pitcher.action * 128, 128, 128, pitcher.x, pitcher.y, 80, 80)
 
 
 class Pitching:
@@ -76,11 +73,15 @@ class Pitching:
 
     @staticmethod
     def do(pitcher):
-        pass
+        pitcher.frame = (pitcher.frame + 1) % 13
+        pitcher.action = 13
+        if get_time() - pitcher.wait_time > 0.5:
+            pitcher.state_machine.handle_event(('PITCHING_TIME_OUT', 0))
+        # delay(0.05)
 
     @staticmethod
     def draw(pitcher):
-        pitcher.image.clip_draw()
+        pitcher.image.clip_draw(pitcher.frame * 128, pitcher.action * 128, 128, 128, pitcher.x, pitcher.y, 80, 80)
 
 
 class StateMachine:
@@ -114,10 +115,12 @@ class StateMachine:
 
 class Pitcher:
     def __init__(self):
-        self.x, self.y = 400, 100
+        self.x, self.y = 1380, 410
         self.frame = 0
-        self.action = 3
-        self.image = load_image('Pitcher.png')
+        self.action = 15
+        self.face_dir = 1
+        self.dir = 0
+        self.image = load_image('penguin.png')
         self.state_machine = StateMachine(self)
         self.state_machine.start()
 

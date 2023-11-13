@@ -171,6 +171,7 @@ class StateMachine:
 
     def update(self):
         self.cur_state.do(self.hitter)
+        delay(0.05)
 
     def handle_event(self, e):
         for check_event, next_state in self.transitions[self.cur_state].items():
@@ -198,7 +199,6 @@ class Hitter:
 
     def update(self):
         self.state_machine.update()
-        delay(0.05)
 
     def handle_event(self, event):
         self.state_machine.handle_event(('INPUT', event))
