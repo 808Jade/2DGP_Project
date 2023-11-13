@@ -5,6 +5,7 @@ import game_world
 from hitter import Hitter
 from pitcher import Pitcher
 from playground import Playground
+from bat import Bat
 
 
 # boy = None
@@ -35,8 +36,8 @@ def init():
     pitcher = Pitcher()
     game_world.add_object(pitcher, 1)
 
-    # bat = Bat()
-    # game_world.add_object((bat, 1)
+    bat = Bat()
+    game_world.add_object(bat, 1)
 
 
 def finish():
