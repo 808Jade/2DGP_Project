@@ -5,6 +5,7 @@ import game_world
 from hitter import Hitter
 from pitcher_hell import Pitcher
 from playground_hell import Playground
+from strike_zone import Strike_zone
 
 
 # boy = None
@@ -24,6 +25,7 @@ def init():
     global background
     global hitter
     global pitcher_hell
+    global  strke_zone
 
     playground = Playground()
     game_world.add_object(playground, 0)
@@ -33,6 +35,9 @@ def init():
 
     pitcher_hell = Pitcher()
     game_world.add_object(pitcher_hell, 1)
+
+    strike_zone = Strike_zone()
+    game_world.add_object(strike_zone, 1)
 
 
 def finish():
