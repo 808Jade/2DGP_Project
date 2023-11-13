@@ -24,6 +24,7 @@ def init():
     global background
     global hitter
     global pitcher
+    global bat
 
     playground = Playground()
     game_world.add_object(playground, 0)
@@ -33,6 +34,9 @@ def init():
 
     pitcher = Pitcher()
     game_world.add_object(pitcher, 1)
+
+    # bat = Bat()
+    # game_world.add_object((bat, 1)
 
 
 def finish():
