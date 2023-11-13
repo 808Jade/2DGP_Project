@@ -171,7 +171,7 @@ class StateMachine:
 
     def update(self):
         self.cur_state.do(self.hitter)
-        delay(0.05)
+        pico2d.delay(0.05)
 
     def handle_event(self, e):
         for check_event, next_state in self.transitions[self.cur_state].items():
