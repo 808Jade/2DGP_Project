@@ -1,5 +1,8 @@
 from pico2d import *
 
+import game_world
+from ball import *
+
 # ---state event check
 
 def entering_time_out(e):
@@ -118,6 +121,24 @@ class Pitcher:
         self.image = load_image('penguin.png')
         self.state_machine = StateMachine(self)
         self.state_machine.start()
+        self.pitch = None
+
+    def pitching(self):
+        ball = Ball(self.x, self.y)
+        game_world.add_object(ball)
+        if self.pitch == 'Curve':
+            ball = Curve(self.x, self.y)
+            game_world.add_object(ball)
+        elif self.pitch == 'Fast':
+            ball = Fast(self.x, self.y)
+            game_world.add_object(ball)
+        elif self.pitch == 'Slider':
+            ball = Slider(self.x, self.y)
+            game_world.add_object(ball)
+        elif self.pitch == 'Snake':
+            ball = Snake(self.x, self.y)
+            game_world.add_object(ball)
+
 
     def update(self):
         self.state_machine.update()

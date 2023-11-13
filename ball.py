@@ -1,5 +1,5 @@
 from pico2d import *
-
+import game_world
 
 # ---state event check
 
@@ -112,13 +112,104 @@ class StateMachine:
 
 
 class Ball:
-    def __init__(self):
-        self.x, self.y = 0, 0
+    def __init__(self, x, y):
+        self.x, self.y = x, y
         self.face_dir = 1
         self.dir = 0
         self.image = load_image('ball.png')
         self.state_machine = StateMachine(self)
         self.state_machine.start()
+
+        if Ball.image == None:
+            Ball.image = load_image('Ball.png')
+
+    def update(self):
+        self.state_machine.update()
+
+    def handle_event(self, event):
+        self.state_machine.handle_event(('INPUT', event))
+
+    def draw(self):
+        self.state_machine.draw()
+
+
+class Curve:
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+        self.face_dir = 1
+        self.dir = 0
+        self.image = load_image('ball.png')
+        self.state_machine = StateMachine(self)
+        self.state_machine.start()
+
+        if Ball.image == None:
+            Ball.image = load_image('Ball.png')
+
+    def update(self):
+        self.state_machine.update()
+
+    def handle_event(self, event):
+        self.state_machine.handle_event(('INPUT', event))
+
+    def draw(self):
+        self.state_machine.draw()
+
+
+class Fast:
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+        self.face_dir = 1
+        self.dir = 0
+        self.image = load_image('ball.png')
+        self.state_machine = StateMachine(self)
+        self.state_machine.start()
+
+        if Ball.image == None:
+            Ball.image = load_image('Ball.png')
+
+    def update(self):
+        self.state_machine.update()
+
+    def handle_event(self, event):
+        self.state_machine.handle_event(('INPUT', event))
+
+    def draw(self):
+        self.state_machine.draw()
+
+
+class Slider:
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+        self.face_dir = 1
+        self.dir = 0
+        self.image = load_image('ball.png')
+        self.state_machine = StateMachine(self)
+        self.state_machine.start()
+
+        if Ball.image == None:
+            Ball.image = load_image('Ball.png')
+
+    def update(self):
+        self.state_machine.update()
+
+    def handle_event(self, event):
+        self.state_machine.handle_event(('INPUT', event))
+
+    def draw(self):
+        self.state_machine.draw()
+
+
+class Snake:
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+        self.face_dir = 1
+        self.dir = 0
+        self.image = load_image('ball.png')
+        self.state_machine = StateMachine(self)
+        self.state_machine.start()
+
+        if Ball.image == None:
+            Ball.image = load_image('Ball.png')
 
     def update(self):
         self.state_machine.update()
