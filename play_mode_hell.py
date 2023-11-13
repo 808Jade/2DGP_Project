@@ -3,8 +3,8 @@ import game_framework
 
 import game_world
 from hitter import Hitter
-from pitcher import Pitcher
-from playground import Playground
+from pitcher_hell import Pitcher
+from playground_hell import Playground
 
 
 # boy = None
@@ -23,7 +23,7 @@ def handle_events():
 def init():
     global background
     global hitter
-    global pitcher
+    global pitcher_hell
 
     playground = Playground()
     game_world.add_object(playground, 0)
@@ -31,8 +31,8 @@ def init():
     hitter = Hitter()
     game_world.add_object(hitter, 1)
 
-    pitcher = Pitcher()
-    game_world.add_object(pitcher, 1)
+    pitcher_hell = Pitcher()
+    game_world.add_object(pitcher_hell, 1)
 
 
 def finish():
