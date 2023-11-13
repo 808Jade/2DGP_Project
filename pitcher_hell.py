@@ -19,11 +19,9 @@ class Entering:
     def enter(pitcher, e):
         print("Entering enter")
         pitcher.wait_time = get_time()
-        pass
 
     @staticmethod
     def exit(pitcher, e):
-        print("Entering exit")
         pass
 
     @staticmethod
@@ -47,7 +45,7 @@ class Idle:
 
     @staticmethod
     def exit(pitcher, e):
-        print("idle exit")
+        pass
 
     @staticmethod
     def do(pitcher):

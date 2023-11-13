@@ -17,14 +17,11 @@ def pitching_time_out(e):
 class Entering:
     @staticmethod
     def enter(pitcher, e):
-        print("Entering enter")
         pitcher.wait_time = get_time()
-        pass
 
     @staticmethod
     def exit(pitcher, e):
         print("Entering exit")
-        pass
 
     @staticmethod
     def do(pitcher):
@@ -34,7 +31,6 @@ class Entering:
         pitcher.action = 15
         if get_time() - pitcher.wait_time > 2:
             pitcher.state_machine.handle_event(('ENTERING_TIME_OUT', 0))
-        print("Entering do")
 
     @staticmethod
     def draw(pitcher):
@@ -48,7 +44,7 @@ class Idle:
 
     @staticmethod
     def exit(pitcher, e):
-        print("idle exit")
+        pass
 
     @staticmethod
     def do(pitcher):
@@ -77,7 +73,6 @@ class Pitching:
         pitcher.action = 13
         if get_time() - pitcher.wait_time > 0.5:
             pitcher.state_machine.handle_event(('PITCHING_TIME_OUT', 0))
-        # delay(0.05)
 
     @staticmethod
     def draw(pitcher):
