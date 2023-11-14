@@ -2,6 +2,7 @@ from pico2d import *
 import game_framework
 
 import game_world
+import title_mode
 from hitter import Hitter
 from pitcher import Pitcher
 from playground import Playground
@@ -15,7 +16,7 @@ def handle_events():
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            game_framework.quit()
+            game_framework.change_mode(title_mode)
         else:
             hitter.handle_event(event)
 
