@@ -73,7 +73,7 @@ class Pitching:
 
     @staticmethod
     def do(pitcher):
-        pitcher.frame = (pitcher.frame + 1) % 13
+        pitcher.frame = (pitcher.frame + 1) % 12
         pitcher.action = 13
         if get_time() - pitcher.wait_time > 0.5:
             pitcher.state_machine.handle_event(('PITCHING_TIME_OUT', 0))
@@ -130,7 +130,7 @@ class Pitcher:
         # game_world.add_object(ball, 2)
         if self.pitch == 'Curve':
             print("2")
-            ball = Curve(self.x, self.y)
+            ball = Curve(self.x-30, self.y+25)
             game_world.add_object(ball, 3)
         elif self.pitch == 'Fast':
             ball = Fast(self.x, self.y)

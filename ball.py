@@ -134,7 +134,7 @@ class Ball:
 class Curve:
     image = None
 
-    def __init__(self, x = 640, y = 360):
+    def __init__(self, x = 440, y = 380):
         self.x, self.y = x, y
         self.size = 10
 
@@ -142,11 +142,17 @@ class Curve:
             Curve.image = load_image('Ball.png')
 
     def update(self):
+        self.size += 2
+        self.x += 1
+        self.y -= 10
+        if self.size > 166:
+            print(self.x, self.y, self.size)
+            print("remove")
+            game_world.remove_object(self)
         pass
 
     def draw(self):
         self.image.draw(self.x, self.y, self.size, self.size)
-        print(self.size)
 
 
 class Fast:
