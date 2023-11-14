@@ -47,8 +47,9 @@ class Idle:
 
     @staticmethod
     def exit(pitcher, e):
-        if idle_time_out(e):
-            pitcher.pitching()
+        pass
+        # if idle_time_out(e):
+        #     pitcher.pitching()
 
     @staticmethod
     def do(pitcher):
@@ -66,6 +67,8 @@ class Pitching:
     @staticmethod
     def enter(pitcher, e):
         pitcher.wait_time = get_time()
+        pitcher.pitching()
+
 
     @staticmethod
     def exit(hitter, e):

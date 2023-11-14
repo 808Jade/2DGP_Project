@@ -33,6 +33,8 @@ def mouse_motion(e):
 # random으로 1~5 숫자 중에 하나를 생성한다.
 # 이에 따라서 구성된 변화구 움직임을 출력한다.
 # 변화구 : 타이밍, 위치, 움직임
+# 타이밍 : 공 사이즈 56 전후!
+# 위치 : 공 사이즈 56일 때의 공의 x, y 좌표
 
 
 class Entering:
@@ -145,10 +147,15 @@ class Curve:
         self.size += 2
         self.x += 1
         self.y -= 10
-        if self.size > 166:
+        if self.size > 80:
             print(self.x, self.y, self.size)
             print("remove")
             game_world.remove_object(self)
+        # elif get_events() == SDL_MOUSEBUTTONDOWN and get_events() == SDL_BUTTON_LEFT:
+        #     self.size -= 5
+        #     self.x -= 5
+        #     self.y += 30
+
         pass
 
     def draw(self):
