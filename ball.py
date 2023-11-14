@@ -1,6 +1,7 @@
 from pico2d import *
 import game_world
 
+
 # ---state event check
 
 def entering_time_out(e):
@@ -25,6 +26,7 @@ def right_click_up(e):
 
 def mouse_motion(e):
     return e[0] == 'INPUT' and e[1].type == SDL_MOUSEMOTION
+
 
 # ---state event check
 
@@ -134,15 +136,17 @@ class Curve:
 
     def __init__(self, x = 640, y = 360):
         self.x, self.y = x, y
+        self.size = 10
 
-        if Ball.image == None:
-            Ball.image = load_image('Ball.png')
+        if Curve.image == None:
+            Curve.image = load_image('Ball.png')
 
     def update(self):
         pass
 
     def draw(self):
-        self.image.draw(self.x, self.y)
+        self.image.draw(self.x, self.y, self.size, self.size)
+        print(self.size)
 
 
 class Fast:

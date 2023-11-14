@@ -24,7 +24,7 @@ class Entering:
 
     @staticmethod
     def exit(pitcher, e):
-        print("Entering exit")
+        pass
 
     @staticmethod
     def do(pitcher):
@@ -47,7 +47,7 @@ class Idle:
 
     @staticmethod
     def exit(pitcher, e):
-        if pitching_time_out(e):
+        if idle_time_out(e):
             pitcher.pitching()
 
     @staticmethod
@@ -124,13 +124,14 @@ class Pitcher:
         self.state_machine.start()
         self.pitch = 'Curve'
 
+
     def pitching(self):
-        ball = Ball(self.x, self.y)
-        game_world.add_object(ball)
+        # ball = Ball(self.x, self.y)
+        # game_world.add_object(ball, 2)
         if self.pitch == 'Curve':
-            print("1")
+            print("2")
             ball = Curve(self.x, self.y)
-            game_world.add_object(ball)
+            game_world.add_object(ball, 3)
         elif self.pitch == 'Fast':
             ball = Fast(self.x, self.y)
             game_world.add_object(ball)
