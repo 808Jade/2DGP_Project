@@ -32,13 +32,11 @@ def mouse_motion(e):
 class Entering:
     @staticmethod
     def enter(hitter, e):
-        print("Entering enter")
         hitter.wait_time = get_time()
         pass
 
     @staticmethod
     def exit(hitter, e):
-        print("Entering exit")
         pass
 
     @staticmethod
@@ -60,12 +58,10 @@ class Entering:
 class Idle:
     @staticmethod
     def enter(hitter, e):
-        print("idle enter")
         pass
 
     @staticmethod
     def exit(hitter, e):
-        print("idle exit")
         pass
 
     @staticmethod
@@ -85,12 +81,10 @@ class Swing:
     @staticmethod
     def enter(hitter, e):
         hitter.wait_time = get_time()
-        print("swing enter")
         pass
 
     @staticmethod
     def exit(hitter, e):
-        print("swing exit")
         pass
 
     @staticmethod
@@ -110,19 +104,16 @@ class Swing:
 class Charging:
     @staticmethod
     def enter(hitter, e):
-        print("charging enter")
         pass
 
     @staticmethod
     def exit(hitter, e):
-        print("charging exit")
         pass
 
     @staticmethod
     def do(hitter):
         hitter.frame = (hitter.frame + 1) % 3
         hitter.action = 0
-        print("charging do")
         pass
 
     @staticmethod
@@ -134,12 +125,10 @@ class Charging:
 class Moving:
     @staticmethod
     def enter(hitter, e):
-        print("charging enter")
         pass
 
     @staticmethod
     def exit(hitter, e):
-        print("charging exit")
         pass
 
     @staticmethod

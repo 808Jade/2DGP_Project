@@ -112,110 +112,81 @@ class StateMachine:
 
 
 class Ball:
+    image = None
+
     def __init__(self, x, y):
         self.x, self.y = x, y
-        self.face_dir = 1
-        self.dir = 0
-        self.image = load_image('ball.png')
-        self.state_machine = StateMachine(self)
-        self.state_machine.start()
 
         if Ball.image == None:
             Ball.image = load_image('Ball.png')
 
     def update(self):
-        self.state_machine.update()
-
-    def handle_event(self, event):
-        self.state_machine.handle_event(('INPUT', event))
+        # if ~~
+        # game_world.remove_object(self)
+        pass
 
     def draw(self):
-        self.state_machine.draw()
+        self.image.draw(self.x, self.y)
 
 
 class Curve:
-    def __init__(self, x, y):
+    image = None
+
+    def __init__(self, x = 640, y = 360):
         self.x, self.y = x, y
-        self.face_dir = 1
-        self.dir = 0
-        self.image = load_image('ball.png')
-        self.state_machine = StateMachine(self)
-        self.state_machine.start()
 
         if Ball.image == None:
             Ball.image = load_image('Ball.png')
 
     def update(self):
-        self.state_machine.update()
-
-    def handle_event(self, event):
-        self.state_machine.handle_event(('INPUT', event))
+        pass
 
     def draw(self):
-        self.state_machine.draw()
+        self.image.draw(self.x, self.y)
 
 
 class Fast:
+    image = None
+
     def __init__(self, x, y):
         self.x, self.y = x, y
-        self.face_dir = 1
-        self.dir = 0
-        self.image = load_image('ball.png')
-        self.state_machine = StateMachine(self)
-        self.state_machine.start()
-
         if Ball.image == None:
             Ball.image = load_image('Ball.png')
 
     def update(self):
-        self.state_machine.update()
-
-    def handle_event(self, event):
-        self.state_machine.handle_event(('INPUT', event))
+        pass
 
     def draw(self):
-        self.state_machine.draw()
+        self.image.draw(self.x, self.y)
 
 
 class Slider:
+    image = None
+
     def __init__(self, x, y):
         self.x, self.y = x, y
-        self.face_dir = 1
-        self.dir = 0
-        self.image = load_image('ball.png')
-        self.state_machine = StateMachine(self)
-        self.state_machine.start()
 
         if Ball.image == None:
             Ball.image = load_image('Ball.png')
 
     def update(self):
-        self.state_machine.update()
-
-    def handle_event(self, event):
-        self.state_machine.handle_event(('INPUT', event))
+        pass
 
     def draw(self):
-        self.state_machine.draw()
+        self.image.draw(self.x, self.y)
 
 
 class Snake:
+    image = None
+
     def __init__(self, x, y):
         self.x, self.y = x, y
-        self.face_dir = 1
-        self.dir = 0
-        self.image = load_image('ball.png')
-        self.state_machine = StateMachine(self)
-        self.state_machine.start()
 
         if Ball.image == None:
             Ball.image = load_image('Ball.png')
 
     def update(self):
-        self.state_machine.update()
-
-    def handle_event(self, event):
-        self.state_machine.handle_event(('INPUT', event))
+        pass
 
     def draw(self):
-        self.state_machine.draw()
+        self.image.draw(self.x, self.y)

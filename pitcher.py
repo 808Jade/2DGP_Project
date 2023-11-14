@@ -47,7 +47,8 @@ class Idle:
 
     @staticmethod
     def exit(pitcher, e):
-        pass
+        if pitching_time_out(e):
+            pitcher.pitching()
 
     @staticmethod
     def do(pitcher):
@@ -121,12 +122,13 @@ class Pitcher:
         self.image = load_image('penguin.png')
         self.state_machine = StateMachine(self)
         self.state_machine.start()
-        self.pitch = None
+        self.pitch = 'Curve'
 
     def pitching(self):
         ball = Ball(self.x, self.y)
         game_world.add_object(ball)
         if self.pitch == 'Curve':
+            print("1")
             ball = Curve(self.x, self.y)
             game_world.add_object(ball)
         elif self.pitch == 'Fast':
