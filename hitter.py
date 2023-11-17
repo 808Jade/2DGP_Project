@@ -81,6 +81,8 @@ class Swing:
     @staticmethod
     def enter(hitter, e):
         hitter.wait_time = get_time()
+        hitter.swing_x, hitter.swing_y = e[1].x, e[1].y
+        print(hitter.swing_x, hitter.swing_y)
         pass
 
     @staticmethod
@@ -152,7 +154,6 @@ class StateMachine:
             Entering: {entering_time_out: Idle},
             Swing: {swing_time_out: Idle},
             Charging: {left_click: Swing, right_click_up: Idle},
-            # Moving: {left_click: Swing, right_click: Charging}
         }
 
     def start(self):
@@ -185,6 +186,7 @@ class Hitter:
         self.image = load_image('Hitter.png')
         self.state_machine = StateMachine(self)
         self.state_machine.start()
+        self.swing_x, self.swing_y = 0, 0
 
     def update(self):
         self.state_machine.update()

@@ -1,6 +1,6 @@
 from pico2d import *
 import game_world
-
+from hitter import *
 
 # ---state event check
 
@@ -35,6 +35,10 @@ def mouse_motion(e):
 # 변화구 : 타이밍, 위치, 움직임
 # 타이밍 : 공 사이즈 56 전후!
 # 위치 : 공 사이즈 56일 때의 공의 x, y 좌표
+def Culculater(size):
+    if size < 50 or size > 60:
+        pass # hit !
+
 
 
 class Entering:
