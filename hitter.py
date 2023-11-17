@@ -81,6 +81,16 @@ class Swing:
     @staticmethod
     def enter(hitter, e):
         hitter.wait_time = get_time()
+
+        # Get the events that occurred since the last frame
+        events = get_events()
+        for event in events:
+            if event.type == SDL_MOUSEBUTTONDOWN and event.button == SDL_BUTTON_LEFT:
+                # Check if it's a left mouse button down event
+                hitter.swing_point_x = event.x
+                hitter.swing_point_y = event.y
+                print(f'SPXY({hitter.swing_point_x}, {hitter.swing_point_y})')
+        print(f'SPXY({hitter.swing_point_x}, {hitter.swing_point_y})')
         pass
 
     @staticmethod
@@ -185,6 +195,11 @@ class Hitter:
         self.image = load_image('Hitter.png')
         self.state_machine = StateMachine(self)
         self.state_machine.start()
+
+        self.swing_point_x, self.swing_point_y = None, None
+        self.swing_timing = None
+
+
 
     def update(self):
         self.state_machine.update()

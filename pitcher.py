@@ -69,7 +69,6 @@ class Pitching:
         pitcher.wait_time = get_time()
         pitcher.pitching()
 
-
     @staticmethod
     def exit(hitter, e):
         pass
@@ -132,7 +131,6 @@ class Pitcher:
         # ball = Ball(self.x, self.y)
         # game_world.add_object(ball, 2)
         if self.pitch == 'Curve':
-            print("2")
             ball = Curve(self.x-30, self.y+25)
             game_world.add_object(ball, 3)
         elif self.pitch == 'Fast':
