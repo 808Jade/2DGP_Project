@@ -153,7 +153,6 @@ class StateMachine:
             Entering: {entering_time_out: Idle},
             Swing: {swing_time_out: Idle},
             Charging: {left_click: Swing, right_click_up: Idle},
-            # Moving: {left_click: Swing, right_click: Charging}
         }
 
     def start(self):

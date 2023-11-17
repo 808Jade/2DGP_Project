@@ -1,5 +1,6 @@
 from pico2d import *
 import game_world
+import hitter
 from hitter import *
 
 # ---state event check
@@ -144,6 +145,7 @@ class Curve:
         self.x, self.y = x, y
         self.size = 10
 
+        self.hitter = hitter  # hitter 객체 저장
         if Curve.image == None:
             Curve.image = load_image('Ball.png')
 
@@ -151,16 +153,13 @@ class Curve:
         self.size += 2
         self.x += 1
         self.y -= 10
+        if abs(self.hitter.swing_x - self.x) < 10 and abs(self.hitter.swing_y - self.y):
+            print("Hit!")
+
         if self.size > 80:
             print(self.x, self.y, self.size)
             print("remove")
             game_world.remove_object(self)
-        # elif get_events() == SDL_MOUSEBUTTONDOWN and get_events() == SDL_BUTTON_LEFT:
-        #     self.size -= 5
-        #     self.x -= 5
-        #     self.y += 30
-
-        pass
 
     def draw(self):
         self.image.draw(self.x, self.y, self.size, self.size)
