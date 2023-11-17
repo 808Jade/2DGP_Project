@@ -144,7 +144,6 @@ class Moving:
         hitter.image.clip_draw(hitter.frame * 170, hitter.action * 170, 170, 170, hitter.x, hitter.y, 500, 500)
         pass
 
-
 class StateMachine:
     def __init__(self, hitter):
         self.hitter = hitter
