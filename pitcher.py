@@ -1,7 +1,7 @@
 from pico2d import *
-
 import game_world
 from ball import *
+from hitter import *
 
 # ---state event check
 
@@ -48,8 +48,6 @@ class Idle:
     @staticmethod
     def exit(pitcher, e):
         pass
-        # if idle_time_out(e):
-        #     pitcher.pitching()
 
     @staticmethod
     def do(pitcher):
@@ -124,25 +122,23 @@ class Pitcher:
         self.image = load_image('penguin.png')
         self.state_machine = StateMachine(self)
         self.state_machine.start()
-        self.pitch = 'Curve'
-
+        # self.pitch = 'Curve'
 
     def pitching(self):
-        # ball = Ball(self.x, self.y)
-        # game_world.add_object(ball, 2)
-        if self.pitch == 'Curve':
-            ball = Curve(self.x-30, self.y+25)
-            game_world.add_object(ball, 3)
-        elif self.pitch == 'Fast':
-            ball = Fast(self.x, self.y)
-            game_world.add_object(ball)
-        elif self.pitch == 'Slider':
-            ball = Slider(self.x, self.y)
-            game_world.add_object(ball)
-        elif self.pitch == 'Snake':
-            ball = Snake(self.x, self.y)
-            game_world.add_object(ball)
-
+        ball = Ball(self.x-30, self.y+25)
+        game_world.add_object(ball, 3)
+        # if self.pitch == 'Curve':
+        #     ball = Curve(self.x-30, self.y+25)
+        #     game_world.add_object(ball, 3)
+        # elif self.pitch == 'Fast':
+        #     ball = Fast(self.x - 30, self.y + 25)
+        #     game_world.add_object(ball, 3)
+        # elif self.pitch == 'Slider':
+        #     ball = Slider(self.x - 30, self.y + 25)
+        #     game_world.add_object(ball, 3)
+        # elif self.pitch == 'Snake':
+        #     ball = Snake(self.x - 30, self.y + 25)
+        #     game_world.add_object(ball, 3)
 
     def update(self):
         self.state_machine.update()

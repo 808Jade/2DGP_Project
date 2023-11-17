@@ -81,7 +81,7 @@ class Swing:
     @staticmethod
     def enter(hitter, e):
         hitter.wait_time = get_time()
-        hitter.swing_x, hitter.swing_y = e[1].x, e[1].y
+        hitter.swing_x, hitter.swing_y = e[1].x, 720 - e[1].y
         print(hitter.swing_x, hitter.swing_y)
         pass
 
@@ -187,6 +187,9 @@ class Hitter:
         self.state_machine.start()
         self.swing_x, self.swing_y = 0, 0
 
+    def swing_point(self):
+        return self.swing_x, self.swing_y, self.swing_x + 20, self.swing_y + 20
+
     def update(self):
         self.state_machine.update()
 
@@ -195,3 +198,7 @@ class Hitter:
 
     def draw(self):
         self.state_machine.draw()
+        draw_rectangle(*self.swing_point())
+
+    def handle_collision(self, group, other):
+        pass

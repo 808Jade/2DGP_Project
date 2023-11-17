@@ -1,7 +1,6 @@
 from pico2d import *
 import game_world
 import hitter
-from hitter import *
 
 # ---state event check
 
@@ -39,6 +38,113 @@ def mouse_motion(e):
 def Culculater(size):
     if size < 50 or size > 60:
         pass # hit !
+
+
+class Ball:
+    image = None
+
+    def __init__(self, x=440, y=380):
+        self.x, self.y = x, y
+        self.size = 10
+
+        # self.hitter = hitter  # hitter 객체 저장
+        if Ball.image is None:
+            Ball.image = load_image('Ball.png')
+
+    def update(self):
+        # if
+        self.size += 2
+        self.x += 1
+        self.y -= 10
+        # if abs(self.hitter.swing_x - self.x) < 50 and abs(self.hitter.swing_y - self.y) < 50:
+        #     print(f"HIT! {abs(self.hitter.swing_x - self.x)}")
+        # else:
+        #     print(f"{abs(self.hitter.swing_x)}")
+
+        if self.size > 80:
+            print(self.x, self.y, self.size)
+            print("remove")
+            game_world.remove_object(self)
+
+    def draw(self):
+        self.image.draw(self.x, self.y, self.size, self.size)
+
+
+class Curve:
+    image = None
+
+    def __init__(self, x=440, y=380):
+        self.x, self.y = x, y
+        self.size = 10
+
+        self.hitter = hitter  # hitter 객체 저장
+        if Curve.image is None:
+            Curve.image = load_image('Ball.png')
+
+    def update(self):
+        self.size += 2
+        self.x += 1
+        self.y -= 10
+        if abs(self.hitter.swing_x - self.x) < 50 and abs(self.hitter.swing_y - self.y) < 50:
+            print(f"HIT! {abs(self.hitter.swing_x - self.x)}")
+        else:
+            print(f"{abs(self.hitter.swing_x)}")
+
+        if self.size > 80:
+            print(self.x, self.y, self.size)
+            print("remove")
+            game_world.remove_object(self)
+
+    def draw(self):
+        self.image.draw(self.x, self.y, self.size, self.size)
+
+
+class Fast:
+    image = None
+
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+        if Ball.image == None:
+            Ball.image = load_image('Ball.png')
+
+    def update(self):
+        pass
+
+    def draw(self):
+        self.image.draw(self.x, self.y)
+
+
+class Slider:
+    image = None
+
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+
+        if Ball.image == None:
+            Ball.image = load_image('Ball.png')
+
+    def update(self):
+        pass
+
+    def draw(self):
+        self.image.draw(self.x, self.y)
+
+
+class Snake:
+    image = None
+
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+
+        if Ball.image == None:
+            Ball.image = load_image('Ball.png')
+
+    def update(self):
+        pass
+
+    def draw(self):
+        self.image.draw(self.x, self.y)
+
 
 
 
@@ -119,94 +225,3 @@ class StateMachine:
     def draw(self):
         self.cur_state.draw(self.ball)
 
-
-class Ball:
-    image = None
-
-    def __init__(self, x, y):
-        self.x, self.y = x, y
-
-        if Ball.image == None:
-            Ball.image = load_image('Ball.png')
-
-    def update(self):
-        # if ~~
-        # game_world.remove_object(self)
-        pass
-
-    def draw(self):
-        self.image.draw(self.x, self.y)
-
-
-class Curve:
-    image = None
-
-    def __init__(self, x = 440, y = 380):
-        self.x, self.y = x, y
-        self.size = 10
-
-        self.hitter = hitter  # hitter 객체 저장
-        if Curve.image == None:
-            Curve.image = load_image('Ball.png')
-
-    def update(self):
-        self.size += 2
-        self.x += 1
-        self.y -= 10
-        if abs(self.hitter.swing_x - self.x) < 10 and abs(self.hitter.swing_y - self.y):
-            print("Hit!")
-
-        if self.size > 80:
-            print(self.x, self.y, self.size)
-            print("remove")
-            game_world.remove_object(self)
-
-    def draw(self):
-        self.image.draw(self.x, self.y, self.size, self.size)
-
-
-class Fast:
-    image = None
-
-    def __init__(self, x, y):
-        self.x, self.y = x, y
-        if Ball.image == None:
-            Ball.image = load_image('Ball.png')
-
-    def update(self):
-        pass
-
-    def draw(self):
-        self.image.draw(self.x, self.y)
-
-
-class Slider:
-    image = None
-
-    def __init__(self, x, y):
-        self.x, self.y = x, y
-
-        if Ball.image == None:
-            Ball.image = load_image('Ball.png')
-
-    def update(self):
-        pass
-
-    def draw(self):
-        self.image.draw(self.x, self.y)
-
-
-class Snake:
-    image = None
-
-    def __init__(self, x, y):
-        self.x, self.y = x, y
-
-        if Ball.image == None:
-            Ball.image = load_image('Ball.png')
-
-    def update(self):
-        pass
-
-    def draw(self):
-        self.image.draw(self.x, self.y)
