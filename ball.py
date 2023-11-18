@@ -1,5 +1,6 @@
 from pico2d import *
 import game_world
+import play_mode_easy
 from hitter import Hitter
 from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
 
@@ -47,6 +48,7 @@ class Ball:
     def __init__(self, x=440, y=380):
         self.x, self.y = x, y
         self.size = 10
+        self.build_behavior_tree()
 
         if Ball.image is None:
             Ball.image = load_image('Ball.png')
@@ -56,22 +58,62 @@ class Ball:
         self.size += 2
         self.x += 1
         self.y -= 10
-        # print(f"TEST{abs(self.hitter.swing_x - self.x)}, {abs(self.hitter.swing_y - self.y)}")
-        #
-        # # hitter 객체가 None이 아니고, hitter 객체에 'swing_x'와 'swing_y' 속성이 있다면 실행
-        # if self.hitter and hasattr(self.hitter, 'swing_x') and hasattr(self.hitter, 'swing_y'):
-        #     if abs(self.hitter.swing_x - self.x) < 50 and abs(self.hitter.swing_y - self.y) < 50:
-        #         print(f"HIT! {abs(self.hitter.swing_x - self.x)}")
-        #     else:
-        #         print(f"{abs(self.hitter.swing_x)}")
 
         if self.size > 80:
             print(self.x, self.y, self.size)
             print("remove")
             game_world.remove_object(self)
 
+        self.bt.run()
+
     def draw(self):
         self.image.draw(self.x, self.y, self.size, self.size)
+
+    def is_ball_reach(self):
+        if self.size > 60: return BehaviorTree.SUCCESS
+        else: return BehaviorTree.FAIL
+
+    def is_ball_in_strike_zone(self):
+        if 250 < self.x < 635 and  220 < self.y < 300:
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
+
+    def is_hitter_doesnt_swing(self):
+        if play_mode_easy.hitter.swing_x == 0:
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
+
+    def print_ball_sign(self):
+        print("BALL !")
+        pass
+
+    def is_ball_out_strike_zone(self):
+        if 250 < self.x < 635 and  220 < self.y < 300:
+            return BehaviorTree.FAIL
+        else:
+            return BehaviorTree.SUCCESS
+
+    def is_hitter_doesnt_hit_ball(self):
+        if self.x - 50 < play_mode_easy.hitter.swing_x < self.x +50:
+            return BehaviorTree.FAIL
+        else:
+            return BehaviorTree.SUCCESS
+
+    def print_strike_sign(self):
+        print("STRIKE!")
+        pass
+
+    def is_hitter_hit_ball(self):
+        if self.x - 50 < play_mode_easy.hitter.swing_x < self.x +50:
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
+
+    def print_hit_sign(self):
+        print("HIT!")
+        pass
 
     def build_behavior_tree(self):
         c1 = Condition('공이 도착했는가?(size>60)', self.is_ball_reach)
@@ -101,7 +143,6 @@ class Curve:
         self.x, self.y = x, y
         self.size = 10
 
-        self.hitter = hitter  # hitter 객체 저장
         if Curve.image is None:
             Curve.image = load_image('Ball.png')
 
@@ -109,10 +150,6 @@ class Curve:
         self.size += 2
         self.x += 1
         self.y -= 10
-        if abs(self.hitter.swing_x - self.x) < 50 and abs(self.hitter.swing_y - self.y) < 50:
-            print(f"HIT! {abs(self.hitter.swing_x - self.x)}")
-        else:
-            print(f"{abs(self.hitter.swing_x)}")
 
         if self.size > 80:
             print(self.x, self.y, self.size)
