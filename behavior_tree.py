@@ -150,7 +150,6 @@ class Action(Node):
         self.value = self.func(*self.args)
         return self.value
 
-
     # @Node.show_result
     # def monitor_run(self):
     #     return self.result, 'no change' # monitor run 시에는 기존 실행 결과를 재활용.

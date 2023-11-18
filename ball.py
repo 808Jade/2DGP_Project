@@ -4,6 +4,7 @@ import play_mode_easy
 from hitter import Hitter
 from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
 
+
 # ---state event check
 
 def entering_time_out(e):
@@ -39,7 +40,7 @@ def mouse_motion(e):
 # 위치 : 공 사이즈 56일 때의 공의 x, y 좌표
 def Culculater(size):
     if size < 50 or size > 60:
-        pass # hit !
+        pass  # hit !
 
 
 class Ball:
@@ -70,11 +71,13 @@ class Ball:
         self.image.draw(self.x, self.y, self.size, self.size)
 
     def is_ball_reach(self):
-        if self.size > 60: return BehaviorTree.SUCCESS
-        else: return BehaviorTree.FAIL
+        if self.size > 60:
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
 
     def is_ball_in_strike_zone(self):
-        if 250 < self.x < 635 and  220 < self.y < 300:
+        if 250 < self.x < 635 and 220 < self.y < 300:
             return BehaviorTree.SUCCESS
         else:
             return BehaviorTree.FAIL
@@ -90,13 +93,13 @@ class Ball:
         pass
 
     def is_ball_out_strike_zone(self):
-        if 250 < self.x < 635 and  220 < self.y < 300:
+        if 250 < self.x < 635 and 220 < self.y < 300:
             return BehaviorTree.FAIL
         else:
             return BehaviorTree.SUCCESS
 
     def is_hitter_doesnt_hit_ball(self):
-        if self.x - 50 < play_mode_easy.hitter.swing_x < self.x +50:
+        if self.x - 50 < play_mode_easy.hitter.swing_x < self.x + 50:
             return BehaviorTree.FAIL
         else:
             return BehaviorTree.SUCCESS
@@ -106,7 +109,7 @@ class Ball:
         pass
 
     def is_hitter_hit_ball(self):
-        if self.x - 50 < play_mode_easy.hitter.swing_x < self.x +50:
+        if self.x - 50 < play_mode_easy.hitter.swing_x < self.x + 50:
             return BehaviorTree.SUCCESS
         else:
             return BehaviorTree.FAIL
@@ -125,13 +128,13 @@ class Ball:
         c4 = Condition('공이 Strike Zone 안에 있는가?', self.is_ball_out_strike_zone)
         c5 = Condition('타자가 공을 못맞췄는가?', self.is_hitter_doesnt_hit_ball)
         a2 = Action('Print Strike sign', self.print_strike_sign)
-        SEQ_strike = Sequence('Strike', c1, c5, c4)
+        SEQ_strike = Sequence('Strike', c1, c5, c4, a2)
 
         c6 = Condition('타자가 공을 맞췄는가?', self.is_hitter_hit_ball)
         a3 = Action('Print Hit sign', self.print_hit_sign)
         SEQ_hit = Sequence('Hit', c6, a3)
 
-        root = SEL_ball_or_strike_or_hit = Selector('볼 스트라이크 타격', SEQ_ball, SEQ_strike, SEQ_hit)
+        root = SEL_ball_or_strike_or_hit = Selector('볼/스트라이크/타격', SEQ_ball, SEQ_strike, SEQ_hit)
 
         self.bt = BehaviorTree(root)
 
@@ -205,8 +208,6 @@ class Snake:
 
     def draw(self):
         self.image.draw(self.x, self.y)
-
-
 
 
 class Entering:
@@ -285,4 +286,3 @@ class StateMachine:
 
     def draw(self):
         self.cur_state.draw(self.ball)
-
