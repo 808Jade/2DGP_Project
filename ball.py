@@ -105,9 +105,8 @@ class Ball:
             return BehaviorTree.SUCCESS
 
     def print_strike_sign(self):
-        strike = load_image('STRIKE.png')
-        game_world.add_object(strike, 3)
-        strike.draw(490,528,100,100)
+        strke_sign = Strikesign()
+        game_world.add_object(strke_sign, 3)
         print("STRIKE!")
         pass
 
@@ -211,6 +210,33 @@ class Snake:
 
     def draw(self):
         self.image.draw(self.x, self.y)
+
+
+class Ballsign:
+    image = None
+
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+        if Ballsign.image == None:
+            Ballsign.image = load_image('BALL_sign.png')
+
+    def update(self):
+        pass
+    def draw(self):
+        self.image.draw(self.x, self.y)
+
+
+class Strikesign:
+    image = None
+
+    def __init__(self):
+        self.image = load_image('STRIKE.png')
+
+    def update(self):
+        pass
+
+    def draw(self):
+        self.image.draw(490, 328)
 
 
 class Entering:
