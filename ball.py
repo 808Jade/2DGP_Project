@@ -105,6 +105,9 @@ class Ball:
             return BehaviorTree.SUCCESS
 
     def print_strike_sign(self):
+        strike = load_image('STRIKE.png')
+        game_world.add_object(strike, 3)
+        strike.draw(490,528,100,100)
         print("STRIKE!")
         pass
 
