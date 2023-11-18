@@ -3,7 +3,7 @@ import game_framework
 
 import game_world
 import title_mode
-from ball import Curve
+from ball import Ball
 from hitter import Hitter
 from pitcher import Pitcher
 from playground import Playground
@@ -33,7 +33,6 @@ def init():
     game_world.add_object(playground, 0)
 
     hitter = Hitter()
-    Curve(hitter)
     game_world.add_object(hitter, 1)
 
     pitcher = Pitcher()

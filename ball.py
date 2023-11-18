@@ -1,6 +1,7 @@
 from pico2d import *
 import game_world
-import hitter
+from hitter import Hitter
+from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
 
 # ---state event check
 
@@ -47,7 +48,6 @@ class Ball:
         self.x, self.y = x, y
         self.size = 10
 
-        # self.hitter = hitter  # hitter 객체 저장
         if Ball.image is None:
             Ball.image = load_image('Ball.png')
 
@@ -56,10 +56,14 @@ class Ball:
         self.size += 2
         self.x += 1
         self.y -= 10
-        # if abs(self.hitter.swing_x - self.x) < 50 and abs(self.hitter.swing_y - self.y) < 50:
-        #     print(f"HIT! {abs(self.hitter.swing_x - self.x)}")
-        # else:
-        #     print(f"{abs(self.hitter.swing_x)}")
+        # print(f"TEST{abs(self.hitter.swing_x - self.x)}, {abs(self.hitter.swing_y - self.y)}")
+        #
+        # # hitter 객체가 None이 아니고, hitter 객체에 'swing_x'와 'swing_y' 속성이 있다면 실행
+        # if self.hitter and hasattr(self.hitter, 'swing_x') and hasattr(self.hitter, 'swing_y'):
+        #     if abs(self.hitter.swing_x - self.x) < 50 and abs(self.hitter.swing_y - self.y) < 50:
+        #         print(f"HIT! {abs(self.hitter.swing_x - self.x)}")
+        #     else:
+        #         print(f"{abs(self.hitter.swing_x)}")
 
         if self.size > 80:
             print(self.x, self.y, self.size)
@@ -68,6 +72,26 @@ class Ball:
 
     def draw(self):
         self.image.draw(self.x, self.y, self.size, self.size)
+
+    def build_behavior_tree(self):
+        c1 = Condition('공이 도착했는가?(size>60)', self.is_ball_reach)
+        c2 = Condition('공이 Strike Zone 밖에 있는가?', self.is_ball_in_strike_zone)
+        c3 = Condition('타자가 Swing하지 않았는가?', self.is_hitter_doesnt_swing)
+        a1 = Action('Print Ball sign', self.print_ball_sign)
+        SEQ_ball = Sequence('Ball', c1, c2, c3, a1)
+
+        c4 = Condition('공이 Strike Zone 안에 있는가?', self.is_ball_out_strike_zone)
+        c5 = Condition('타자가 공을 못맞췄는가?', self.is_hitter_doesnt_hit_ball)
+        a2 = Action('Print Strike sign', self.print_strike_sign)
+        SEQ_strike = Sequence('Strike', c1, c5, c4)
+
+        c6 = Condition('타자가 공을 맞췄는가?', self.is_hitter_hit_ball)
+        a3 = Action('Print Hit sign', self.print_hit_sign)
+        SEQ_hit = Sequence('Hit', c6, a3)
+
+        root = SEL_ball_or_strike_or_hit = Selector('볼 스트라이크 타격', SEQ_ball, SEQ_strike, SEQ_hit)
+
+        self.bt = BehaviorTree(root)
 
 
 class Curve:
