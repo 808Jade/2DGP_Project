@@ -50,7 +50,12 @@ class Ball:
         self.x, self.y = x, y
         self.size = 10
         self.wait_time = 0.0
-        self.remove_sign = False
+
+        self.strike_sign = Strikesign()
+        self.strike_sign_on = False
+        self.strike_sign_on_count = 0
+        self.ball_sign = Ballsign()
+
         self.build_behavior_tree()
 
         if Ball.image is None:
@@ -61,13 +66,15 @@ class Ball:
         self.size += 2
         self.x += 1
         self.y -= 10
-        if get_time() - self.wait_time > 1.5:
-            self.wait_time = 0.0
-            self.remove_sign = True
 
-        if self.size > 80:
+        if self.size > 70:
             print(self.x, self.y, self.size)
             print("remove")
+            if self.strike_sign_on:
+                print(self.strike_sign_on)
+                game_world.remove_object(self.strike_sign)
+                self.strike_sign_on = False
+
             game_world.remove_object(self)
 
         self.bt.run()
@@ -110,10 +117,12 @@ class Ball:
             return BehaviorTree.SUCCESS
 
     def print_strike_sign(self):
-        strike_sign = Strikesign()
-        game_world.add_object(strike_sign, 3)
-        Ball.wait_time = get_time()
-
+        if not self.strike_sign_on:
+            self.strike_sign_on_count += 1
+            if self.strike_sign_on_count == 2:
+                game_world.add_object(self.strike_sign, 3)
+                self.strike_sign_on_count = 0
+                self.strike_sign_on = True
         print("STRIKE!")
         pass
 
@@ -124,6 +133,12 @@ class Ball:
             return BehaviorTree.FAIL
 
     def print_hit_sign(self):
+        if play_mode_easy.hitter.swing_x > self.x and play_mode_easy.hitter.swing_y :
+        self.x += 10
+        self.y += 50
+        self.size -= 15
+        if self.size < 20:
+            game_world.remove_object(self)
         print("HIT!")
         pass
     # -----------------------------------------------------------------------------------------
@@ -143,7 +158,7 @@ class Ball:
         a3 = Action('Print Hit sign', self.print_hit_sign)
         SEQ_hit = Sequence('Hit', c6, a3)
 
-        root = SEL_ball_or_strike_or_hit = Selector('볼/스트라이크/타격', SEQ_ball, SEQ_strike, SEQ_hit)
+        root = SEL_ball_or_strike_or_hit = Selector('볼/스트라이크/타격', SEQ_ball, SEQ_hit, SEQ_strike)
 
         self.bt = BehaviorTree(root)
 
@@ -238,81 +253,3 @@ class Strikesign:
 
     def draw(self):
         self.image.draw(650, 600, 190, 100)
-
-
-class Entering:
-    @staticmethod
-    def enter(hitter, e):
-        print("Entering enter")
-        hitter.wait_time = get_time()
-        pass
-
-    @staticmethod
-    def exit(hitter, e):
-        print("Entering exit")
-        pass
-
-    @staticmethod
-    def do(hitter):
-        hitter.frame = (hitter.frame + 1) % 6
-        hitter.dir = 0.1
-        hitter.x += hitter.dir * 100
-        hitter.action = 3
-        if get_time() - hitter.wait_time > 2:
-            hitter.state_machine.handle_event(('ENTERING_TIME_OUT', 0))
-        # print("Entering do")
-        pass
-
-    @staticmethod
-    def draw(hitter):
-        hitter.image.clip_draw(hitter.frame * 170, hitter.action * 170, 170, 170, hitter.x, hitter.y, 500, 500)
-
-
-class Idle:
-    @staticmethod
-    def enter(ball, e):
-        print("idle enter")
-        pass
-
-    @staticmethod
-    def exit(ball, e):
-        print("idle exit")
-        pass
-
-    @staticmethod
-    def do(ball):
-        # ball.x, ball.y 위치 만지기
-        # print("idle do")
-        pass
-
-    @staticmethod
-    def draw(ball):
-        ball.image.draw(ball.x, ball.y, 50, 50)
-        pass
-
-
-class StateMachine:
-    def __init__(self, ball):
-        self.ball = ball
-        self.cur_state = Entering
-        self.transitions = {
-        }
-
-    def start(self):
-        self.cur_state.enter(self.ball, ('NONE', 0))
-
-    def update(self):
-        self.cur_state.do(self.ball)
-        pico2d.delay(0.05)
-
-    def handle_event(self, e):
-        for check_event, next_state in self.transitions[self.cur_state].items():
-            if check_event(e):
-                self.cur_state.exit(self.ball, e)
-                self.cur_state = next_state
-                self.cur_state.enter(self.ball, e)
-                return True
-        return False
-
-    def draw(self):
-        self.cur_state.draw(self.ball)
