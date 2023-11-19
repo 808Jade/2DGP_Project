@@ -102,7 +102,6 @@ class Swing:
         if get_time() - hitter.wait_time < 0.25:
             hitter.image.clip_draw(hitter.frame * 170, hitter.action * 170, 170, 170, hitter.x, hitter.y, 500, 500)
         else:
-            print("1")
             hitter.image.clip_draw(4 * 170, hitter.action * 170, 170, 170, hitter.x, hitter.y, 500, 500)
         pass
 

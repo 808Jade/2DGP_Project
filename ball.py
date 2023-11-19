@@ -127,23 +127,23 @@ class Ball:
         pass
 
     def is_hitter_hit_ball(self):
-        if self.x - 50 < play_mode_easy.hitter.swing_x < self.x + 50:
+        if self.x - 50 < play_mode_easy.hitter.swing_x < self.x + 50 and 50 < self.size < 60:
             return BehaviorTree.SUCCESS
         else:
             return BehaviorTree.FAIL
 
     def print_hit_sign(self):
-        hit = False
-        ball_x = self.x
-        ball_y = self.y
+        game_world.add_object(self, 3)
+        # 코드 추가
         swing_x = play_mode_easy.hitter.swing_x
         swing_y = play_mode_easy.hitter.swing_y
+        print(swing_x, swing_y)
 
-        if play_mode_easy.hitter.swing_x > self.x and play_mode_easy.hitter.swing_y > self.y:
-            self.x += 10
-            self.y += 50
+        if swing_x > self.x and swing_y > self.y:
+            self.x -= 10
+            self.y -= 10
 
-        self.size -= 15
+        self.size -= 10
         if self.size < 20:
             game_world.remove_object(self)
         print("HIT!")
