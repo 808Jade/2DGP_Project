@@ -133,9 +133,16 @@ class Ball:
             return BehaviorTree.FAIL
 
     def print_hit_sign(self):
-        if play_mode_easy.hitter.swing_x > self.x and play_mode_easy.hitter.swing_y :
-        self.x += 10
-        self.y += 50
+        hit = False
+        ball_x = self.x
+        ball_y = self.y
+        swing_x = play_mode_easy.hitter.swing_x
+        swing_y = play_mode_easy.hitter.swing_y
+
+        if play_mode_easy.hitter.swing_x > self.x and play_mode_easy.hitter.swing_y > self.y:
+            self.x += 10
+            self.y += 50
+
         self.size -= 15
         if self.size < 20:
             game_world.remove_object(self)

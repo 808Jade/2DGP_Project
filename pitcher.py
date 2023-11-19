@@ -54,7 +54,7 @@ class Idle:
     def do(pitcher):
         pitcher.frame = (pitcher.frame + 1) % 11
         pitcher.action = 11
-        if get_time() - pitcher.wait_time > 2:
+        if get_time() - pitcher.wait_time > 3:
             pitcher.state_machine.handle_event(('IDLE_TIME_OUT', 0))
 
     @staticmethod
