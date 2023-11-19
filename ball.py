@@ -49,6 +49,8 @@ class Ball:
     def __init__(self, x=440, y=380):
         self.x, self.y = x, y
         self.size = 10
+        self.wait_time = 0.0
+        self.remove_sign = False
         self.build_behavior_tree()
 
         if Ball.image is None:
@@ -59,6 +61,9 @@ class Ball:
         self.size += 2
         self.x += 1
         self.y -= 10
+        if get_time() - self.wait_time > 1.5:
+            self.wait_time = 0.0
+            self.remove_sign = True
 
         if self.size > 80:
             print(self.x, self.y, self.size)
@@ -69,7 +74,7 @@ class Ball:
 
     def draw(self):
         self.image.draw(self.x, self.y, self.size, self.size)
-
+    # ------------------------------------------------------------------------------------
     def is_ball_reach(self):
         if self.size > 60:
             return BehaviorTree.SUCCESS
@@ -105,8 +110,10 @@ class Ball:
             return BehaviorTree.SUCCESS
 
     def print_strike_sign(self):
-        strke_sign = Strikesign()
-        game_world.add_object(strke_sign, 3)
+        strike_sign = Strikesign()
+        game_world.add_object(strike_sign, 3)
+        Ball.wait_time = get_time()
+
         print("STRIKE!")
         pass
 
@@ -119,7 +126,7 @@ class Ball:
     def print_hit_sign(self):
         print("HIT!")
         pass
-
+    # -----------------------------------------------------------------------------------------
     def build_behavior_tree(self):
         c1 = Condition('공이 도착했는가?(size>60)', self.is_ball_reach)
         c2 = Condition('공이 Strike Zone 밖에 있는가?', self.is_ball_in_strike_zone)
@@ -213,22 +220,16 @@ class Snake:
 
 
 class Ballsign:
-    image = None
-
-    def __init__(self, x, y):
-        self.x, self.y = x, y
-        if Ballsign.image == None:
-            Ballsign.image = load_image('BALL_sign.png')
+    def __init__(self):
+        self.image = load_image('BALL_sign.png')
 
     def update(self):
         pass
     def draw(self):
-        self.image.draw(self.x, self.y)
+        self.image.draw(400, 428, 70, 70)
 
 
 class Strikesign:
-    image = None
-
     def __init__(self):
         self.image = load_image('STRIKE.png')
 
@@ -236,7 +237,7 @@ class Strikesign:
         pass
 
     def draw(self):
-        self.image.draw(490, 328)
+        self.image.draw(650, 600, 190, 100)
 
 
 class Entering:

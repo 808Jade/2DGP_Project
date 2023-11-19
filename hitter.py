@@ -87,6 +87,8 @@ class Swing:
 
     @staticmethod
     def exit(hitter, e):
+        hitter.swing_x = 0
+        hitter.swing_y = 0
         pass
 
     @staticmethod
