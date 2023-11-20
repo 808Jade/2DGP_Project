@@ -33,10 +33,9 @@ class Ball:
             Ball.image = load_image('Ball.png')
 
     def update(self):
-        if self.hit_sign_on == False:
-            self.size += 2
-            self.x += 1
-            self.y -= 10
+        self.size += 2
+        self.x += 1
+        self.y -= 10
 
         if self.size > 64:
             print(self.x, self.y, self.size)
@@ -71,8 +70,19 @@ class Ball:
         else:
             return BehaviorTree.FAIL
 
-    def is_hitter_doesnt_swing(self):
-        if play_mode_easy.hitter.swing_x == 0:
+    def is_swing(self):
+        if play_mode_easy.hitter.swing_x != 0:
+            print('SWING')
+            return BehaviorTree.SUCCESS
+        else:
+            print('NOTSWING')
+            return BehaviorTree.FAIL
+
+    def is_nice_swing_pos(self):
+        if self.x - 30 < play_mode_easy.hitter.swing_mem_x < self.x + 30\
+                and self.y - 30 < play_mode_easy.hitter.swing_mem_y < self.y +30:
+            print('POS')
+            # self.hit_sign_on = True
             return BehaviorTree.SUCCESS
         else:
             return BehaviorTree.FAIL
@@ -81,17 +91,6 @@ class Ball:
         print("BALL !")
         pass
 
-    def is_ball_out_strike_zone(self):
-        if 250 < self.x < 635 and 220 < self.y < 300:
-            return BehaviorTree.FAIL
-        else:
-            return BehaviorTree.SUCCESS
-
-    def is_hitter_doesnt_hit_ball(self):
-        if self.x - 30 < play_mode_easy.hitter.swing_x < self.x + 30:
-            return BehaviorTree.FAIL
-        else:
-            return BehaviorTree.SUCCESS
 
     def print_strike_sign(self):
         if not self.strike_sign_on:
@@ -103,18 +102,10 @@ class Ball:
         print("STRIKE!")
         pass
 
-    def is_hitter_hit_ball(self):
-        #and 50 < self.size < 60
-        if self.x - 30 < play_mode_easy.hitter.swing_x < self.x + 30:
-            self.hit_sign_on = True
-            return BehaviorTree.SUCCESS
-        else:
-            return BehaviorTree.FAIL
-
-    def print_hit_sign(self):
-        # 코드 추가
-        swing_x = play_mode_easy.hitter.swing_mem_x
-        swing_y = play_mode_easy.hitter.swing_mem_y
+    def hit_action(self):
+        print("HIT")
+        swing_x = play_mode_easy.hitter.swing_x
+        swing_y = play_mode_easy.hitter.swing_y
         print(swing_x, swing_y)
         # if self.x - 10 < swing_x < self.x +10 and self.y -10 < swing_y < self.y + 10:
             # self.y += 50
@@ -134,22 +125,21 @@ class Ball:
         return BehaviorTree.RUNNING
     # -----------------------------------------------------------------------------------------
     def build_behavior_tree(self):
-        c1 = Condition('공이 도착했는가?(size>60)', self.is_ball_reach)
-        c2 = Condition('공이 Strike Zone 밖에 있는가?', self.is_ball_in_strike_zone)
-        c3 = Condition('타자가 Swing하지 않았는가?', self.is_hitter_doesnt_swing)
-        a1 = Action('Print Ball sign', self.print_ball_sign)
-        SEQ_ball = Sequence('Ball', c1, c2, c3, a1)
+        c1 = Condition('스윙 하였는가?', self.is_swing)
+        c2 = Condition('스윙 타이밍이 유효한가?', self.is_ball_reach_for_hit)
+        c3 = Condition('스윙 위치가 유효한가?', self.is_nice_swing_pos)
+        a1 = Action('Print Hit sign', self.hit_action)
+        SEQ_hit = Sequence('Hit',  c1, c2, c3, a1)
 
-        c4 = Condition('공이 Strike Zone 안에 있는가?', self.is_ball_out_strike_zone)
-        c5 = Condition('타자가 공을 못 맞췄는가?', self.is_hitter_doesnt_hit_ball)
+        c4 = Condition('공이 도착했는가?(size>60)', self.is_ball_reach)
+        c5 = Condition('공이 Strike Zone 안에 있는가?', self.is_ball_in_strike_zone)
         a2 = Action('Print Strike sign', self.print_strike_sign)
-        SEQ_strike = Sequence('Strike', c1, c4, a2)
+        SEQ_strike = Sequence('Strike', c4, c5, a2)
 
-        c6 = Condition('타자가 공을 맞췄는가?', self.is_hitter_hit_ball)
-        a3 = Action('Print Hit sign', self.print_hit_sign)
-        SEQ_hit = Sequence('Hit', c6, a3)
+        a3 = Action('Print Ball sign', self.print_ball_sign)
+        SEQ_ball = Sequence('Ball', a3)
 
-        root = SEL_ball_or_strike_or_hit = Selector('볼/스트라이크/타격', SEQ_ball, SEQ_hit, SEQ_strike)
+        root = SEL_ball_or_strike_or_hit = Selector('볼/스트라이크/타격', SEQ_hit, SEQ_strike, SEQ_ball)
 
         self.bt = BehaviorTree(root)
 
@@ -173,3 +163,24 @@ class Strikesign:
 
     def draw(self):
         self.image.draw(650, 600, 190, 100)
+
+# def is_ball_out_strike_zone(self):
+#     if 250 < self.x < 635 and 220 < self.y < 300:
+#         return BehaviorTree.FAIL
+#     else:
+#         return BehaviorTree.SUCCESS
+
+# def is_hitter_doesnt_hit_ball(self):
+#     if self.x - 30 < play_mode_easy.hitter.swing_x < self.x + 30:
+#         return BehaviorTree.FAIL
+#     else:
+#         return BehaviorTree.SUCCESS
+
+# def is_hitter_doesnt_swing(self):
+#     if play_mode_easy.hitter.swing_x == 0:
+#         return BehaviorTree.SUCCESS
+#     else:
+#         return BehaviorTree.FAIL
+
+# def is_hitter_hit_ball(self):
+#     #and 50 < self.size < 60
