@@ -65,7 +65,7 @@ class Ball:
             return BehaviorTree.FAIL
 
     def is_ball_in_strike_zone(self):
-        if 250 < self.x < 635 and 220 < self.y < 300:
+        if 545 < self.x < 725 and 110 < self.y < 325: # (545, 110, 725, 325)
             return BehaviorTree.SUCCESS
         else:
             return BehaviorTree.FAIL
@@ -104,25 +104,25 @@ class Ball:
 
     def hit_action(self):
         print("HIT")
-        swing_x = play_mode_easy.hitter.swing_x
-        swing_y = play_mode_easy.hitter.swing_y
+        swing_x = play_mode_easy.hitter.swing_mem_x
+        swing_y = play_mode_easy.hitter.swing_mem_y
         print(swing_x, swing_y)
         # if self.x - 10 < swing_x < self.x +10 and self.y -10 < swing_y < self.y + 10:
             # self.y += 50
         if swing_x < self.x:
             self.x += 10
             self.y += 50
-            return BehaviorTree.SUCCESS
+            return BehaviorTree.RUNNING
         elif swing_x > self.x:
             self.x -= 10
             self.y += 50
-            return BehaviorTree.SUCCESS
+            return BehaviorTree.RUNNING
 
         self.size -= 12
         if self.size < 20:
             game_world.remove_object(self)
         print("HIT!")
-        return BehaviorTree.RUNNING
+        return BehaviorTree.FAIL
     # -----------------------------------------------------------------------------------------
     def build_behavior_tree(self):
         c1 = Condition('스윙 하였는가?', self.is_swing)
@@ -137,9 +137,12 @@ class Ball:
         SEQ_strike = Sequence('Strike', c4, c5, a2)
 
         a3 = Action('Print Ball sign', self.print_ball_sign)
-        SEQ_ball = Sequence('Ball', a3)
+        SEQ_ball = Sequence('Ball', c4, a3)
 
-        root = SEL_ball_or_strike_or_hit = Selector('볼/스트라이크/타격', SEQ_hit, SEQ_strike, SEQ_ball)
+
+        SEQ_Fly = Sequence('Flying')
+
+        root = SEL_ball_or_strike_or_hit = Selector('볼/스트라이크/타격', SEQ_hit, SEQ_strike, SEQ_ball, SEQ_Fly)
 
         self.bt = BehaviorTree(root)
 
