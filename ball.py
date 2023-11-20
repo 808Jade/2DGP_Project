@@ -10,7 +10,7 @@ from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
 # 변화구 : 타이밍, 위치, 움직임
 # 타이밍 : 공 사이즈 56 전후!
 # 위치 : 공 사이즈 56일 때의 공의 x, y 좌표
-# hit이 발생하는 바로 그 순간의 좌표를 저장해야함. << 결국 이 방법밖에 없는데..
+# hit이 발생하는 바로 그 순간의 좌표를 저장해야함.
 
 class Ball:
     image = None
@@ -65,6 +65,7 @@ class Ball:
 
     def draw(self):
         self.image.draw(self.x, self.y, self.size, self.size)
+
     # ------------------------------------------------------------------------------------
     def is_ball_reach(self):
         if self.size > 60:
@@ -79,7 +80,7 @@ class Ball:
             return BehaviorTree.FAIL
 
     def is_ball_in_strike_zone(self):
-        if 545 < self.x < 725 and 110 < self.y < 325: # (545, 110, 725, 325)
+        if 545 < self.x < 725 and 110 < self.y < 325:  # (545, 110, 725, 325)
             return BehaviorTree.SUCCESS
         else:
             return BehaviorTree.FAIL
@@ -91,8 +92,8 @@ class Ball:
             return BehaviorTree.FAIL
 
     def is_nice_swing_pos(self):
-        if self.x - 30 < play_mode_easy.hitter.swing_mem_x < self.x + 30\
-                and self.y - 30 < play_mode_easy.hitter.swing_mem_y < self.y +30:
+        if self.x - 30 < play_mode_easy.hitter.swing_mem_x < self.x + 30 \
+                and self.y - 30 < play_mode_easy.hitter.swing_mem_y < self.y + 30:
             # self.hit_sign_on = True
             return BehaviorTree.SUCCESS
         else:
@@ -117,7 +118,7 @@ class Ball:
         swing_y = play_mode_easy.hitter.swing_mem_y
         print(swing_x, swing_y)
         # if self.x - 10 < swing_x < self.x +10 and self.y -10 < swing_y < self.y + 10:
-            # self.y += 50
+        # self.y += 50
         self.hit_sign = True
         self.hit_pos = swing_x - self.x
         return BehaviorTree.SUCCESS
@@ -128,7 +129,7 @@ class Ball:
         c2 = Condition('스윙 타이밍이 유효한가?', self.is_ball_reach_for_hit)
         c3 = Condition('스윙 위치가 유효한가?', self.is_nice_swing_pos)
         a1 = Action('Print Hit sign', self.hit_action)
-        SEQ_hit = Sequence('Hit',  c1, c2, c3, a1)
+        SEQ_hit = Sequence('Hit', c1, c2, c3, a1)
 
         c4 = Condition('공이 도착했는가?(size>60)', self.is_ball_reach)
         c5 = Condition('공이 Strike Zone 안에 있는가?', self.is_ball_in_strike_zone)
@@ -137,7 +138,6 @@ class Ball:
 
         a3 = Action('Print Ball sign', self.print_ball_sign)
         SEQ_ball = Sequence('Ball', c4, a3)
-
 
         SEQ_Fly = Sequence('Flying')
 
@@ -152,6 +152,7 @@ class Ballsign:
 
     def update(self):
         pass
+
     def draw(self):
         self.image.draw(400, 428, 70, 70)
 
@@ -165,24 +166,3 @@ class Strikesign:
 
     def draw(self):
         self.image.draw(650, 600, 190, 100)
-
-# def is_ball_out_strike_zone(self):
-#     if 250 < self.x < 635 and 220 < self.y < 300:
-#         return BehaviorTree.FAIL
-#     else:
-#         return BehaviorTree.SUCCESS
-
-# def is_hitter_doesnt_hit_ball(self):
-#     if self.x - 30 < play_mode_easy.hitter.swing_x < self.x + 30:
-#         return BehaviorTree.FAIL
-#     else:
-#         return BehaviorTree.SUCCESS
-
-# def is_hitter_doesnt_swing(self):
-#     if play_mode_easy.hitter.swing_x == 0:
-#         return BehaviorTree.SUCCESS
-#     else:
-#         return BehaviorTree.FAIL
-
-# def is_hitter_hit_ball(self):
-#     #and 50 < self.size < 60
