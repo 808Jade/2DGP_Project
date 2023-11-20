@@ -24,7 +24,13 @@ class Ball:
         self.strike_sign_on = False
         self.strike_sign_on_count = 0
 
-        self.hit_sign_on = False
+        self.hit_sign = False
+        self.hit_sign_left = False
+        self.hit_sign_right = False
+        self.hit_sign_middle = False
+        self.hit_pos = 0
+        self.hit_dir = 10
+
         self.ball_sign = Ballsign()
 
         self.build_behavior_tree()
@@ -46,6 +52,14 @@ class Ball:
                 self.strike_sign_on = False
 
             game_world.remove_object(self)
+
+        if self.hit_sign:
+            self.x -= self.hit_pos * 3
+            print(self.hit_pos)
+            self.y += 45
+            self.size -= 7
+            if self.size < 10:
+                game_world.remove_object(self)
 
         self.bt.run()
 
@@ -72,16 +86,13 @@ class Ball:
 
     def is_swing(self):
         if play_mode_easy.hitter.swing_x != 0:
-            print('SWING')
             return BehaviorTree.SUCCESS
         else:
-            print('NOTSWING')
             return BehaviorTree.FAIL
 
     def is_nice_swing_pos(self):
         if self.x - 30 < play_mode_easy.hitter.swing_mem_x < self.x + 30\
                 and self.y - 30 < play_mode_easy.hitter.swing_mem_y < self.y +30:
-            print('POS')
             # self.hit_sign_on = True
             return BehaviorTree.SUCCESS
         else:
@@ -90,7 +101,6 @@ class Ball:
     def print_ball_sign(self):
         print("BALL !")
         pass
-
 
     def print_strike_sign(self):
         if not self.strike_sign_on:
@@ -103,26 +113,15 @@ class Ball:
         pass
 
     def hit_action(self):
-        print("HIT")
         swing_x = play_mode_easy.hitter.swing_mem_x
         swing_y = play_mode_easy.hitter.swing_mem_y
         print(swing_x, swing_y)
         # if self.x - 10 < swing_x < self.x +10 and self.y -10 < swing_y < self.y + 10:
             # self.y += 50
-        if swing_x < self.x:
-            self.x += 10
-            self.y += 50
-            return BehaviorTree.RUNNING
-        elif swing_x > self.x:
-            self.x -= 10
-            self.y += 50
-            return BehaviorTree.RUNNING
+        self.hit_sign = True
+        self.hit_pos = swing_x - self.x
+        return BehaviorTree.SUCCESS
 
-        self.size -= 12
-        if self.size < 20:
-            game_world.remove_object(self)
-        print("HIT!")
-        return BehaviorTree.FAIL
     # -----------------------------------------------------------------------------------------
     def build_behavior_tree(self):
         c1 = Condition('스윙 하였는가?', self.is_swing)
