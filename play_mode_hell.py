@@ -26,7 +26,7 @@ def init():
     global background
     global hitter
     global pitcher_hell
-    global  strke_zone
+    global strke_zone
 
     playground = Playground()
     game_world.add_object(playground, 0)

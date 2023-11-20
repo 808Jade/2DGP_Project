@@ -9,7 +9,6 @@ from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
 # 변화구 : 타이밍, 위치, 움직임
 # 타이밍 : 공 사이즈 56 전후!
 # 위치 : 공 사이즈 56일 때의 공의 x, y 좌표
-# hit이 발생하는 바로 그 순간의 좌표를 저장해야함.
 
 
 class Ball:
@@ -42,7 +41,6 @@ class Ball:
         self.size += 2
         self.x += 1
         self.y -= 10
-
         if self.size > 64:
             print(self.x, self.y, self.size)
             print("remove")
@@ -94,7 +92,6 @@ class Ball:
     def is_nice_swing_pos(self):
         if self.x - 30 < play_mode_easy.hitter.swing_mem_x < self.x + 30 \
                 and self.y - 30 < play_mode_easy.hitter.swing_mem_y < self.y + 30:
-            # self.hit_sign_on = True
             return BehaviorTree.SUCCESS
         else:
             return BehaviorTree.FAIL
@@ -114,22 +111,9 @@ class Ball:
         pass
 
     def hit_action(self):
-        # if game_framework.run(start) == play_mode_easy:
         swing_x = play_mode_easy.hitter.swing_mem_x
         swing_y = play_mode_easy.hitter.swing_mem_y
-        # elif game_framework.mode == play_mode_normal:
-        #     swing_x = play_mode_easy.hitter.swing_mem_x
-        #     swing_y = play_mode_easy.hitter.swing_mem_y
-        # elif game_framework.mode == play_mode_hard:
-        #     swing_x = play_mode_easy.hitter.swing_mem_x
-        #     swing_y = play_mode_easy.hitter.swing_mem_y
-        # elif game_framework.mode == play_mode_hell:
-        #     swing_x = play_mode_easy.hitter.swing_mem_x
-        #     swing_y = play_mode_easy.hitter.swing_mem_y
 
-        print(swing_x, swing_y)
-        # if self.x - 10 < swing_x < self.x +10 and self.y -10 < swing_y < self.y + 10:
-        # self.y += 50
         self.hit_sign = True
         self.hit_pos = swing_x - self.x
         return BehaviorTree.SUCCESS

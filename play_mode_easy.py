@@ -3,7 +3,6 @@ import game_framework
 
 import game_world
 import title_mode
-# from ball import Ball
 from hitter import Hitter
 from pitcher import Pitcher
 from playground import Playground
@@ -22,7 +21,7 @@ def handle_events():
 
 
 def init():
-    global background
+    global playground
     global hitter
     global pitcher
     global strike_zone
