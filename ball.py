@@ -107,8 +107,8 @@ class Ball:
 
     def print_hit_sign(self):
         # 코드 추가
-        swing_x = play_mode_easy.hitter.swing_x
-        swing_y = play_mode_easy.hitter.swing_y
+        swing_x = play_mode_easy.hitter.swing_mem_x
+        swing_y = play_mode_easy.hitter.swing_mem_y
         print(swing_x, swing_y)
         # if self.x - 10 < swing_x < self.x +10 and self.y -10 < swing_y < self.y + 10:
             # self.y += 50

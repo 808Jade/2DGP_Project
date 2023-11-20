@@ -80,8 +80,8 @@ class Swing:
     def enter(hitter, e):
         hitter.wait_time = get_time()
         hitter.swing_x, hitter.swing_y = e[1].x, 720 - e[1].y
-        hitter.swing_mem_x = hitter.swing_x
-        hitter.swing_mem_y = hitter.swing_y
+        hitter.swing_mem_x = e[1].x
+        hitter.swing_mem_y = 720 - e[1].y
         print(hitter.swing_x, hitter.swing_y)
         pass
 
@@ -95,6 +95,7 @@ class Swing:
     def do(hitter):
         hitter.frame = (hitter.frame + 1) % 6
         hitter.action = 5
+        print(hitter.swing_mem_x, hitter.swing_mem_y)
         if get_time() - hitter.wait_time > 0.1:
             hitter.swing_x = 0
             hitter.swing_y = 0
