@@ -5,42 +5,11 @@ from hitter import Hitter
 from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
 
 
-# ---state event check
-
-def entering_time_out(e):
-    return e[0] == 'ENTERING_TIME_OUT'
-
-
-def swing_time_out(e):
-    return e[0] == 'SWING_TIME_OUT'
-
-
-def left_click(e):
-    return e[0] == 'INPUT' and e[1].type == SDL_MOUSEBUTTONDOWN and e[1].button == SDL_BUTTON_LEFT
-
-
-def right_click(e):
-    return e[0] == 'INPUT' and e[1].type == SDL_MOUSEBUTTONDOWN and e[1].button == SDL_BUTTON_RIGHT
-
-
-def right_click_up(e):
-    return e[0] == 'INPUT' and e[1].type == SDL_MOUSEBUTTONUP and e[1].button == SDL_BUTTON_RIGHT
-
-
-def mouse_motion(e):
-    return e[0] == 'INPUT' and e[1].type == SDL_MOUSEMOTION
-
-
-# ---state event check
-
 # random으로 1~5 숫자 중에 하나를 생성한다.
 # 이에 따라서 구성된 변화구 움직임을 출력한다.
 # 변화구 : 타이밍, 위치, 움직임
 # 타이밍 : 공 사이즈 56 전후!
 # 위치 : 공 사이즈 56일 때의 공의 x, y 좌표
-def Culculater(size):
-    if size < 50 or size > 60:
-        pass  # hit !
 
 
 class Ball:
@@ -178,77 +147,6 @@ class Ball:
         root = SEL_ball_or_strike_or_hit = Selector('볼/스트라이크/타격', SEQ_ball, SEQ_hit, SEQ_strike)
 
         self.bt = BehaviorTree(root)
-
-
-class Curve:
-    image = None
-
-    def __init__(self, x=440, y=380):
-        self.x, self.y = x, y
-        self.size = 10
-
-        if Curve.image is None:
-            Curve.image = load_image('Ball.png')
-
-    def update(self):
-        self.size += 2
-        self.x += 1
-        self.y -= 10
-
-        if self.size > 80:
-            print(self.x, self.y, self.size)
-            print("remove")
-            game_world.remove_object(self)
-
-    def draw(self):
-        self.image.draw(self.x, self.y, self.size, self.size)
-
-
-class Fast:
-    image = None
-
-    def __init__(self, x, y):
-        self.x, self.y = x, y
-        if Ball.image == None:
-            Ball.image = load_image('Ball.png')
-
-    def update(self):
-        pass
-
-    def draw(self):
-        self.image.draw(self.x, self.y)
-
-
-class Slider:
-    image = None
-
-    def __init__(self, x, y):
-        self.x, self.y = x, y
-
-        if Ball.image == None:
-            Ball.image = load_image('Ball.png')
-
-    def update(self):
-        pass
-
-    def draw(self):
-        self.image.draw(self.x, self.y)
-
-
-class Snake:
-    image = None
-
-    def __init__(self, x, y):
-        self.x, self.y = x, y
-
-        if Ball.image == None:
-            Ball.image = load_image('Ball.png')
-
-    def update(self):
-        pass
-
-    def draw(self):
-        self.image.draw(self.x, self.y)
 
 
 class Ballsign:
