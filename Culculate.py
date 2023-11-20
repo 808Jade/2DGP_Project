@@ -1,2 +1,0 @@
-from hitter import *
-

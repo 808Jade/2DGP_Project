@@ -3,11 +3,10 @@ import game_framework
 
 import game_world
 import title_mode
-from ball import Ball
+# from ball import Ball
 from hitter import Hitter
 from pitcher import Pitcher
 from playground import Playground
-from bat import Bat
 from strike_zone import Strike_zone
 
 
@@ -26,7 +25,6 @@ def init():
     global background
     global hitter
     global pitcher
-    global bat
     global strike_zone
 
     playground = Playground()
@@ -37,9 +35,6 @@ def init():
 
     pitcher = Pitcher()
     game_world.add_object(pitcher, 1)
-
-    # bat = Bat()
-    # game_world.add_object(bat, 1)
 
     strike_zone = Strike_zone()
     game_world.add_object(strike_zone, 1)

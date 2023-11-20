@@ -32,7 +32,6 @@ def mouse_motion(e):
 class Entering:
     @staticmethod
     def enter(hitter, e):
-        hitter.wait_time = get_time()
         pass
 
     @staticmethod
@@ -45,7 +44,7 @@ class Entering:
         hitter.dir = 0.1
         hitter.x += hitter.dir * 100
         hitter.action = 3
-        if get_time() - hitter.wait_time > 2:
+        if hitter.x >= 280:
             hitter.state_machine.handle_event(('ENTERING_TIME_OUT', 0))
         pass
 

@@ -21,7 +21,7 @@ def pitching_time_out(e):
 class Entering:
     @staticmethod
     def enter(pitcher, e):
-        pitcher.wait_time = get_time()
+        pass
 
     @staticmethod
     def exit(pitcher, e):
@@ -33,7 +33,7 @@ class Entering:
         pitcher.dir -= 0.01
         pitcher.x += pitcher.dir * 100
         pitcher.action = 15
-        if get_time() - pitcher.wait_time > 2:
+        if pitcher.x <= 639.0:
             pitcher.state_machine.handle_event(('ENTERING_TIME_OUT', 0))
 
     @staticmethod

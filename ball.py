@@ -1,16 +1,16 @@
 from pico2d import *
+
+import game_framework
 import game_world
 import play_mode_easy
-from hitter import Hitter
 from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
 
 
-# random으로 1~5 숫자 중에 하나를 생성한다.
-# 이에 따라서 구성된 변화구 움직임을 출력한다.
 # 변화구 : 타이밍, 위치, 움직임
 # 타이밍 : 공 사이즈 56 전후!
 # 위치 : 공 사이즈 56일 때의 공의 x, y 좌표
 # hit이 발생하는 바로 그 순간의 좌표를 저장해야함.
+
 
 class Ball:
     image = None
@@ -114,8 +114,19 @@ class Ball:
         pass
 
     def hit_action(self):
+        # if game_framework.run(start) == play_mode_easy:
         swing_x = play_mode_easy.hitter.swing_mem_x
         swing_y = play_mode_easy.hitter.swing_mem_y
+        # elif game_framework.mode == play_mode_normal:
+        #     swing_x = play_mode_easy.hitter.swing_mem_x
+        #     swing_y = play_mode_easy.hitter.swing_mem_y
+        # elif game_framework.mode == play_mode_hard:
+        #     swing_x = play_mode_easy.hitter.swing_mem_x
+        #     swing_y = play_mode_easy.hitter.swing_mem_y
+        # elif game_framework.mode == play_mode_hell:
+        #     swing_x = play_mode_easy.hitter.swing_mem_x
+        #     swing_y = play_mode_easy.hitter.swing_mem_y
+
         print(swing_x, swing_y)
         # if self.x - 10 < swing_x < self.x +10 and self.y -10 < swing_y < self.y + 10:
         # self.y += 50
