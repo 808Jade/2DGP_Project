@@ -10,7 +10,7 @@ from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
 # 변화구 : 타이밍, 위치, 움직임
 # 타이밍 : 공 사이즈 56 전후!
 # 위치 : 공 사이즈 56일 때의 공의 x, y 좌표
-
+# hit이 발생하는 바로 그 순간의 좌표를 저장해야함. << 결국 이 방법밖에 없는데..
 
 class Ball:
     image = None
@@ -23,6 +23,8 @@ class Ball:
         self.strike_sign = Strikesign()
         self.strike_sign_on = False
         self.strike_sign_on_count = 0
+
+        self.hit_sign_on = False
         self.ball_sign = Ballsign()
 
         self.build_behavior_tree()
@@ -36,7 +38,7 @@ class Ball:
         self.x += 1
         self.y -= 10
 
-        if self.size > 70:
+        if self.size > 64:
             print(self.x, self.y, self.size)
             print("remove")
             if self.strike_sign_on:
@@ -96,33 +98,28 @@ class Ball:
         pass
 
     def is_hitter_hit_ball(self):
-        if self.x - 50 < play_mode_easy.hitter.swing_x < self.x + 50 and 50 < self.size < 60:
+        #and 50 < self.size < 60
+        if self.x - 30 < play_mode_easy.hitter.swing_x < self.x + 30:
+            self.hit_sign_on = True
             return BehaviorTree.SUCCESS
         else:
             return BehaviorTree.FAIL
 
     def print_hit_sign(self):
-        game_world.add_object(self, 3)
         # 코드 추가
         swing_x = play_mode_easy.hitter.swing_x
         swing_y = play_mode_easy.hitter.swing_y
         print(swing_x, swing_y)
-        if self.x - 10 < swing_x < self.x +10 and self.y -10 < swing_y < self.y + 10:
-            self.y += 15
-        elif swing_x > self.x and swing_y > self.y:
-            self.x -= 10
-            self.y += 10
-        elif swing_x < self.x and swing_y > self.y:
+        # if self.x - 10 < swing_x < self.x +10 and self.y -10 < swing_y < self.y + 10:
+            # self.y += 50
+        if swing_x < self.x and swing_y < self.x:
             self.x += 10
-            self.y += 10
-        elif swing_x < self.x and swing_y < self.x:
-            self.x += 10
-            self.y += 15
+            self.y += 50
         elif swing_x > self.x and swing_y < self.y:
             self.x -= 10
-            self.y += 15
+            self.y += 50
 
-        self.size -= 10
+        self.size -= 12
         if self.size < 20:
             game_world.remove_object(self)
         print("HIT!")
@@ -138,7 +135,7 @@ class Ball:
         c4 = Condition('공이 Strike Zone 안에 있는가?', self.is_ball_out_strike_zone)
         c5 = Condition('타자가 공을 못 맞췄는가?', self.is_hitter_doesnt_hit_ball)
         a2 = Action('Print Strike sign', self.print_strike_sign)
-        SEQ_strike = Sequence('Strike', c1, c5, c4, a2)
+        SEQ_strike = Sequence('Strike', c1, c4, a2)
 
         c6 = Condition('타자가 공을 맞췄는가?', self.is_hitter_hit_ball)
         a3 = Action('Print Hit sign', self.print_hit_sign)

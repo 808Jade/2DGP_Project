@@ -80,6 +80,8 @@ class Swing:
     def enter(hitter, e):
         hitter.wait_time = get_time()
         hitter.swing_x, hitter.swing_y = e[1].x, 720 - e[1].y
+        hitter.swing_mem_x = hitter.swing_x
+        hitter.swing_mem_y = hitter.swing_y
         print(hitter.swing_x, hitter.swing_y)
         pass
 
@@ -172,6 +174,7 @@ class Hitter:
         self.state_machine = StateMachine(self)
         self.state_machine.start()
         self.swing_x, self.swing_y = 0, 0
+        self.swing_mem_x, self.swing_mem_y = 0,0
 
     def swing_point(self):
         return self.swing_x, self.swing_y, self.swing_x + 20, self.swing_y + 20
