@@ -82,7 +82,8 @@ class Swing:
         hitter.swing_x, hitter.swing_y = e[1].x, 720 - e[1].y
         hitter.swing_mem_x = e[1].x
         hitter.swing_mem_y = 720 - e[1].y
-        print(hitter.swing_x, hitter.swing_y)
+        # print(hitter.swing_x, hitter.swing_y)
+        # print("HHH",e[1].x, 720 - e[1].y)
         pass
 
     @staticmethod
@@ -95,7 +96,7 @@ class Swing:
     def do(hitter):
         hitter.frame = (hitter.frame + 1) % 6
         hitter.action = 5
-        print(hitter.swing_mem_x, hitter.swing_mem_y)
+        # print("DO",hitter.swing_mem_x, hitter.swing_mem_y)
         if get_time() - hitter.wait_time > 0.1:
             hitter.swing_x = 0
             hitter.swing_y = 0

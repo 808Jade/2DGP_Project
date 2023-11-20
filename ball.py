@@ -33,10 +33,10 @@ class Ball:
             Ball.image = load_image('Ball.png')
 
     def update(self):
-        # if
-        self.size += 2
-        self.x += 1
-        self.y -= 10
+        if self.hit_sign_on == False:
+            self.size += 2
+            self.x += 1
+            self.y -= 10
 
         if self.size > 64:
             print(self.x, self.y, self.size)
@@ -55,6 +55,12 @@ class Ball:
     # ------------------------------------------------------------------------------------
     def is_ball_reach(self):
         if self.size > 60:
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
+
+    def is_ball_reach_for_hit(self):
+        if self.size > 50:
             return BehaviorTree.SUCCESS
         else:
             return BehaviorTree.FAIL
@@ -82,7 +88,7 @@ class Ball:
             return BehaviorTree.SUCCESS
 
     def is_hitter_doesnt_hit_ball(self):
-        if self.x - 50 < play_mode_easy.hitter.swing_x < self.x + 50:
+        if self.x - 30 < play_mode_easy.hitter.swing_x < self.x + 30:
             return BehaviorTree.FAIL
         else:
             return BehaviorTree.SUCCESS
@@ -112,18 +118,20 @@ class Ball:
         print(swing_x, swing_y)
         # if self.x - 10 < swing_x < self.x +10 and self.y -10 < swing_y < self.y + 10:
             # self.y += 50
-        if swing_x < self.x and swing_y < self.x:
+        if swing_x < self.x:
             self.x += 10
             self.y += 50
-        elif swing_x > self.x and swing_y < self.y:
+            return BehaviorTree.SUCCESS
+        elif swing_x > self.x:
             self.x -= 10
             self.y += 50
+            return BehaviorTree.SUCCESS
 
         self.size -= 12
         if self.size < 20:
             game_world.remove_object(self)
         print("HIT!")
-        pass
+        return BehaviorTree.RUNNING
     # -----------------------------------------------------------------------------------------
     def build_behavior_tree(self):
         c1 = Condition('공이 도착했는가?(size>60)', self.is_ball_reach)
