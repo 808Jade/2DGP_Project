@@ -93,6 +93,9 @@ class Swing:
     def do(hitter):
         hitter.frame = (hitter.frame + 1) % 6
         hitter.action = 5
+        if get_time() - hitter.wait_time > 0.1:
+            hitter.swing_x = 0
+            hitter.swing_y = 0
         if get_time() - hitter.wait_time > 1:
             hitter.state_machine.handle_event(('SWING_TIME_OUT', 0))
         pass

@@ -138,10 +138,20 @@ class Ball:
         swing_x = play_mode_easy.hitter.swing_x
         swing_y = play_mode_easy.hitter.swing_y
         print(swing_x, swing_y)
-
-        if swing_x > self.x and swing_y > self.y:
+        if self.x - 10 < swing_x < self.x +10 and self.y -10 < swing_y < self.y + 10:
+            self.y += 15
+        elif swing_x > self.x and swing_y > self.y:
             self.x -= 10
-            self.y -= 10
+            self.y += 10
+        elif swing_x < self.x and swing_y > self.y:
+            self.x += 10
+            self.y += 10
+        elif swing_x < self.x and swing_y < self.x:
+            self.x += 10
+            self.y += 15
+        elif swing_x > self.x and swing_y < self.y:
+            self.x -= 10
+            self.y += 15
 
         self.size -= 10
         if self.size < 20:
@@ -157,7 +167,7 @@ class Ball:
         SEQ_ball = Sequence('Ball', c1, c2, c3, a1)
 
         c4 = Condition('공이 Strike Zone 안에 있는가?', self.is_ball_out_strike_zone)
-        c5 = Condition('타자가 공을 못맞췄는가?', self.is_hitter_doesnt_hit_ball)
+        c5 = Condition('타자가 공을 못 맞췄는가?', self.is_hitter_doesnt_hit_ball)
         a2 = Action('Print Strike sign', self.print_strike_sign)
         SEQ_strike = Sequence('Strike', c1, c5, c4, a2)
 
