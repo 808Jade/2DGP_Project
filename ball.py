@@ -43,11 +43,11 @@ class Ball:
             self.y -= 10
         elif self.mode == 'Curve':
             self.size += 2
-            self.x -= 10
-            self.y -= 5
-            if self.y < 350:
-                self.x += 30
-                self.y -= 20
+            self.x -= 5
+            self.y -= self.size * 0.2
+            if self.y < 380:
+                self.x += self.size * 0.2
+                self.y -= self.size * 0.1
 
         if self.size > 64:
             print(self.x, self.y, self.size)

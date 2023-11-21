@@ -126,7 +126,7 @@ class Pitcher:
 
     def pitching(self):
         ball = Ball(self.x-30, self.y+25)
-        game_world.add_object(ball, 3)
+        game_world.add_object(ball, 2)
 
     def update(self):
         self.state_machine.update()
