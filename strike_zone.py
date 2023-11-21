@@ -7,6 +7,6 @@ class Strike_zone:
 
     def draw(self):
         self.image.draw(635, 220, 250, 300)
-        draw_rectangle(545, 110, 725, 325)
+
     def update(self):
         pass

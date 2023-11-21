@@ -81,8 +81,6 @@ class Swing:
         hitter.swing_x, hitter.swing_y = e[1].x, 720 - e[1].y
         hitter.swing_mem_x = e[1].x
         hitter.swing_mem_y = 720 - e[1].y
-        # print(hitter.swing_x, hitter.swing_y)
-        # print("HHH",e[1].x, 720 - e[1].y)
         pass
 
     @staticmethod
@@ -188,7 +186,6 @@ class Hitter:
 
     def draw(self):
         self.state_machine.draw()
-        draw_rectangle(*self.swing_point())
 
     def handle_collision(self, group, other):
         pass

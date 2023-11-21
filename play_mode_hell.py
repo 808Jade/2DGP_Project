@@ -23,7 +23,7 @@ def handle_events():
 
 
 def init():
-    global background
+    global playground
     global hitter
     global pitcher_hell
     global strke_zone

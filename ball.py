@@ -3,8 +3,9 @@ from pico2d import *
 import game_framework
 import game_world
 import play_mode_easy
+# import strike_sign
 from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
-
+# from strike_sign import Strikesign
 
 # 변화구 : 타이밍, 위치, 움직임
 # 타이밍 : 공 사이즈 56 전후!
@@ -24,11 +25,7 @@ class Ball:
         self.strike_sign_on_count = 0
 
         self.hit_sign = False
-        self.hit_sign_left = False
-        self.hit_sign_right = False
-        self.hit_sign_middle = False
         self.hit_pos = 0
-        self.hit_dir = 10
 
         self.ball_sign = Ballsign()
 
@@ -44,12 +41,14 @@ class Ball:
         if self.size > 64:
             print(self.x, self.y, self.size)
             print("remove")
-            if self.strike_sign_on:
+
+            game_world.remove_object(self)
+
+        if self.strike_sign_on:
+            if get_time() - self.wait_time > 0.5:
                 print(self.strike_sign_on)
                 game_world.remove_object(self.strike_sign)
                 self.strike_sign_on = False
-
-            game_world.remove_object(self)
 
         if self.hit_sign:
             self.x -= self.hit_pos * 3
@@ -117,8 +116,8 @@ class Ball:
         self.hit_sign = True
         self.hit_pos = swing_x - self.x
         return BehaviorTree.SUCCESS
-
     # -----------------------------------------------------------------------------------------
+
     def build_behavior_tree(self):
         c1 = Condition('스윙 하였는가?', self.is_swing)
         c2 = Condition('스윙 타이밍이 유효한가?', self.is_ball_reach_for_hit)
@@ -155,6 +154,9 @@ class Ballsign:
 class Strikesign:
     def __init__(self):
         self.image = load_image('STRIKE.png')
+
+    def sign_on(self):
+        pass
 
     def update(self):
         pass

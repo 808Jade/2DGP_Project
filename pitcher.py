@@ -123,7 +123,6 @@ class Pitcher:
         self.image = load_image('penguin.png')
         self.state_machine = StateMachine(self)
         self.state_machine.start()
-        # self.pitch = 'Curve'
 
     def pitching(self):
         ball = Ball(self.x-30, self.y+25)
