@@ -106,8 +106,10 @@ class Ball:
                 game_world.add_object(self.strike_sign, 3)
                 self.strike_sign_on_count = 0
                 self.strike_sign_on = True
+
+        self.strike_sign.sign_on()
         print("STRIKE!")
-        pass
+        return BehaviorTree.SUCCESS
 
     def hit_action(self):
         swing_x = play_mode_easy.hitter.swing_mem_x
@@ -154,9 +156,14 @@ class Ballsign:
 class Strikesign:
     def __init__(self):
         self.image = load_image('STRIKE.png')
+        self.wait_time = 0.0
 
     def sign_on(self):
-        pass
+        self.wait_time = get_time()
+        print(self.wait_time, get_time())
+        self.image.draw(650, 600, 190, 100)
+        if get_time() - self.wait_time > 1:
+            game_world.remove_object(self)
 
     def update(self):
         pass
