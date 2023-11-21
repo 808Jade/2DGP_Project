@@ -31,13 +31,24 @@ class Ball:
 
         self.build_behavior_tree()
 
+        self.mode = 'Curve'
+
         if Ball.image is None:
             Ball.image = load_image('Ball.png')
 
     def update(self):
-        self.size += 2
-        self.x += 1
-        self.y -= 10
+        if self.mode == 'Straight':
+            self.size += 2
+            self.x += 0
+            self.y -= 10
+        elif self.mode == 'Curve':
+            self.size += 2
+            self.x -= 10
+            self.y -= 5
+            if self.y < 350:
+                self.x += 30
+                self.y -= 20
+
         if self.size > 64:
             print(self.x, self.y, self.size)
             print("remove")
@@ -52,7 +63,6 @@ class Ball:
 
         if self.hit_sign:
             self.x -= self.hit_pos * 3
-            print(self.hit_pos)
             self.y += 45
             self.size -= 7
             if self.size < 10:
@@ -106,8 +116,7 @@ class Ball:
                 game_world.add_object(self.strike_sign, 3)
                 self.strike_sign_on_count = 0
                 self.strike_sign_on = True
-
-        self.strike_sign.sign_on()
+        # self.strike_sign.sign_on()
         print("STRIKE!")
         return BehaviorTree.SUCCESS
 
