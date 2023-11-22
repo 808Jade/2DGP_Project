@@ -31,23 +31,39 @@ class Ball:
 
         self.build_behavior_tree()
 
-        self.mode = 'Curve'
+        self.mode = 'Nuckle'
 
         if Ball.image is None:
             Ball.image = load_image('Ball.png')
 
     def update(self):
         if self.mode == 'Straight':
-            self.size += 2
+            self.size += 3
             self.x += 0
             self.y -= 10
         elif self.mode == 'Curve':
             self.size += 2
-            self.x -= 5
+            self.x -= 7
             self.y -= self.size * 0.2
             if self.y < 380:
-                self.x += self.size * 0.2
+                self.x += self.size * 0.15
                 self.y -= self.size * 0.1
+        elif self.mode == 'Slider':
+            self.size += 2
+            self.x += 0
+            self.y -= 10
+            if self.y < 380:
+                self.x += self.size * 0.18
+                self.y -= self.size * 0.08
+        elif self.mode == 'Nuckle':
+            self.size += 1.5
+            self.x += 2
+            self.y -= self.size * 0.2
+            if self.y < 390:
+                self.x += self.size * 0.2
+                if self. y < 300:
+                    self.x -= self.size * 0.2
+
 
         if self.size > 64:
             print(self.x, self.y, self.size)
