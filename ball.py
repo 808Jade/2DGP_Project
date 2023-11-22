@@ -1,5 +1,6 @@
 from pico2d import *
 
+import random
 import game_framework
 import game_world
 import play_mode_easy
@@ -31,7 +32,9 @@ class Ball:
 
         self.build_behavior_tree()
 
-        self.mode = 'Straight'
+        # 공 객체가 생성될 때마다, 던져질 좌표, 구질 생성 !
+        self.arrive_x, self.arrive_y = random.randint(545, 725), random.randint(100, 325)
+        self.mode = random.choice(['Straight', 'Curve', 'Slider', 'Nuckle'])
 
         if Ball.image is None:
             Ball.image = load_image('Ball.png')
