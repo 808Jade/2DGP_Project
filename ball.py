@@ -39,24 +39,35 @@ class Ball:
         else:
             self.arrive_x, self.arrive_y = random.randint(500, 800), random.randint(150, 400)
 
-        self.mode = random.choice(['Straight', 'Curve', 'Slider', 'Nuckle'])
+        self.start_point_x = 609
+        self.start_point_y = 435
 
+        self.mode = 'Straight' # random.choice(['Straight', 'Curve', 'Slider', 'Knuckle'])
 
+        self.Straight_size = 2.8
+        self.Curve_size = 2
+        self.Curve_size_2 = 3
+        self.Slider_size = 2
+        self.Knuckle_size = 1.5
+
+        # Straight 직구
+        self.move_x = (self.arrive_x - self.arrive_x) // (50 // self.Straight_size)
+        self.move_y = (self.arrive_y - self.arrive_y) // (50 // self.Straight_size)
 
         if Ball.image is None:
             Ball.image = load_image('Ball.png')
 
     def update(self):
         if self.mode == 'Straight':
-            self.size += 2.8
-            self.x += 0
-            self.y -= self.size * 0.4
+            self.size += self.Straight_size
+            self.x += self.move_x # 0
+            self.y -= self.move_y # self.size * 0.4
         elif self.mode == 'Curve':
             self.size += 2
             self.x -= 7
             self.y -= self.size * 0.2
             if self.y < 360:
-                self.size += 3
+                self.size += 1
                 self.x += self.size * 0.15
                 self.y -= self.size * 0.1
         elif self.mode == 'Slider':
@@ -66,7 +77,7 @@ class Ball:
             if self.y < 340:
                 self.x += self.size* 0.18
                 self.y -= self.size * 0.08
-        elif self.mode == 'Nuckle':
+        elif self.mode == 'Knuckle':
             self.size += 1.5
             self.x += 2
             self.y -= self.size * 0.2
