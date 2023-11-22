@@ -4,9 +4,7 @@ import random
 import game_framework
 import game_world
 import play_mode_easy
-# import strike_sign
 from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
-# from strike_sign import Strikesign
 
 # 변화구 : 타이밍, 위치, 움직임
 # 타이밍 : 공 사이즈 56 전후!
