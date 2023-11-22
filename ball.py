@@ -38,7 +38,7 @@ class Ball:
             self.arrive_x, self.arrive_y = random.randint(545, 725), random.randint(110, 325)
         else:
             self.arrive_x, self.arrive_y = random.randint(500, 800), random.randint(150, 400)
-
+        print(self.arrive_x, self.arrive_y)
         self.start_point_x = 609
         self.start_point_y = 435
 
@@ -51,8 +51,9 @@ class Ball:
         self.Knuckle_size = 1.5
 
         # Straight 직구
-        self.move_x = (self.arrive_x - self.arrive_x) // (50 // self.Straight_size)
-        self.move_y = (self.arrive_y - self.arrive_y) // (50 // self.Straight_size)
+        self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Straight_size)
+        self.move_y = (self.start_point_y - self.arrive_y) // (50 // self.Straight_size)
+        print(self.move_x, self.move_y)
 
         if Ball.image is None:
             Ball.image = load_image('Ball.png')
@@ -88,14 +89,14 @@ class Ball:
 
 
         if self.size > 64:
-            print(self.x, self.y, self.size)
+            # print(self.x, self.y, self.size)
             print("remove")
 
             game_world.remove_object(self)
 
         if self.strike_sign_on:
             if get_time() - self.wait_time > 0.5:
-                print(self.strike_sign_on)
+                # print(self.strike_sign_on)
                 game_world.remove_object(self.strike_sign)
                 self.strike_sign_on = False
 
