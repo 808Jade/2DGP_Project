@@ -31,29 +31,30 @@ class Ball:
 
         self.build_behavior_tree()
 
-        self.mode = 'Nuckle'
+        self.mode = 'Straight'
 
         if Ball.image is None:
             Ball.image = load_image('Ball.png')
 
     def update(self):
         if self.mode == 'Straight':
-            self.size += 3
+            self.size += 2.8
             self.x += 0
-            self.y -= 10
+            self.y -= self.size * 0.4
         elif self.mode == 'Curve':
             self.size += 2
             self.x -= 7
             self.y -= self.size * 0.2
-            if self.y < 380:
+            if self.y < 360:
+                self.size += 3
                 self.x += self.size * 0.15
                 self.y -= self.size * 0.1
         elif self.mode == 'Slider':
             self.size += 2
             self.x += 0
             self.y -= 10
-            if self.y < 380:
-                self.x += self.size * 0.18
+            if self.y < 340:
+                self.x += self.size* 0.18
                 self.y -= self.size * 0.08
         elif self.mode == 'Nuckle':
             self.size += 1.5
@@ -78,9 +79,9 @@ class Ball:
                 self.strike_sign_on = False
 
         if self.hit_sign:
-            self.x -= self.hit_pos * 3
-            self.y += 45
             self.size -= 7
+            self.x -= self.hit_pos * 3
+            self.y += 1.5 * self.size
             if self.size < 10:
                 game_world.remove_object(self)
 
