@@ -48,8 +48,18 @@ class Ball:
         self.Knuckle_size = 1.5
 
         # Straight 직구
-        self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Straight_size)
-        self.move_y = (self.start_point_y - self.arrive_y) // (50 // self.Straight_size)
+        if self.mode == 'Straight':
+            self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Straight_size)
+            self.move_y = (self.start_point_y - self.arrive_y) // (50 // self.Straight_size)
+        elif self.mode == 'Curve':
+            self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Curve_size)
+            self.move_y = (self.start_point_y - self.arrive_y) // (50 // self.Curve_size)
+        elif self.mode == 'Slider':
+            self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Slider_size)
+            self.move_y = (self.start_point_y - self.arrive_y) // (50 // self.Slider_size)
+        elif self.mode == 'Knuckle':
+            self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Knuckle_size)
+            self.move_y = (self.start_point_y - self.arrive_y) // (50 // self.Knuckle_size)
         print(self.move_x, self.move_y)
 
         if Ball.image is None:
@@ -108,6 +118,7 @@ class Ball:
 
     def draw(self):
         self.image.draw(self.x, self.y, self.size, self.size)
+        draw_rectangle(self.x - 20, self.y - 20, self.x+20,self.y+20)
 
     # ------------------------------------------------------------------------------------
     def is_ball_reach(self):
@@ -146,13 +157,13 @@ class Ball:
         pass
 
     def print_strike_sign(self):
-        if not self.strike_sign_on:
-            self.strike_sign_on_count += 1
-            if self.strike_sign_on_count == 2:
-                game_world.add_object(self.strike_sign, 3)
-                self.strike_sign_on_count = 0
-                self.strike_sign_on = True
-        # self.strike_sign.sign_on()
+        # if not self.strike_sign_on:
+        #     self.strike_sign_on_count += 1
+        #     if self.strike_sign_on_count == 2:
+        #         game_world.add_object(self.strike_sign, 3)
+        #         self.strike_sign_on_count = 0
+        #         self.strike_sign_on = True
+        self.strike_sign.sign_on()
         print("STRIKE!")
         return BehaviorTree.SUCCESS
 
@@ -202,16 +213,17 @@ class Strikesign:
     def __init__(self):
         self.image = load_image('STRIKE.png')
         self.wait_time = 0.0
+        self.duration = 1.0  # Set the duration for the sign to be visible
 
     def sign_on(self):
         self.wait_time = get_time()
-        print(self.wait_time, get_time())
-        self.image.draw(650, 600, 190, 100)
-        if get_time() - self.wait_time > 1:
-            game_world.remove_object(self)
+        print("SIGNON!!!")
 
     def update(self):
-        pass
+        elapsed_time = get_time() - self.wait_time
+        if 0 <= elapsed_time <= self.duration:
+            self.image.draw(650, 600, 190, 100)
+            print("UPDATE!!!")
 
     def draw(self):
-        self.image.draw(650, 600, 190, 100)
+        pass

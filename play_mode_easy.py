@@ -7,6 +7,7 @@ from hitter import Hitter
 from pitcher import Pitcher
 from playground import Playground
 from strike_zone import Strike_zone
+from ball import Strikesign
 
 
 def handle_events():
@@ -25,6 +26,7 @@ def init():
     global hitter
     global pitcher
     global strike_zone
+    global strike_sign
 
     playground = Playground()
     game_world.add_object(playground, 0)
@@ -37,6 +39,9 @@ def init():
 
     strike_zone = Strike_zone()
     game_world.add_object(strike_zone, 3)
+
+    # strike_sign = Strikesign()
+    # game_world.add_object(Strikesign, 2)
 
 
 def finish():
