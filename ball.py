@@ -7,9 +7,11 @@ import play_mode_easy
 from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
 from sign import Strikesign, Ballsign
 
-# 변화구 : 타이밍, 위치, 움직임
-# 타이밍 : 공 사이즈 56 전후!
-# 위치 : 공 사이즈 56일 때의 공의 x, y 좌표
+
+# ============= 타격 정책 =============
+# Ball.size 가 60 일 때, Strike / Ball 판정
+# Ball.size 가 48 이상 부터, 타격 가능
+# Ball.x / Ball.y 의 +- 20, 타격 가능
 
 
 class Ball:
@@ -20,22 +22,18 @@ class Ball:
         self.size = 10
         self.wait_time = 0.0
 
-        self.strike_sign_on = False
-        self.strike_sign_on_count = 0
-
         self.hit_sign = False
         self.hit_pos = 0
 
-
         self.build_behavior_tree()
 
-        # 공 객체가 생성될 때마다, 던져질 좌표, 구질 생성 !
-        self.strike_or_ball = False # random.choice([True, False])  # True == strike / False == Ball
+        # 공 객체가 생성될 때마다, 던져질 좌표, 구질 결정
+        self.strike_or_ball = random.choice([True, False])  # True == strike / False == Ball
         if self.strike_or_ball:
             self.arrive_x, self.arrive_y = random.randint(545, 725), random.randint(110, 325)
         else:
             self.arrive_x, self.arrive_y = random.randint(500, 800), random.randint(150, 400)
-        print(self.arrive_x, self.arrive_y)
+
         self.start_point_x = 609
         self.start_point_y = 435
 
@@ -46,7 +44,6 @@ class Ball:
         self.Slider_size = 2
         self.Knuckle_size = 1.5
 
-        # Straight 직구
         if self.mode == 'Straight':
             self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Straight_size)
             self.move_y = (self.start_point_y - self.arrive_y) // (50 // self.Straight_size)
@@ -95,11 +92,6 @@ class Ball:
         if self.size > 64:
             game_world.remove_object(self)
 
-        if self.strike_sign_on:
-            if get_time() - self.wait_time > 0.5:
-                game_world.remove_object(self.strike_sign)
-                self.strike_sign_on = False
-
         if self.hit_sign:
             self.size -= 7
             self.x -= self.hit_pos * 3
@@ -111,9 +103,9 @@ class Ball:
 
     def draw(self):
         self.image.draw(self.x, self.y, self.size, self.size)
-        draw_rectangle(self.x - 20, self.y - 20, self.x+20,self.y+20)
+        draw_rectangle(self.x - 20, self.y - 20, self.x + 20, self.y + 20)
 
-# --------------------------------------Behavior-Tree-------------------------------------------------
+# ----------------------------------------Behavior-Tree----------------------------------------
     def is_ball_reach(self):
         if self.size > 60:
             return BehaviorTree.SUCCESS
@@ -121,7 +113,7 @@ class Ball:
             return BehaviorTree.FAIL
 
     def is_ball_reach_for_hit(self):
-        if self.size > 50:
+        if self.size > 48:
             return BehaviorTree.SUCCESS
         else:
             return BehaviorTree.FAIL
@@ -139,8 +131,8 @@ class Ball:
             return BehaviorTree.FAIL
 
     def is_nice_swing_pos(self):
-        if self.x - 30 < play_mode_easy.hitter.swing_mem_x < self.x + 30 \
-                and self.y - 30 < play_mode_easy.hitter.swing_mem_y < self.y + 30:
+        if self.x - 20 < play_mode_easy.hitter.swing_mem_x < self.x + 20 \
+                and self.y - 20 < play_mode_easy.hitter.swing_mem_y < self.y + 20:
             return BehaviorTree.SUCCESS
         else:
             return BehaviorTree.FAIL
@@ -149,19 +141,16 @@ class Ball:
         ball_sign = Ballsign()
         game_world.add_object(ball_sign, 2)
         ball_sign.sign_on()
-        print("BALL !")
         return BehaviorTree.SUCCESS
 
     def print_strike_sign(self):
         strike_sign = Strikesign()
         game_world.add_object(strike_sign, 2)
         strike_sign.sign_on()
-        print("STRIKE!")
         return BehaviorTree.SUCCESS
 
-    def hit_action(self):
+    def hit_action(self):  # 공을 때린 X 좌표의 위치에 따라 날아가는 방향 결정
         swing_x = play_mode_easy.hitter.swing_mem_x
-        swing_y = play_mode_easy.hitter.swing_mem_y
 
         self.hit_sign = True
         self.hit_pos = swing_x - self.x
@@ -187,4 +176,4 @@ class Ball:
         root = SEL_ball_or_strike_or_hit = Selector('볼/스트라이크/타격', SEQ_hit, SEQ_strike, SEQ_ball, SEQ_Fly)
 
         self.bt = BehaviorTree(root)
-# --------------------------------------------------------------------------------------------------
+# ----------------------------------------Behavior-Tree----------------------------------------
