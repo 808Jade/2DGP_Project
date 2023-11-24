@@ -5,6 +5,7 @@ import game_framework
 import game_world
 import play_mode_easy
 from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
+from strike_sign import Strikesign
 
 # 변화구 : 타이밍, 위치, 움직임
 # 타이밍 : 공 사이즈 56 전후!
@@ -19,7 +20,7 @@ class Ball:
         self.size = 10
         self.wait_time = 0.0
 
-        self.strike_sign = Strikesign()
+        # self.strike_sign = Strikesign()
         self.strike_sign_on = False
         self.strike_sign_on_count = 0
 
@@ -60,7 +61,6 @@ class Ball:
         elif self.mode == 'Knuckle':
             self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Knuckle_size)
             self.move_y = (self.start_point_y - self.arrive_y) // (50 // self.Knuckle_size)
-        print(self.move_x, self.move_y)
 
         if Ball.image is None:
             Ball.image = load_image('Ball.png')
@@ -68,8 +68,8 @@ class Ball:
     def update(self):
         if self.mode == 'Straight':
             self.size += self.Straight_size
-            self.x += self.move_x # 0
-            self.y -= self.move_y # self.size * 0.4
+            self.x += self.move_x
+            self.y -= self.move_y
         elif self.mode == 'Curve':
             self.size += self.Curve_size
             self.x -= self.move_x
@@ -94,11 +94,7 @@ class Ball:
                 if self.size > 36:
                     self.x -= self.size * 0.2
 
-
         if self.size > 64:
-            # print(self.x, self.y, self.size)
-            print("remove")
-
             game_world.remove_object(self)
 
         if self.strike_sign_on:
@@ -157,13 +153,9 @@ class Ball:
         pass
 
     def print_strike_sign(self):
-        # if not self.strike_sign_on:
-        #     self.strike_sign_on_count += 1
-        #     if self.strike_sign_on_count == 2:
-        #         game_world.add_object(self.strike_sign, 3)
-        #         self.strike_sign_on_count = 0
-        #         self.strike_sign_on = True
-        self.strike_sign.sign_on()
+        strike_sign = Strikesign()
+        game_world.add_object(strike_sign, 2)
+        strike_sign.sign_on()
         print("STRIKE!")
         return BehaviorTree.SUCCESS
 
@@ -207,23 +199,3 @@ class Ballsign:
 
     def draw(self):
         self.image.draw(400, 428, 70, 70)
-
-
-class Strikesign:
-    def __init__(self):
-        self.image = load_image('STRIKE.png')
-        self.wait_time = 0.0
-        self.duration = 1.0  # Set the duration for the sign to be visible
-
-    def sign_on(self):
-        self.wait_time = get_time()
-        print("SIGNON!!!")
-
-    def update(self):
-        elapsed_time = get_time() - self.wait_time
-        if 0 <= elapsed_time <= self.duration:
-            self.image.draw(650, 600, 190, 100)
-            print("UPDATE!!!")
-
-    def draw(self):
-        pass
