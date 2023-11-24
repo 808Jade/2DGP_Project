@@ -5,7 +5,7 @@ import game_framework
 import game_world
 import play_mode_easy
 from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
-from strike_sign import Strikesign
+from sign import Strikesign, Ballsign
 
 # 변화구 : 타이밍, 위치, 움직임
 # 타이밍 : 공 사이즈 56 전후!
@@ -20,19 +20,17 @@ class Ball:
         self.size = 10
         self.wait_time = 0.0
 
-        # self.strike_sign = Strikesign()
         self.strike_sign_on = False
         self.strike_sign_on_count = 0
 
         self.hit_sign = False
         self.hit_pos = 0
 
-        self.ball_sign = Ballsign()
 
         self.build_behavior_tree()
 
         # 공 객체가 생성될 때마다, 던져질 좌표, 구질 생성 !
-        self.strike_or_ball = random.choice([True, False])  # True == strike / False == Ball
+        self.strike_or_ball = False # random.choice([True, False])  # True == strike / False == Ball
         if self.strike_or_ball:
             self.arrive_x, self.arrive_y = random.randint(545, 725), random.randint(110, 325)
         else:
@@ -99,7 +97,6 @@ class Ball:
 
         if self.strike_sign_on:
             if get_time() - self.wait_time > 0.5:
-                # print(self.strike_sign_on)
                 game_world.remove_object(self.strike_sign)
                 self.strike_sign_on = False
 
@@ -116,7 +113,7 @@ class Ball:
         self.image.draw(self.x, self.y, self.size, self.size)
         draw_rectangle(self.x - 20, self.y - 20, self.x+20,self.y+20)
 
-    # ------------------------------------------------------------------------------------
+# --------------------------------------Behavior-Tree-------------------------------------------------
     def is_ball_reach(self):
         if self.size > 60:
             return BehaviorTree.SUCCESS
@@ -149,8 +146,11 @@ class Ball:
             return BehaviorTree.FAIL
 
     def print_ball_sign(self):
+        ball_sign = Ballsign()
+        game_world.add_object(ball_sign, 2)
+        ball_sign.sign_on()
         print("BALL !")
-        pass
+        return BehaviorTree.SUCCESS
 
     def print_strike_sign(self):
         strike_sign = Strikesign()
@@ -166,7 +166,6 @@ class Ball:
         self.hit_sign = True
         self.hit_pos = swing_x - self.x
         return BehaviorTree.SUCCESS
-    # -----------------------------------------------------------------------------------------
 
     def build_behavior_tree(self):
         c1 = Condition('스윙 하였는가?', self.is_swing)
@@ -188,14 +187,4 @@ class Ball:
         root = SEL_ball_or_strike_or_hit = Selector('볼/스트라이크/타격', SEQ_hit, SEQ_strike, SEQ_ball, SEQ_Fly)
 
         self.bt = BehaviorTree(root)
-
-
-class Ballsign:
-    def __init__(self):
-        self.image = load_image('BALL_sign.png')
-
-    def update(self):
-        pass
-
-    def draw(self):
-        self.image.draw(400, 428, 70, 70)
+# --------------------------------------------------------------------------------------------------
