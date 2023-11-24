@@ -7,8 +7,9 @@ import play_mode_easy
 from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
 from sign import Strikesign, Ballsign
 
+# EASY MODE #
 
-# ============= 타격 정책 =============
+# 타격 정책 #
 # Ball.size 가 60 일 때, Strike / Ball 판정
 # Ball.size 가 48 이상 부터, 타격 가능
 # Ball.x / Ball.y 의 +- 20, 타격 가능
