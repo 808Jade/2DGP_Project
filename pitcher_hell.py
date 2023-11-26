@@ -1,5 +1,5 @@
 from pico2d import *
-from ball import Ball
+from ball_easy import Ball_EASY
 
 # ---state event check
 
@@ -122,7 +122,7 @@ class Pitcher:
         self.state_machine.start()
 
     def pitching(self):
-        ball = Ball(self.x - 30, self.y + 25)
+        ball = Ball_EASY(self.x - 30, self.y + 25)
         game_world.add_object(ball, 2)
 
     def update(self):

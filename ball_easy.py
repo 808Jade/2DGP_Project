@@ -19,7 +19,7 @@ from sign import Strikesign, Ballsign
 # Ball.x / Ball.y 의 +- 20, 타격 가능
 
 
-class Ball:
+class Ball_EASY:
     image = None
 
     def __init__(self, x=440, y=380):
@@ -64,8 +64,8 @@ class Ball:
             self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Knuckle_size)
             self.move_y = (self.start_point_y - self.arrive_y) // (50 // self.Knuckle_size)
 
-        if Ball.image is None:
-            Ball.image = load_image('Ball.png')
+        if Ball_EASY.image is None:
+            Ball_EASY.image = load_image('Ball.png')
 
     def update(self):
         if self.mode == 'Straight':
