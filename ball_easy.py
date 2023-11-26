@@ -112,7 +112,6 @@ class Ball_EASY:
 
     def draw(self):
         self.image.draw(self.x, self.y, self.size, self.size)
-        draw_rectangle(self.x - 20, self.y - 20, self.x + 20, self.y + 20)
 
 # ----------------------------------------Behavior-Tree----------------------------------------
     def is_ball_reach(self):

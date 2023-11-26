@@ -9,8 +9,6 @@ from playground_hell import Playground
 from strike_zone import Strike_zone
 
 
-# boy = None
-
 def handle_events():
     events = get_events()
     for event in events:

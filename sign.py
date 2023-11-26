@@ -2,10 +2,6 @@ import game_world
 from pico2d import *
 
 
-def sign_time_out(e):
-    return e[0] == 'SWING_TIME_OUT'
-
-
 class Ballsign:
     def __init__(self):
         self.x, self.y = 650, 600

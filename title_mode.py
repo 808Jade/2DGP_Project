@@ -42,9 +42,6 @@ def render_world():
     hard.draw(196, 210, hard.w // 5, hard.h // 5)
     hell.draw(196, 140, hell.w // 5, hell.h // 5)
 
-    # hard.draw()
-    # hell.draw()
-
 
 def handle_events():
     global x, y

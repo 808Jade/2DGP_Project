@@ -1,6 +1,5 @@
 from pico2d import *
 import game_framework
-
 import game_world
 import title_mode
 from hitter import Hitter
@@ -47,7 +46,6 @@ def finish():
 
 def update():
     game_world.update()
-    # delay(0.1)
 
 
 def draw():
