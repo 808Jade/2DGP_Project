@@ -36,7 +36,7 @@ def init():
     game_world.add_object(pitcher, 1)
 
     strike_zone = Strike_zone()
-    game_world.add_object(strike_zone, 1)
+    game_world.add_object(strike_zone, 3)
 
 
 def finish():
