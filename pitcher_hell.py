@@ -1,16 +1,21 @@
 from pico2d import *
-from ball_easy import Ball_EASY
+import game_world
+from ball_hell import Ball_HELL
+
 
 # ---state event check
 
 def entering_time_out(e):
     return e[0] == 'ENTERING_TIME_OUT'
 
+
 def idle_time_out(e):
     return e[0] == 'IDLE_TIME_OUT'
 
+
 def pitching_time_out(e):
     return e[0] == 'PITCHING_TIME_OUT'
+
 
 # ---state event check
 
@@ -18,8 +23,7 @@ def pitching_time_out(e):
 class Entering:
     @staticmethod
     def enter(pitcher, e):
-        print("Entering enter")
-        pitcher.wait_time = get_time()
+        pass
 
     @staticmethod
     def exit(pitcher, e):
@@ -31,12 +35,13 @@ class Entering:
         pitcher.dir -= 0.01
         pitcher.x += pitcher.dir * 100
         pitcher.action = 5
-        if get_time() - pitcher.wait_time > 2:
+        if pitcher.x <= 639.0:
             pitcher.state_machine.handle_event(('ENTERING_TIME_OUT', 0))
 
     @staticmethod
     def draw(pitcher):
-        pitcher.image.clip_composite_draw(pitcher.frame * 128, pitcher.action * 128, 128, 128, 0,'h',pitcher.x, pitcher.y, 80, 80)
+        pitcher.image.clip_composite_draw(pitcher.frame * 128, pitcher.action * 128, 128, 128, 0, 'h', pitcher.x,
+                                          pitcher.y, 80, 80)
 
 
 class Idle:
@@ -64,6 +69,7 @@ class Pitching:
     @staticmethod
     def enter(pitcher, e):
         pitcher.wait_time = get_time()
+        pitcher.pitching()
 
     @staticmethod
     def exit(hitter, e):
@@ -86,7 +92,7 @@ class StateMachine:
         self.pitcher = pitcher
         self.cur_state = Entering
         self.transitions = {
-            Idle: {idle_time_out : Pitching},
+            Idle: {idle_time_out: Pitching},
             Entering: {entering_time_out: Idle},
             Pitching: {pitching_time_out: Idle}
         }
@@ -122,7 +128,7 @@ class Pitcher:
         self.state_machine.start()
 
     def pitching(self):
-        ball = Ball_EASY(self.x - 30, self.y + 25)
+        ball = Ball_HELL(self.x + 30, self.y)
         game_world.add_object(ball, 2)
 
     def update(self):

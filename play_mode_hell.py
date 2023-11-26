@@ -25,7 +25,7 @@ def handle_events():
 def init():
     global playground
     global hitter
-    global pitcher_hell
+    global pitcher
     global strke_zone
 
     playground = Playground()
@@ -34,8 +34,8 @@ def init():
     hitter = Hitter()
     game_world.add_object(hitter, 1)
 
-    pitcher_hell = Pitcher()
-    game_world.add_object(pitcher_hell, 1)
+    pitcher = Pitcher()
+    game_world.add_object(pitcher, 1)
 
     strike_zone = Strike_zone()
     game_world.add_object(strike_zone, 1)

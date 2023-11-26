@@ -25,7 +25,6 @@ def init():
     global hitter
     global pitcher
     global strike_zone
-    global strike_sign
 
     playground = Playground()
     game_world.add_object(playground, 0)

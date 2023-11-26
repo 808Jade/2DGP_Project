@@ -7,11 +7,14 @@ import game_world
 def entering_time_out(e):
     return e[0] == 'ENTERING_TIME_OUT'
 
+
 def idle_time_out(e):
     return e[0] == 'IDLE_TIME_OUT'
 
+
 def pitching_time_out(e):
     return e[0] == 'PITCHING_TIME_OUT'
+
 
 # ---state event check
 
@@ -36,7 +39,8 @@ class Entering:
 
     @staticmethod
     def draw(pitcher):
-        pitcher.image.clip_composite_draw(pitcher.frame * 128, pitcher.action * 128, 128, 128, 0,'h',pitcher.x, pitcher.y, 80, 80)
+        pitcher.image.clip_composite_draw(pitcher.frame * 128, pitcher.action * 128, 128, 128, 0, 'h', pitcher.x,
+                                          pitcher.y, 80, 80)
 
 
 class Idle:
@@ -87,7 +91,7 @@ class StateMachine:
         self.pitcher = pitcher
         self.cur_state = Entering
         self.transitions = {
-            Idle: {idle_time_out : Pitching},
+            Idle: {idle_time_out: Pitching},
             Entering: {entering_time_out: Idle},
             Pitching: {pitching_time_out: Idle}
         }
