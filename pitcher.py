@@ -121,7 +121,7 @@ class Pitcher:
         self.image = load_image('penguin.png')
         self.state_machine = StateMachine(self)
         self.state_machine.start()
-        self.current_mode = 'easy'
+        self.current_mode = 'NULL'
 
     def pitching(self):
         if self.current_mode == 'easy':

@@ -32,6 +32,8 @@ class Ball:
 
         self.build_behavior_tree()
 
+        self.swinged = False
+
         # 공 객체가 생성될 때마다, 던져질 좌표, 구질 결정
         self.strike_or_ball = random.choice([True, False])  # True == strike / False == Ball
         if self.strike_or_ball:
@@ -135,6 +137,14 @@ class Ball:
         else:
             return BehaviorTree.FAIL
 
+    def is_swinged(self):
+        if play_mode_easy.hitter.swing_x != 0:
+            self.swinged = True
+        if self.swinged == True:
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
+
     def is_nice_swing_pos(self):
         if self.x - 20 < play_mode_easy.hitter.swing_mem_x < self.x + 20 \
                 and self.y - 20 < play_mode_easy.hitter.swing_mem_y < self.y + 20:
@@ -173,12 +183,15 @@ class Ball:
         a2 = Action('Print Strike sign', self.print_strike_sign)
         SEQ_strike = Sequence('Strike', c4, c5, a2)
 
+        c6 = Condition('스윙 하였었는가?', self.is_swinged)
+        SEQ_strike_s = Sequence('Strike', c6, c4, a2)
+
         a3 = Action('Print Ball sign', self.print_ball_sign)
         SEQ_ball = Sequence('Ball', c4, a3)
 
         SEQ_Fly = Sequence('Flying')
 
-        root = SEL_ball_or_strike_or_hit = Selector('볼/스트라이크/타격', SEQ_hit, SEQ_strike, SEQ_ball, SEQ_Fly)
+        root = SEL_ball_or_strike_or_hit = Selector('볼/스트라이크/타격', SEQ_hit, SEQ_strike, SEQ_strike_s, SEQ_ball, SEQ_Fly)
 
         self.bt = BehaviorTree(root)
 # ----------------------------------------Behavior-Tree----------------------------------------
