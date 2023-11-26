@@ -1,6 +1,6 @@
 from pico2d import *
 import game_world
-from ball_easy import Ball_EASY
+
 
 # ---state event check
 
@@ -125,13 +125,16 @@ class Pitcher:
 
     def pitching(self):
         if self.current_mode == 'easy':
+            from ball_easy import Ball_EASY
             ball = Ball_EASY(self.x - 30, self.y + 25)
             game_world.add_object(ball, 2)
         elif self.current_mode == 'normal':
-            ball = Ball_EASY(self.x - 30, self.y + 25)
+            from ball_normal import Ball_NORMAL
+            ball = Ball_NORMAL(self.x - 30, self.y + 25)
             game_world.add_object(ball, 2)
         elif self.current_mode == 'hard':
-            ball = Ball_EASY(self.x - 30, self.y + 25)
+            from ball_hard import Ball_HARD
+            ball = Ball_HARD(self.x - 30, self.y + 25)
             game_world.add_object(ball, 2)
 
     def update(self):

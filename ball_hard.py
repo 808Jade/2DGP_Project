@@ -2,16 +2,17 @@ from pico2d import *
 import random
 import game_framework
 import game_world
-import play_mode_easy # , play_mode_normal, play_mode_hard
+import play_mode_hard
 from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
 from sign import Strikesign, Ballsign
 
+
 # ========================================================================= #
-# =============================== EASY MODE =============================== #
+# =============================== HARD MODE =============================== #
 # ========================================================================= #
 
 # 송구 정책 #
-# 위치와 속도가 정해진 "직구"만 투구
+# 위치와 속도가 정해지지 않은 변화구 투구
 
 # 타격 정책 #
 # Ball.size 가 60 일 때, Strike / Ball 판정
@@ -19,7 +20,7 @@ from sign import Strikesign, Ballsign
 # Ball.x / Ball.y 의 +- 20, 타격 가능
 
 
-class Ball_EASY:
+class Ball_HARD:
     image = None
 
     def __init__(self, x=440, y=380):
@@ -34,8 +35,6 @@ class Ball_EASY:
 
         self.swinged = False
 
-        self.arrive_x = 635
-        self.arrive_y = 217
         # 공 객체가 생성될 때마다, 던져질 좌표, 구질 결정
         self.strike_or_ball = random.choice([True, False])  # True == strike / False == Ball
         if self.strike_or_ball:
@@ -46,7 +45,7 @@ class Ball_EASY:
         self.start_point_x = 609
         self.start_point_y = 435
 
-        self.mode = random.choice(['Straight'])
+        self.mode = random.choice(['Straight', 'Curve', 'Slider', 'Knuckle'])
 
         self.Straight_size = 2.8
         self.Curve_size = 2
@@ -66,8 +65,8 @@ class Ball_EASY:
             self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Knuckle_size)
             self.move_y = (self.start_point_y - self.arrive_y) // (50 // self.Knuckle_size)
 
-        if Ball_EASY.image is None:
-            Ball_EASY.image = load_image('Ball.png')
+        if Ball_HARD.image is None:
+            Ball_HARD.image = load_image('Ball.png')
 
     def update(self):
         if self.mode == 'Straight':
@@ -134,13 +133,13 @@ class Ball_EASY:
             return BehaviorTree.FAIL
 
     def is_swing(self):
-        if play_mode_easy.hitter.swing_x != 0:
+        if play_mode_hard.hitter.swing_x != 0:
             return BehaviorTree.SUCCESS
         else:
             return BehaviorTree.FAIL
 
     def is_swinged(self):
-        if play_mode_easy.hitter.swing_x != 0:
+        if play_mode_hard.hitter.swing_x != 0:
             self.swinged = True
         if self.swinged == True:
             return BehaviorTree.SUCCESS
@@ -148,8 +147,8 @@ class Ball_EASY:
             return BehaviorTree.FAIL
 
     def is_nice_swing_pos(self):
-        if self.x - 20 < play_mode_easy.hitter.swing_mem_x < self.x + 20 \
-                and self.y - 20 < play_mode_easy.hitter.swing_mem_y < self.y + 20:
+        if self.x - 20 < play_mode_hard.hitter.swing_mem_x < self.x + 20 \
+                and self.y - 20 < play_mode_hard.hitter.swing_mem_y < self.y + 20:
             return BehaviorTree.SUCCESS
         else:
             return BehaviorTree.FAIL
@@ -167,7 +166,7 @@ class Ball_EASY:
         return BehaviorTree.SUCCESS
 
     def hit_action(self):  # 공을 때린 X 좌표의 위치에 따라 날아가는 방향 결정
-        swing_x = play_mode_easy.hitter.swing_mem_x
+        swing_x = play_mode_hard.hitter.swing_mem_x
 
         self.hit_sign = True
         self.hit_pos = swing_x - self.x
@@ -197,5 +196,3 @@ class Ball_EASY:
 
         self.bt = BehaviorTree(root)
 # ----------------------------------------Behavior-Tree----------------------------------------
-
-
