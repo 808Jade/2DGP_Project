@@ -48,7 +48,6 @@ def finish():
 
 def update():
     game_world.update()
-    # delay(0.1)
 
 
 def draw():

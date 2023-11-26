@@ -1,8 +1,6 @@
 from pico2d import *
 import game_world
 from ball import Ball
-from hitter import Hitter
-from hitter import *
 
 # ---state event check
 
