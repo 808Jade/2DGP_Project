@@ -1,6 +1,6 @@
 from pico2d import *
 import game_world
-from ball import *
+from ball import Ball
 from hitter import Hitter
 from hitter import *
 
@@ -123,10 +123,18 @@ class Pitcher:
         self.image = load_image('penguin.png')
         self.state_machine = StateMachine(self)
         self.state_machine.start()
+        self.current_mode = 'easy'
 
     def pitching(self):
-        ball = Ball(self.x-30, self.y+25)
-        game_world.add_object(ball, 2)
+        if self.current_mode == 'easy':
+            ball = Ball(self.x-30, self.y+25)
+            game_world.add_object(ball, 2)
+        elif self.current_mode == 'normal':
+            ball = Ball(self.x - 30, self.y + 25)
+            game_world.add_object(ball, 2)
+        elif self.current_mode == 'hard':
+            ball = Ball(self.x - 30, self.y + 25)
+            game_world.add_object(ball, 2)
 
     def update(self):
         self.state_machine.update()

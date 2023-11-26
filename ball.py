@@ -6,8 +6,12 @@ import game_world
 import play_mode_easy
 from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
 from sign import Strikesign, Ballsign
+# ========================================================================= #
+# =============================== EASY MODE =============================== #
+# ========================================================================= #
 
-# EASY MODE #
+# 송구 정책 #
+# 위치와 속도가 정해진 "직구"만 투구 (Straight)
 
 # 타격 정책 #
 # Ball.size 가 60 일 때, Strike / Ball 판정

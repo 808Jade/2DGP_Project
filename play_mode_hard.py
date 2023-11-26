@@ -33,6 +33,7 @@ def init():
     game_world.add_object(hitter, 1)
 
     pitcher = Pitcher()
+    pitcher.current_mode = 'hard'
     game_world.add_object(pitcher, 1)
 
     strike_zone = Strike_zone()

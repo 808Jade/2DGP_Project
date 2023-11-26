@@ -25,6 +25,7 @@ def init():
     global hitter
     global pitcher
     global strike_zone
+    global strike_sign
 
     playground = Playground()
     game_world.add_object(playground, 0)
@@ -36,7 +37,7 @@ def init():
     game_world.add_object(pitcher, 1)
 
     strike_zone = Strike_zone()
-    game_world.add_object(strike_zone, 1)
+    game_world.add_object(strike_zone, 3)
 
 
 def finish():
@@ -46,7 +47,6 @@ def finish():
 
 def update():
     game_world.update()
-    # delay(0.1)
 
 
 def draw():

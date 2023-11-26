@@ -1,4 +1,5 @@
 from pico2d import *
+from ball import Ball
 
 # ---state event check
 
@@ -119,6 +120,10 @@ class Pitcher:
         self.image = load_image('penguin.png')
         self.state_machine = StateMachine(self)
         self.state_machine.start()
+
+    def pitching(self):
+        ball = Ball(self.x - 30, self.y + 25)
+        game_world.add_object(ball, 2)
 
     def update(self):
         self.state_machine.update()
