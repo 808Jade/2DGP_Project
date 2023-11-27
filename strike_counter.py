@@ -6,8 +6,8 @@ class Strike_counter:
         self.image_1 = load_image('strike_counter_100.png')
         self.image_2 = load_image('strike_counter_110.png')
         self.image_3 = load_image('strike_counter_111.png')
-        self.x, self.y = 100, 100 # mac 환경이라 좌표 변경 필요함..
-        self.size_x, self.size_y = 200, 100
+        self.x, self.y = 230, 600
+        self.size_x, self.size_y = 280, 150
         self.count = 0
 
     def draw(self):

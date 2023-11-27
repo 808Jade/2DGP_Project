@@ -162,6 +162,7 @@ class Ball_HARD:
         strike_sign = Strikesign()
         game_world.add_object(strike_sign, 2)
         strike_sign.sign_on()
+        play_mode_hard.strike_counter.count += 1
         return BehaviorTree.SUCCESS
 
     def hit_action(self):  # 공을 때린 X 좌표의 위치에 따라 날아가는 방향 결정
