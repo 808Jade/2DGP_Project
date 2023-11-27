@@ -3,6 +3,7 @@ import game_framework
 
 import game_world
 import score_board_mode
+from sign import Outsign
 import title_mode
 from hitter import Hitter
 from pitcher import Pitcher
@@ -54,8 +55,10 @@ def finish():
 def update():
     game_world.update()
     if strike_counter.count >= 3:
-        # strike out animation
-        game_framework.change_mode(score_board_mode)
+        global outsign
+        outsign = Outsign()
+        game_world.add_object(outsign, 2)
+        outsign.sign_on()
 
 
 def draw():

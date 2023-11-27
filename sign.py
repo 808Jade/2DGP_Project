@@ -43,18 +43,18 @@ class Strikesign:
 class Outsign:
     def __init__(self):
         self.x, self.y = 0, 0
-        self.image = load_image('Fire_ball.png')
+        self.image = load_image('out.png')
         self.frame = 0
         self.action = 0
         self.wait_time = 0
 
     def sign_on(self):
         self.wait_time = get_time()
-        self.image.clip_draw()
+        self.image.draw(650, 500, 290, 200)
 
     def update(self):
-        if get_time() - self.wait_time > 1.5:
+        if get_time() - self.wait_time > 2:
             game_framework.change_mode(score_board_mode)
 
     def draw(self):
-        self.image.clip_draw(self.frame , self.action, 0, 0, )
+        self.image.draw(650, 500, 290, 200)
