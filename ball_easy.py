@@ -34,14 +34,10 @@ class Ball_EASY:
 
         self.swinged = False
 
-        self.arrive_x = 635
+        self.arrive_x = 575
         self.arrive_y = 217
         # 공 객체가 생성될 때마다, 던져질 좌표, 구질 결정
-        self.strike_or_ball = random.choice([True, False])  # True == strike / False == Ball
-        if self.strike_or_ball:
-            self.arrive_x, self.arrive_y = random.randint(545, 725), random.randint(110, 325)
-        else:
-            self.arrive_x, self.arrive_y = random.randint(500, 800), random.randint(150, 400)
+        self.strike_or_ball = True # random.choice([True, False])  # True == strike / False == Ball
 
         self.start_point_x = 609
         self.start_point_y = 435

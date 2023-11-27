@@ -44,7 +44,7 @@ class Ball_NORMAL:
         self.start_point_x = 609
         self.start_point_y = 435
 
-        self.mode = random.choice(['Straight', 'Curve', 'Slider', 'Knuckle'])
+        self.mode = random.choice(['Straight'])
 
         self.Straight_size = 2.8
         self.Curve_size = 2
