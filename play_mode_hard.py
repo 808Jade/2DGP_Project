@@ -5,6 +5,7 @@ import title_mode
 from hitter import Hitter
 from pitcher import Pitcher
 from playground import Playground
+from sign import Outsign
 from strike_counter import Strike_counter
 from strike_zone import Strike_zone
 
@@ -51,6 +52,11 @@ def finish():
 
 def update():
     game_world.update()
+    if strike_counter.count >= 3:
+        global outsign
+        outsign = Outsign()
+        game_world.add_object(outsign, 2)
+        outsign.sign_on()
 
 
 def draw():

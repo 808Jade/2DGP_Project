@@ -50,11 +50,11 @@ class Outsign:
 
     def sign_on(self):
         self.wait_time = get_time()
-        self.image.draw(650, 500, 290, 200)
+        self.image.draw(650, 500, 290, 180)
 
     def update(self):
         if get_time() - self.wait_time > 2:
             game_framework.change_mode(score_board_mode)
 
     def draw(self):
-        self.image.draw(650, 500, 290, 200)
+        self.image.draw(650, 500, 290, 180)
