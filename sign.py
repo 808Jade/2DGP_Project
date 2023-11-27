@@ -1,5 +1,8 @@
+import game_framework
 import game_world
 from pico2d import *
+
+import score_board_mode
 
 
 class Ballsign:
@@ -36,3 +39,22 @@ class Strikesign:
 
     def draw(self):
         self.image.draw(650, 600, 190, 100)
+
+class Outsign:
+    def __init__(self):
+        self.x, self.y = 0, 0
+        self.image = load_image('Fire_ball.png')
+        self.frame = 0
+        self.action = 0
+        self.wait_time = 0
+
+    def sign_on(self):
+        self.wait_time = get_time()
+        self.image.clip_draw()
+
+    def update(self):
+        if get_time() - self.wait_time > 1.5:
+            game_framework.change_mode(score_board_mode)
+
+    def draw(self):
+        self.image.clip_draw(self.frame , self.action, 0, 0, )

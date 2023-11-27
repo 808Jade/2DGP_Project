@@ -2,6 +2,7 @@ from pico2d import *
 import game_framework
 
 import game_world
+import score_board_mode
 import title_mode
 from hitter import Hitter
 from pitcher import Pitcher
@@ -52,6 +53,9 @@ def finish():
 
 def update():
     game_world.update()
+    if strike_counter.count >= 3:
+        # strike out animation
+        game_framework.change_mode(score_board_mode)
 
 
 def draw():
