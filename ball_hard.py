@@ -97,7 +97,7 @@ class Ball_HARD:
                 if self.size > 36:
                     self.x -= self.size * 0.2
 
-        if self.size > 64:
+        if self.size > 60:
             game_world.remove_object(self)
 
         if self.hit_sign:

@@ -21,11 +21,4 @@ class Strike_counter:
             self.image_3.draw(self.x, self.y, self.size_x, self.size_y)
 
     def update(self):
-        if self.count == 0:
-            self.image_0.draw(self.x, self.y, self.size_x, self.size_y)
-        elif self.count == 1:
-            self.image_1.draw(self.x, self.y, self.size_x, self.size_y)
-        elif self.count == 2:
-            self.image_2.draw(self.x, self.y, self.size_x, self.size_y)
-        elif self.count == 3:
-            self.image_3.draw(self.x, self.y, self.size_x, self.size_y)
+        pass
