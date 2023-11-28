@@ -38,3 +38,17 @@ def pause(): pass
 
 
 def resume(): pass
+
+
+class Score_calculator:
+    def __init__(self):
+        # self.charging = 0
+        self.hit_x = 0
+        self.hit_y = 0
+        self.ball_x = 0
+        self.ball_y = 0
+        self.ball_size = 0
+        pass
+
+    def culculating(self):
+        pass
