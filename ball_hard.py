@@ -27,6 +27,7 @@ class Ball_HARD:
         self.x, self.y = x, y
         self.size = 10
         self.wait_time = 0.0
+        self.angle = 0
 
         self.hit_sign = False
         self.hit_pos = 0
@@ -100,6 +101,8 @@ class Ball_HARD:
         if self.size > 60:
             game_world.remove_object(self)
 
+        self.angle += 20
+
         if self.hit_sign:
             self.size -= 7
             self.x -= self.hit_pos * 3
@@ -110,7 +113,7 @@ class Ball_HARD:
         self.bt.run()
 
     def draw(self):
-        self.image.draw(self.x, self.y, self.size, self.size)
+        self.image.rotate_draw(math.radians(self.angle), self.x, self.y, self.size, self.size)
 
 # ----------------------------------------Behavior-Tree----------------------------------------
     def is_ball_reach(self):

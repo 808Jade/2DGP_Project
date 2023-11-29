@@ -112,7 +112,6 @@ class Ball_EASY:
 
     def draw(self):
         self.image.rotate_draw(math.radians(self.angle), self.x, self.y, self.size, self.size)
-        # self.image.draw(self.x, self.y, self.size, self.size)
 
 # ----------------------------------------Behavior-Tree----------------------------------------
     def is_ball_reach(self):
