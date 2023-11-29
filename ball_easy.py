@@ -95,7 +95,7 @@ class Ball_EASY:
                 if self.size > 36:
                     self.x -= self.size * 0.2
 
-        if self.size > 60:
+        if self.size > 62:
             game_world.remove_object(self)
 
         if self.hit_sign:
@@ -112,7 +112,7 @@ class Ball_EASY:
 
 # ----------------------------------------Behavior-Tree----------------------------------------
     def is_ball_reach(self):
-        if self.size > 60:
+        if self.size > 62:
             return BehaviorTree.SUCCESS
         else:
             return BehaviorTree.FAIL
