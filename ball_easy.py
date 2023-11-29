@@ -4,6 +4,7 @@ import game_framework
 import game_world
 import play_mode_easy # , play_mode_normal, play_mode_hard
 from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
+from score_board_mode import Score_calculator
 from sign import Strikesign, Ballsign
 
 # ========================================================================= #
@@ -164,9 +165,18 @@ class Ball_EASY:
 
     def hit_action(self):  # 공을 때린 X 좌표의 위치에 따라 날아가는 방향 결정
         swing_x = play_mode_easy.hitter.swing_mem_x
+        swing_y = play_mode_easy.hitter.swing_mem_x
 
         self.hit_sign = True
         self.hit_pos = swing_x - self.x
+        score_calculator = Score_calculator()
+        score_calculator.ball_x = self.arrive_x
+        score_calculator.ball_y = self.arrive_y
+        score_calculator.hit_x = swing_x
+        score_calculator.hit_y = swing_y
+        score_calculator.ball_size = self.size
+        score_calculator.culculating()
+        print(score_calculator.result)
         return BehaviorTree.SUCCESS
 
     def build_behavior_tree(self):
