@@ -28,6 +28,7 @@ def init():
     global pitcher
     global strke_zone
     global strike_counter
+    global outsign, outsign_flag
 
     playground = Playground()
     game_world.add_object(playground, 0)
@@ -44,6 +45,9 @@ def init():
     strike_counter = Strike_counter()
     game_world.add_object(strike_counter, 2)
 
+    outsign = Outsign()
+    outsign_flag = False
+
 
 def finish():
     game_world.clear()
@@ -51,12 +55,12 @@ def finish():
 
 
 def update():
+    global outsign_flag
     game_world.update()
-    if strike_counter.count >= 3:
-        global outsign
-        outsign = Outsign()
+    if strike_counter.count >= 3 and outsign_flag == False:
         game_world.add_object(outsign, 2)
         outsign.sign_on()
+        outsign_flag = True
 
 
 def draw():
