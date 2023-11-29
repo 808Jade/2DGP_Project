@@ -22,13 +22,13 @@ def handle_events():
     for event in events:
         if event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
             game_framework.change_mode(title_mode)
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
+            game_framework.quit()
+
 
 
 def update():
-    global logo_start_time
-    if get_time() - logo_start_time >= 2.0:
-        logo_start_time = get_time()
-        game_framework.change_mode(title_mode)
+    pass
 
 
 def draw():
