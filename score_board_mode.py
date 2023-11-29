@@ -64,6 +64,7 @@ class Score_calculator:
     def culculating(self):
         self.result = ((self.max - abs(self.ball_x - self.hit_x)) + (self.max - abs(self.ball_y - self.hit_y))
                        + (2 * (56 - abs(56 - self.ball_size))))
+        self.result = round(self.result)
         print(f"{abs(self.ball_x - self.hit_x)} // {abs(self.ball_y - self.hit_y)} // {10 * abs(56 - self.ball_size)}")
 
 class Information:
@@ -73,13 +74,12 @@ class Information:
         self.action = 4
 
     def update(self):
-        self.image.clip_draw(self.frame * 1280, self.action * 180 , 530, 75, 100, 100)
+        self.frame = (self.frame + 1) % 4
 
     def handle_event(self):
         pass
 
     def draw(self):
-        self.image.clip_draw(self.frame * 1280, self.action * 180 , 530, 75, 100, 100)
+        self.image.clip_draw(self.action * 1280, self.frame * 180 , 530, 75, 100, 100)
 
-        self.image.draw(100,100)
         # self.image.clip_draw(self.frame * 530, self.action * 75, 530, 75, 100, 100)

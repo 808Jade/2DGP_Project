@@ -54,6 +54,7 @@ class Outsign:
 
     def update(self):
         if get_time() - self.wait_time > 2:
+            game_world.remove_object(self)
             game_framework.change_mode(score_board_mode)
 
     def draw(self):
