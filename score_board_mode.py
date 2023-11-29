@@ -73,12 +73,13 @@ class Information:
         self.action = 4
 
     def update(self):
-        print("1")
-        self.image.clip_draw(self.frame * 530, self.action * 75, 530, 75, 100, 100)
+        self.image.clip_draw(self.frame * 1280, self.action * 180 , 530, 75, 100, 100)
 
     def handle_event(self):
         pass
 
     def draw(self):
+        self.image.clip_draw(self.frame * 1280, self.action * 180 , 530, 75, 100, 100)
+
         self.image.draw(100,100)
         # self.image.clip_draw(self.frame * 530, self.action * 75, 530, 75, 100, 100)

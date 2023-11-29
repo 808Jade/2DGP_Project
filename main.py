@@ -3,8 +3,8 @@ import game_framework
 
 import logo_mode
 import title_mode
-import play_mode_easy
-import score_board_mode as start_mode
+import play_mode_easy as start_mode
+import score_board_mode
 
 open_canvas(1280, 720)
 game_framework.run(start_mode)
