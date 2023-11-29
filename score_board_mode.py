@@ -1,5 +1,6 @@
 import game_framework
 from pico2d import *
+from sdl2 import SDL_KEYDOWN, SDLK_SPACE
 
 import game_world
 import title_mode
@@ -15,16 +16,19 @@ def init():
 def finish():
     game_world.clear()
 
-
 def handle_events():
     events = get_events()
-    pass
+    for event in events:
+        if event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+            game_framework.change_mode(title_mode)
 
 
 def update():
     global logo_start_time
     if get_time() - logo_start_time >= 2.0:
         logo_start_time = get_time()
+        game_framework.change_mode(title_mode)
+    if SDL_KEYDOWN == SDLK_SPACE:
         game_framework.change_mode(title_mode)
 
 
