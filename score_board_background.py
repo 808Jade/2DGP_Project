@@ -1,9 +1,9 @@
 from pico2d import *
 
 
-class Playground:
+class ScoreBoardBackground:
     def __init__(self):
-        self.image = load_image('background_play.png')
+        self.image = load_image('score_board.png')
         self.x = 640
         self.y = 360
 
