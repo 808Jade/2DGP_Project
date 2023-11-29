@@ -165,7 +165,7 @@ class Ball_EASY:
 
     def hit_action(self):  # 공을 때린 X 좌표의 위치에 따라 날아가는 방향 결정
         swing_x = play_mode_easy.hitter.swing_mem_x
-        swing_y = play_mode_easy.hitter.swing_mem_x
+        swing_y = play_mode_easy.hitter.swing_mem_y
 
         self.hit_sign = True
         self.hit_pos = swing_x - self.x

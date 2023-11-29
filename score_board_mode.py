@@ -59,4 +59,4 @@ class Score_calculator:
     def culculating(self):
         self.result = ((self.max - abs(self.ball_x - self.hit_x)) + (self.max - abs(self.ball_y - self.hit_y))
                        + (2 * (56 - abs(56 - self.ball_size))))
-        print(f"{abs(self.ball_x - self.hit_x)} // {abs(self.ball_y - self.hit_y)} // {abs(56 - self.ball_size)}")
+        print(f"{abs(self.ball_x - self.hit_x)} // {abs(self.ball_y - self.hit_y)} // {10 * abs(56 - self.ball_size)}")
