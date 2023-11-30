@@ -56,9 +56,9 @@ def resume(): pass
 
 class ShowScore:
     def __init__(self):
+        self.top_score = 0
         self.hit_count = 0
         self.total_score = 0
-        pass
 
     def update(self):
         pass

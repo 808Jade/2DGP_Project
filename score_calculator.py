@@ -1,3 +1,6 @@
+from pico2d import load_font
+
+
 class ScoreCalculator:
     def __init__(self):
         # self.charging = 0
@@ -15,6 +18,8 @@ class ScoreCalculator:
         self.hit_count = 0
         self.score_list = []
         self.total_score = 0
+
+        self.font = load_font()
 
     def culculating(self):
         self.result = ((self.max - abs(self.ball_x - self.hit_x)) + (self.max - abs(self.ball_y - self.hit_y))
