@@ -11,6 +11,7 @@ def init():
     global background
     global logo_start_time
     global information_continue
+    global continue_button_flag
 
     logo_start_time = get_time()
 
@@ -18,6 +19,7 @@ def init():
     game_world.add_object(background, 0)
 
     information_continue = Information()
+    continue_button_flag = False
 
 
 def handle_events():
@@ -30,8 +32,12 @@ def handle_events():
 
 
 def update():
-    if get_time() - logo_start_time >= 2.0:
+    global continue_button_flag
+    game_world.update()
+    # delay(0.5)
+    if get_time() - logo_start_time >= 2.0 and continue_button_flag == False:
         game_world.add_object(information_continue, 2)
+        continue_button_flag = True
 
 
 def draw():
@@ -71,15 +77,18 @@ class Information:
     def __init__(self):
         self.image = load_image('press_space_bar_to_continue.png')
         self.frame = 0
-        self.action = 4
+        self.action = 0
+        self.y = 110
+        self.y_pattern = [ 103, 96, 89, 110 ]
+        self.pattern_index = 0
 
     def update(self):
         self.frame = (self.frame + 1) % 4
+        self.y = self.y_pattern[self.pattern_index]
+        self.pattern_index = (self.pattern_index + 1) % len(self.y_pattern)
 
     def handle_event(self):
         pass
 
     def draw(self):
-        self.image.clip_draw(self.action * 1280, self.frame * 180 , 530, 75, 100, 100)
-
-        # self.image.clip_draw(self.frame * 530, self.action * 75, 530, 75, 100, 100)
+        self.image.clip_draw(0, self.frame * 180, 1280, 180, 640, self.y, 500, 80)
