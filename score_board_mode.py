@@ -6,7 +6,6 @@ import game_world
 import title_mode
 from continue_button import ContinueButton
 from score_board_background import ScoreBoardBackground
-from score_calculator import ScoreCalculator
 
 
 def init():
@@ -14,7 +13,6 @@ def init():
     global logo_start_time
     global information_continue
     global continue_button_flag
-    # global score_calculator
     global score_calculator_flag
 
     logo_start_time = get_time()
@@ -25,7 +23,6 @@ def init():
     information_continue = ContinueButton()
     continue_button_flag = False
 
-    # score_calculator = ScoreCalculator()
     score_calculator_flag = 0
 
 

@@ -171,16 +171,16 @@ class Ball_NORMAL:
         swing_x = play_mode_normal.hitter.swing_mem_x
         swing_y = play_mode_normal.hitter.swing_mem_y
 
-        import score_board_mode
-        score_board_mode.score_calculator.ball_x = self.arrive_x
-        score_board_mode.score_calculator.ball_y = self.arrive_y
-        score_board_mode.score_calculator.hit_x = swing_x
-        score_board_mode.score_calculator.hit_y = swing_y
-        score_board_mode.score_calculator.ball_size = self.size
-        score_board_mode.score_calculator.culculating()
-        score_board_mode.score_calculator.handle_total_score()
-        print(score_board_mode.score_calculator.result)
-        print(score_board_mode.score_calculator.total_score)
+        import title_mode
+        title_mode.score_calculator.ball_x = self.arrive_x
+        title_mode.score_calculator.ball_y = self.arrive_y
+        title_mode.score_calculator.hit_x = swing_x
+        title_mode.score_calculator.hit_y = swing_y
+        title_mode.score_calculator.ball_size = self.size
+        title_mode.score_calculator.culculating()
+        title_mode.score_calculator.handle_total_score()
+        print(title_mode.score_calculator.result)
+        print(title_mode.score_calculator.total_score)
         self.hit_sign = True
         self.hit_pos = swing_x - self.x
         return BehaviorTree.SUCCESS
