@@ -50,6 +50,7 @@ class Ball_EASY:
         self.Slider_size = 2
         self.Knuckle_size = 1.5
 
+
         if self.mode == 'Straight':
             self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Straight_size)
             self.move_y = (self.start_point_y - self.arrive_y) // (50 // self.Straight_size)

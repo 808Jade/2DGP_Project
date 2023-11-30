@@ -19,7 +19,7 @@ class ScoreCalculator:
         self.score_list = []
         self.total_score = 0
 
-        self.font = load_font()
+        self.font = load_font('BMDOHYEON_ttf.ttf', 50)
 
     def culculating(self):
         self.result = ((self.max - abs(self.ball_x - self.hit_x)) + (self.max - abs(self.ball_y - self.hit_y))
@@ -32,3 +32,6 @@ class ScoreCalculator:
             self.top_score = self.result
         self.hit_count += 1
         self.total_score += self.result
+
+    def draw(self):
+        self.font.draw(100, 100, "안녕하세요 !")
