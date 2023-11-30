@@ -2,6 +2,7 @@ from pico2d import *
 import game_framework
 import game_world
 import play_mode_easy, play_mode_normal, play_mode_hard, play_mode_hell
+from score_calculator import ScoreCalculator
 
 
 # 초기 화면 구성
@@ -22,6 +23,9 @@ def init():
     hard = load_image('HARD.png')
     normal = load_image('NORMAL.png')
     hell = load_image('HELL.png')
+
+    global score_calculator
+    score_calculator = ScoreCalculator()
 
 
 def render_world():

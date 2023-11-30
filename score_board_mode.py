@@ -14,7 +14,7 @@ def init():
     global logo_start_time
     global information_continue
     global continue_button_flag
-    global score_calculator
+    # global score_calculator
     global score_calculator_flag
 
     logo_start_time = get_time()
@@ -25,7 +25,7 @@ def init():
     information_continue = ContinueButton()
     continue_button_flag = False
 
-    score_calculator = ScoreCalculator()
+    # score_calculator = ScoreCalculator()
     score_calculator_flag = 0
 
 
@@ -48,7 +48,7 @@ def update():
         game_world.add_object(information_continue, 2)
         continue_button_flag = True
     if get_time() - logo_start_time >= 0.5 and score_calculator_flag == 0:
-        game_world.add_object(score_calculator, 3)
+        game_world.add_object(title_mode.score_calculator, 3)
         score_calculator_flag = 1
 
 
