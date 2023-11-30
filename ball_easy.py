@@ -2,9 +2,8 @@ from pico2d import *
 import random
 import game_framework
 import game_world
-import play_mode_easy # , play_mode_normal, play_mode_hard
+import play_mode_easy
 from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
-from score_board_mode import Score_calculator
 from sign import Strikesign, Ballsign
 
 # ========================================================================= #
@@ -170,16 +169,17 @@ class Ball_EASY:
         swing_x = play_mode_easy.hitter.swing_mem_x
         swing_y = play_mode_easy.hitter.swing_mem_y
 
+        play_mode_easy.score_calculator.ball_x = self.arrive_x
+        play_mode_easy.score_calculator.ball_y = self.arrive_y
+        play_mode_easy.score_calculator.hit_x = swing_x
+        play_mode_easy.score_calculator.hit_y = swing_y
+        play_mode_easy.score_calculator.ball_size = self.size
+        play_mode_easy.score_calculator.culculating()
+        play_mode_easy.score_calculator.handle_total_score()
+        print(play_mode_easy.score_calculator.result)
+
         self.hit_sign = True
         self.hit_pos = swing_x - self.x
-        score_calculator = Score_calculator()
-        score_calculator.ball_x = self.arrive_x
-        score_calculator.ball_y = self.arrive_y
-        score_calculator.hit_x = swing_x
-        score_calculator.hit_y = swing_y
-        score_calculator.ball_size = self.size
-        score_calculator.culculating()
-        print(score_calculator.result)
         return BehaviorTree.SUCCESS
 
     def build_behavior_tree(self):

@@ -4,6 +4,7 @@ from sdl2 import SDL_KEYDOWN, SDLK_SPACE
 
 import game_world
 import title_mode
+from continue_button import ContinueButton
 from score_board_background import ScoreBoardBackground
 
 
@@ -18,7 +19,7 @@ def init():
     background = ScoreBoardBackground()
     game_world.add_object(background, 0)
 
-    information_continue = Information()
+    information_continue = ContinueButton()
     continue_button_flag = False
 
 
@@ -34,7 +35,6 @@ def handle_events():
 def update():
     global continue_button_flag
     game_world.update()
-    # delay(0.5)
     if get_time() - logo_start_time >= 2.0 and continue_button_flag == False:
         game_world.add_object(information_continue, 2)
         continue_button_flag = True
@@ -54,41 +54,15 @@ def pause(): pass
 def resume(): pass
 
 
-class Score_calculator:
+class ShowScore:
     def __init__(self):
-        # self.charging = 0
-        self.hit_x = 0.0
-        self.hit_y = 0.0
-        self.ball_x = 0.0
-        self.ball_y = 0.0
-        self.ball_size = 0.0
-
-        self.max = 100.0
-
-        self.result = 0.0
-
-    def culculating(self):
-        self.result = ((self.max - abs(self.ball_x - self.hit_x)) + (self.max - abs(self.ball_y - self.hit_y))
-                       + (2 * (56 - abs(56 - self.ball_size))))
-        self.result = round(self.result)
-        print(f"{abs(self.ball_x - self.hit_x)} // {abs(self.ball_y - self.hit_y)} // {10 * abs(56 - self.ball_size)}")
-
-class Information:
-    def __init__(self):
-        self.image = load_image('press_space_bar_to_continue.png')
-        self.frame = 0
-        self.action = 0
-        self.y = 110
-        self.y_pattern = [ 103, 96, 89, 110 ]
-        self.pattern_index = 0
+        pass
 
     def update(self):
-        self.frame = (self.frame + 1) % 4
-        self.y = self.y_pattern[self.pattern_index]
-        self.pattern_index = (self.pattern_index + 1) % len(self.y_pattern)
+        pass
 
     def handle_event(self):
         pass
 
     def draw(self):
-        self.image.clip_draw(0, self.frame * 180, 1280, 180, 640, self.y, 500, 80)
+        pass

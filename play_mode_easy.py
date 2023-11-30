@@ -2,7 +2,7 @@ from pico2d import *
 import game_framework
 
 import game_world
-import score_board_mode
+from score_calculator import ScoreCalculator
 from sign import Outsign
 import title_mode
 from hitter import Hitter
@@ -29,6 +29,7 @@ def init():
     global pitcher
     global strike_zone
     global strike_counter
+    global score_calculator
     global outsign, outsign_flag
 
     playground = Playground()
@@ -46,6 +47,8 @@ def init():
 
     strike_counter = Strike_counter()
     game_world.add_object(strike_counter, 2)
+
+    score_calculator = ScoreCalculator()
 
     outsign = Outsign()
     outsign_flag = False
