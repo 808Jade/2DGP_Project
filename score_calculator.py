@@ -39,13 +39,11 @@ class ScoreCalculator:
     def draw(self):
         self.font.draw(100, 100, "안녕하세요 !")
 
+    def update(self):
+        pass
+
     def show_score(self):
-        # if self.previous_mode = 'easy':
-        # elif self.previous_mode = 'normal':
-        # elif self.previous_mode = 'hard':
-        # elif self.previous_mode = 'hell':
+        print("show_score")
         self.font_num.draw(740,570, f'TOP : {self.top_score}')
         self.font_num.draw(740,420, f'HIT : {self.hit_count} times')
         self.font_num.draw(740,270, f'TOTAL : {self.total_score}')
-
-        pass
