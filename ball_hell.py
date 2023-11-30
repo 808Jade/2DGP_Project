@@ -170,7 +170,17 @@ class Ball_HELL:
 
     def hit_action(self):  # 공을 때린 X 좌표의 위치에 따라 날아가는 방향 결정
         swing_x = play_mode_hell.hitter.swing_mem_x
+        swing_y = play_mode_hell.hitter.swing_mem_y
 
+        play_mode_hell.score_calculator.ball_x = self.arrive_x
+        play_mode_hell.score_calculator.ball_y = self.arrive_y
+        play_mode_hell.score_calculator.hit_x = swing_x
+        play_mode_hell.score_calculator.hit_y = swing_y
+        play_mode_hell.score_calculator.ball_size = self.size
+        play_mode_hell.score_calculator.culculating()
+        play_mode_hell.score_calculator.handle_total_score()
+        print(play_mode_hell.score_calculator.result)
+        print(play_mode_hell.score_calculator.total_score)
         self.hit_sign = True
         self.hit_pos = swing_x - self.x
         return BehaviorTree.SUCCESS

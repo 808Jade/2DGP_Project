@@ -3,6 +3,7 @@ from pico2d import load_font
 
 class ScoreCalculator:
     def __init__(self):
+        self.previous_mode = 'NULL'
         # self.charging = 0
 
         # 타격 마다 점수 산출 #
@@ -35,3 +36,6 @@ class ScoreCalculator:
 
     def draw(self):
         self.font.draw(100, 100, "안녕하세요 !")
+
+    def show_score(self):
+        pass

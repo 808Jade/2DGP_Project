@@ -13,6 +13,7 @@ def init():
     global logo_start_time
     global information_continue
     global continue_button_flag
+    global previous_mode
 
     logo_start_time = get_time()
 
