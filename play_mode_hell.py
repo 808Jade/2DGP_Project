@@ -48,6 +48,7 @@ def init():
     game_world.add_object(strike_counter, 2)
 
     score_calculator = ScoreCalculator()
+    score_calculator.previous_mode = 'hell'
 
     outsign = Outsign()
     outsign_flag = False

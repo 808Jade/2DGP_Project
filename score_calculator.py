@@ -21,6 +21,8 @@ class ScoreCalculator:
         self.total_score = 0
 
         self.font = load_font('BMDOHYEON_ttf.ttf', 50)
+        self.font_num = load_font('Lobster.ttf', 80)
+        self.font_rank = load_font('28DaysLater.ttf', 500)
 
     def culculating(self):
         self.result = ((self.max - abs(self.ball_x - self.hit_x)) + (self.max - abs(self.ball_y - self.hit_y))
@@ -38,4 +40,9 @@ class ScoreCalculator:
         self.font.draw(100, 100, "안녕하세요 !")
 
     def show_score(self):
+        # if self.previous_mode = 'easy':
+        # elif self.previous_mode = 'normal':
+        # elif self.previous_mode = 'hard':
+        # elif self.previous_mode = 'hell':
+
         pass
