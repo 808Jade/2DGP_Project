@@ -172,15 +172,16 @@ class Ball_HELL:
         swing_x = play_mode_hell.hitter.swing_mem_x
         swing_y = play_mode_hell.hitter.swing_mem_y
 
-        play_mode_hell.score_calculator.ball_x = self.arrive_x
-        play_mode_hell.score_calculator.ball_y = self.arrive_y
-        play_mode_hell.score_calculator.hit_x = swing_x
-        play_mode_hell.score_calculator.hit_y = swing_y
-        play_mode_hell.score_calculator.ball_size = self.size
-        play_mode_hell.score_calculator.culculating()
-        play_mode_hell.score_calculator.handle_total_score()
-        print(play_mode_hell.score_calculator.result)
-        print(play_mode_hell.score_calculator.total_score)
+        import score_board_mode
+        score_board_mode.score_calculator.ball_x = self.arrive_x
+        score_board_mode.score_calculator.ball_y = self.arrive_y
+        score_board_mode.score_calculator.hit_x = swing_x
+        score_board_mode.score_calculator.hit_y = swing_y
+        score_board_mode.score_calculator.ball_size = self.size
+        score_board_mode.score_calculator.culculating()
+        score_board_mode.score_calculator.handle_total_score()
+        print(score_board_mode.score_calculator.result)
+        print(score_board_mode.score_calculator.total_score)
         self.hit_sign = True
         self.hit_pos = swing_x - self.x
         return BehaviorTree.SUCCESS

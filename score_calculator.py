@@ -20,8 +20,8 @@ class ScoreCalculator:
         self.score_list = []
         self.total_score = 0
 
-        self.font = load_font('BMDOHYEON_ttf.ttf', 50)
-        self.font_num = load_font('Lobster.ttf', 80)
+        self.font = load_font('BMDOHYEON_ttf.ttf', 100)
+        self.font_num = load_font('Lobster.ttf', 100)
         self.font_rank = load_font('28DaysLater.ttf', 500)
 
     def culculating(self):
@@ -44,5 +44,8 @@ class ScoreCalculator:
         # elif self.previous_mode = 'normal':
         # elif self.previous_mode = 'hard':
         # elif self.previous_mode = 'hell':
+        self.font_num.draw(740,570, f'TOP : {self.top_score}')
+        self.font_num.draw(740,420, f'HIT : {self.hit_count} times')
+        self.font_num.draw(740,270, f'TOTAL : {self.total_score}')
 
         pass
