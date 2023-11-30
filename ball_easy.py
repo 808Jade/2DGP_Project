@@ -96,17 +96,18 @@ class Ball_EASY:
                 if self.size > 36:
                     self.x -= self.size * 0.2
 
-        if self.size > 62:
-            game_world.remove_object(self)
-
-        self.angle += 20
-
         if self.hit_sign:
             self.size -= 7
             self.x -= self.hit_pos * 3
             self.y += 1.5 * self.size
             if self.size < 10:
                 game_world.remove_object(self)
+
+        if self.size > 62:
+            print("REMOVE")
+            game_world.remove_object(self)
+
+        self.angle += 20
 
         self.bt.run()
 
