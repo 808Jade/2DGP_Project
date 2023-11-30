@@ -44,12 +44,11 @@ def update():
 
     game_world.update()
 
-    if get_time() - logo_start_time >= 5.0 and continue_button_flag == False:
+    if get_time() - logo_start_time >= 3.0 and continue_button_flag == False:
         game_world.add_object(information_continue, 2)
         continue_button_flag = True
     if get_time() - logo_start_time >= 0.5 and score_calculator_flag == 0:
         game_world.add_object(score_calculator, 3)
-        score_calculator.show_score()
         score_calculator_flag = 1
 
 

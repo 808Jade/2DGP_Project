@@ -19,16 +19,16 @@ class ScoreCalculator:
         self.hit_count = 0
         self.score_list = []
         self.total_score = 0
+        self.rank = 'F'
 
         self.font = load_font('BMDOHYEON_ttf.ttf', 100)
         self.font_num = load_font('Lobster.ttf', 100)
-        self.font_rank = load_font('28DaysLater.ttf', 500)
+        self.font_rank = load_font('28DaysLater.ttf', 600)
 
     def culculating(self):
         self.result = ((self.max - abs(self.ball_x - self.hit_x)) + (self.max - abs(self.ball_y - self.hit_y))
                        + (2 * (56 - abs(56 - self.ball_size))))
         self.result = round(self.result)
-        # print(f"{abs(self.ball_x - self.hit_x)} // {abs(self.ball_y - self.hit_y)} // {10 * abs(56 - self.ball_size)}")
 
     def handle_total_score(self):
         if self.result > self.top_score:
@@ -37,13 +37,15 @@ class ScoreCalculator:
         self.total_score += self.result
 
     def draw(self):
-        self.font.draw(100, 100, "안녕하세요 !")
+        self.font_num.draw(590, 570, f'TOP : {self.top_score}',(255, 255, 255))
+        self.font_num.draw(590, 420, f'HIT : {self.hit_count} times',(255, 255, 255))
+        self.font_num.draw(590, 270, f'TOTAL : {self.total_score}',(255, 255, 255))
+
+        self.font_rank.draw(200,420, f'{self.rank}')
 
     def update(self):
         pass
 
+
     def show_score(self):
         print("show_score")
-        self.font_num.draw(740,570, f'TOP : {self.top_score}')
-        self.font_num.draw(740,420, f'HIT : {self.hit_count} times')
-        self.font_num.draw(740,270, f'TOTAL : {self.total_score}')
