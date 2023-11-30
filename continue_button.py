@@ -1,4 +1,4 @@
-from pico2d import load_image
+from pico2d import *
 
 
 class ContinueButton:
@@ -11,6 +11,7 @@ class ContinueButton:
         self.pattern_index = 0
 
     def update(self):
+        delay(0.1)
         self.frame = (self.frame + 1) % 4
         self.y = self.y_pattern[self.pattern_index]
         self.pattern_index = (self.pattern_index + 1) % len(self.y_pattern)

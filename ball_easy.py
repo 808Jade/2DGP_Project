@@ -177,6 +177,7 @@ class Ball_EASY:
         play_mode_easy.score_calculator.culculating()
         play_mode_easy.score_calculator.handle_total_score()
         print(play_mode_easy.score_calculator.result)
+        print(play_mode_easy.score_calculator.total_score)
 
         self.hit_sign = True
         self.hit_pos = swing_x - self.x
