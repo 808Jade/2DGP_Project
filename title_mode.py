@@ -33,7 +33,7 @@ def init():
     background_bgm.set_volume(volume)
     background_bgm.repeat_play()
     picking_bgm = load_wav('menu_pick.wav')
-    picking_bgm.set_volume(volume+15)
+    picking_bgm.set_volume(volume+20)
 
     global score_calculator
     score_calculator = ScoreCalculator()
