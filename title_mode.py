@@ -1,8 +1,11 @@
 from pico2d import *
+
 import game_framework
 import game_world
-import play_mode_easy, play_mode_normal, play_mode_hard, play_mode_hell
-from hitter import Hitter
+import play_mode_easy
+import play_mode_hard
+import play_mode_hell
+import play_mode_normal
 from score_calculator import ScoreCalculator
 
 

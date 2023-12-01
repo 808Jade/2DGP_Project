@@ -1,6 +1,7 @@
-from pico2d import *
 import random
-import game_framework
+
+from pico2d import *
+
 import game_world
 import play_mode_normal
 from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
@@ -37,7 +38,7 @@ class Ball_NORMAL:
         self.swinged = False
 
         # 공 객체가 생성될 때마다, 던져질 좌표, 구질 결정
-        self.strike_or_ball = True # random.choice([True, False])  # True == strike / False == Ball
+        self.strike_or_ball = True  # random.choice([True, False])  # True == strike / False == Ball
         if self.strike_or_ball:
             self.arrive_x, self.arrive_y = random.randint(545, 725), random.randint(110, 325)
         else:
@@ -62,13 +63,13 @@ class Ball_NORMAL:
             self.move_y = (self.start_point_y - self.arrive_y) // (50 // self.Straight_size)
             print(self.move_x)
         elif self.mode == 'Curve':
-            self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Curve_size)
+            self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Curve_size) + 2.5
             self.move_y = (self.start_point_y - self.arrive_y) // (50 // self.Curve_size)
         elif self.mode == 'Slider':
-            self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Slider_size)
+            self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Slider_size) + 2.5
             self.move_y = (self.start_point_y - self.arrive_y) // (50 // self.Slider_size)
         elif self.mode == 'Knuckle':
-            self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Knuckle_size)
+            self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Knuckle_size) + 2.5
             self.move_y = (self.start_point_y - self.arrive_y) // (50 // self.Knuckle_size)
 
         if Ball_NORMAL.image is None:

@@ -1,6 +1,7 @@
-from pico2d import *
 import random
-import game_framework
+
+from pico2d import *
+
 import game_world
 import play_mode_hard
 from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector

@@ -1,6 +1,7 @@
-from pico2d import *
 import random
-import game_framework
+
+from pico2d import *
+
 import game_world
 import play_mode_easy
 from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
@@ -39,7 +40,7 @@ class Ball_EASY:
         self.arrive_x = 575
         self.arrive_y = 217
         # 공 객체가 생성될 때마다, 던져질 좌표, 구질 결정
-        self.strike_or_ball = True # random.choice([True, False])  # True == strike / False == Ball
+        self.strike_or_ball = True  # random.choice([True, False])  # True == strike / False == Ball
 
         self.start_point_x = 609
         self.start_point_y = 435

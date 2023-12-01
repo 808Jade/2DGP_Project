@@ -93,7 +93,6 @@ class Swing:
     def do(hitter):
         hitter.frame = (hitter.frame + 1) % 6
         hitter.action = 5
-        # print("DO",hitter.swing_mem_x, hitter.swing_mem_y)
         if get_time() - hitter.wait_time > 0.1:
             hitter.swing_x = 0
             hitter.swing_y = 0

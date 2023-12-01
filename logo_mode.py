@@ -1,6 +1,6 @@
-import game_framework
 from pico2d import *
 
+import game_framework
 import game_world
 import title_mode
 
@@ -25,6 +25,7 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_QUIT:
             game_framework.quit()
+
 
 def update():
     pass

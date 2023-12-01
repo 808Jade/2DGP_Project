@@ -1,7 +1,7 @@
-import game_framework
 from pico2d import *
 from sdl2 import SDL_KEYDOWN, SDLK_SPACE
 
+import game_framework
 import game_world
 import title_mode
 from continue_button import ContinueButton
@@ -33,7 +33,9 @@ def init():
         title_mode.score_calculator.B_bgm.play()
     elif title_mode.score_calculator.rank == 'C':
         title_mode.score_calculator.C_bgm.play()
-    elif title_mode.score_calculator.rank == 'DE':
+    elif title_mode.score_calculator.rank == 'D':
+        title_mode.score_calculator.DE_bgm.play()
+    elif title_mode.score_calculator.rank == 'E':
         title_mode.score_calculator.DE_bgm.play()
     elif title_mode.score_calculator.rank == 'F':
         title_mode.score_calculator.F_bgm.play()

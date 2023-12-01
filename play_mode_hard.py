@@ -1,7 +1,7 @@
 from pico2d import *
+
 import game_framework
 import game_world
-
 import title_mode
 from hitter import Hitter
 from pitcher import Pitcher
@@ -9,7 +9,6 @@ from playground import Playground
 from sign import Outsign
 from strike_counter import Strike_counter
 from strike_zone import Strike_zone
-from score_calculator import ScoreCalculator
 
 
 def handle_events():
