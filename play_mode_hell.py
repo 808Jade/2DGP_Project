@@ -48,7 +48,7 @@ def init():
     game_world.add_object(strike_counter, 2)
 
     global background_bgm
-    background_bgm = load_music('playmode_background.mp3')
+    background_bgm = load_music('hell_background.mp3')
     background_bgm.set_volume(30)
     background_bgm.repeat_play()
 

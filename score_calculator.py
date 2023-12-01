@@ -82,7 +82,3 @@ class ScoreCalculator:
 
     def update(self):
         pass
-
-
-    def show_score(self):
-        print("show_score")

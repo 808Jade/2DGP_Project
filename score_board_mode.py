@@ -61,16 +61,16 @@ def update():
         game_world.add_object(title_mode.score_calculator, 3)
         score_calculator_flag = 1
 
-    print("update")
-
 
 def draw():
     clear_canvas()
     game_world.render()
     update_canvas()
 
+
 def finish():
     game_world.clear()
+
 
 def pause(): pass
 

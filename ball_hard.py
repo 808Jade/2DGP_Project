@@ -4,7 +4,7 @@ import game_framework
 import game_world
 import play_mode_hard
 from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
-from sign import Strikesign, Ballsign
+from sign import Strikesign, Ballsign, Scoresign
 
 
 # ========================================================================= #
@@ -58,16 +58,16 @@ class Ball_HARD:
         self.meat_sound = load_wav('strike_and_ball.wav')
 
         if self.mode == 'Straight':
-            self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Straight_size)
+            self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Straight_size) + 2.5
             self.move_y = (self.start_point_y - self.arrive_y) // (50 // self.Straight_size)
         elif self.mode == 'Curve':
-            self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Curve_size)
+            self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Curve_size) + 2.5
             self.move_y = (self.start_point_y - self.arrive_y) // (50 // self.Curve_size)
         elif self.mode == 'Slider':
-            self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Slider_size)
+            self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Slider_size) + 2.5
             self.move_y = (self.start_point_y - self.arrive_y) // (50 // self.Slider_size)
         elif self.mode == 'Knuckle':
-            self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Knuckle_size)
+            self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Knuckle_size) + 2.5
             self.move_y = (self.start_point_y - self.arrive_y) // (50 // self.Knuckle_size)
 
         if Ball_HARD.image is None:
@@ -181,8 +181,8 @@ class Ball_HARD:
         swing_y = play_mode_hard.hitter.swing_mem_y
 
         import title_mode
-        title_mode.score_calculator.ball_x = self.arrive_x
-        title_mode.score_calculator.ball_y = self.arrive_y
+        title_mode.score_calculator.ball_x = self.x
+        title_mode.score_calculator.ball_y = self.y
         title_mode.score_calculator.hit_x = swing_x
         title_mode.score_calculator.hit_y = swing_y
         title_mode.score_calculator.ball_size = self.size
@@ -190,6 +190,11 @@ class Ball_HARD:
         title_mode.score_calculator.handle_total_score()
         print(title_mode.score_calculator.result)
         print(title_mode.score_calculator.total_score)
+
+        score_sign = Scoresign()
+        score_sign.score = title_mode.score_calculator.result
+        game_world.add_object(score_sign, 2)
+        score_sign.sign_on()
 
         self.hit_sound.set_volume(50)
         self.hit_sound.play(1)

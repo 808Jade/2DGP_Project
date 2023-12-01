@@ -4,7 +4,8 @@ import game_framework
 import game_world
 import play_mode_easy
 from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
-from sign import Strikesign, Ballsign
+from sign import Strikesign, Ballsign, Scoresign
+
 
 # ========================================================================= #
 # =============================== EASY MODE =============================== #
@@ -107,7 +108,6 @@ class Ball_EASY:
                 game_world.remove_object(self)
 
         if self.size > 62:
-            print("REMOVE")
             game_world.remove_object(self)
 
         self.angle += 20
@@ -179,15 +179,18 @@ class Ball_EASY:
         swing_y = play_mode_easy.hitter.swing_mem_y
 
         import title_mode
-        title_mode.score_calculator.ball_x = self.arrive_x
-        title_mode.score_calculator.ball_y = self.arrive_y
+        title_mode.score_calculator.ball_x = self.x
+        title_mode.score_calculator.ball_y = self.y
         title_mode.score_calculator.hit_x = swing_x
         title_mode.score_calculator.hit_y = swing_y
         title_mode.score_calculator.ball_size = self.size
         title_mode.score_calculator.culculating()
         title_mode.score_calculator.handle_total_score()
-        print(title_mode.score_calculator.result)
-        print(title_mode.score_calculator.total_score)
+
+        score_sign = Scoresign()
+        score_sign.score = title_mode.score_calculator.result
+        game_world.add_object(score_sign, 2)
+        score_sign.sign_on()
 
         self.hit_sound.set_volume(50)
         self.hit_sound.play(1)
@@ -220,5 +223,3 @@ class Ball_EASY:
 
         self.bt = BehaviorTree(root)
 # ----------------------------------------Behavior-Tree----------------------------------------
-
-

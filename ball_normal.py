@@ -4,7 +4,8 @@ import game_framework
 import game_world
 import play_mode_normal
 from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
-from sign import Strikesign, Ballsign
+from sign import Strikesign, Ballsign, Scoresign
+
 
 # ========================================================================= #
 # ============================= NORMAL MODE =============================== #
@@ -36,11 +37,11 @@ class Ball_NORMAL:
         self.swinged = False
 
         # 공 객체가 생성될 때마다, 던져질 좌표, 구질 결정
-        self.strike_or_ball = random.choice([True, False])  # True == strike / False == Ball
+        self.strike_or_ball = True # random.choice([True, False])  # True == strike / False == Ball
         if self.strike_or_ball:
             self.arrive_x, self.arrive_y = random.randint(545, 725), random.randint(110, 325)
         else:
-            self.arrive_x, self.arrive_y = random.randint(500, 800), random.randint(150, 400)
+            self.arrive_x, self.arrive_y = random.randint(530, 800), random.randint(130, 400)
 
         self.start_point_x = 609
         self.start_point_y = 435
@@ -57,8 +58,9 @@ class Ball_NORMAL:
         self.meat_sound = load_wav('strike_and_ball.wav')
 
         if self.mode == 'Straight':
-            self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Straight_size)
+            self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Straight_size) + 2.5
             self.move_y = (self.start_point_y - self.arrive_y) // (50 // self.Straight_size)
+            print(self.move_x)
         elif self.mode == 'Curve':
             self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Curve_size)
             self.move_y = (self.start_point_y - self.arrive_y) // (50 // self.Curve_size)
@@ -180,15 +182,18 @@ class Ball_NORMAL:
         swing_y = play_mode_normal.hitter.swing_mem_y
 
         import title_mode
-        title_mode.score_calculator.ball_x = self.arrive_x
-        title_mode.score_calculator.ball_y = self.arrive_y
+        title_mode.score_calculator.ball_x = self.x
+        title_mode.score_calculator.ball_y = self.y
         title_mode.score_calculator.hit_x = swing_x
         title_mode.score_calculator.hit_y = swing_y
         title_mode.score_calculator.ball_size = self.size
         title_mode.score_calculator.culculating()
         title_mode.score_calculator.handle_total_score()
-        print(title_mode.score_calculator.result)
-        print(title_mode.score_calculator.total_score)
+
+        score_sign = Scoresign()
+        score_sign.score = title_mode.score_calculator.result
+        game_world.add_object(score_sign, 2)
+        score_sign.sign_on()
 
         self.hit_sound.set_volume(50)
         self.hit_sound.play(1)
