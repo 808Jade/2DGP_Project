@@ -187,5 +187,5 @@ class Hitter:
     def draw(self):
         self.state_machine.draw()
 
-    def handle_collision(self, group, other):
-        pass
+    def title_mode_hitter(self):
+        self.x, self.y = 700, 250
