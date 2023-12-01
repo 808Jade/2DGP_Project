@@ -23,6 +23,11 @@ def init():
     hard = load_image('HARD.png')
     normal = load_image('NORMAL.png')
     hell = load_image('HELL.png')
+    global background_bgm, volume
+    background_bgm = load_music('titlemode_background.mp3')
+    volume = 30
+    background_bgm.set_volume(volume)
+    background_bgm.repeat_play()
 
     global score_calculator
     score_calculator = ScoreCalculator()
@@ -49,11 +54,13 @@ def render_world():
 
 def handle_events():
     global x, y
+    global volume, background_bgm
     global menu_picking_easy, menu_picking_normal, menu_picking_hard, menu_picking_hell
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
+
         elif event.type == SDL_MOUSEMOTION:
             x, y = event.x, canvas_y - 1 - event.y
             if 100 < x < 300 and 330 < y < 370:
@@ -66,22 +73,31 @@ def handle_events():
                 menu_picking_hell = True
             else:
                 menu_picking_easy, menu_picking_normal, menu_picking_hard, menu_picking_hell = False, False, False, False
+
         elif event.type == SDL_MOUSEBUTTONDOWN:
             x, y = event.x, canvas_y - 1 - event.y
             if 100 < x < 300 and 330 < y < 370:
                 game_framework.change_mode(play_mode_easy)
+                background_bgm.stop()
             elif 100 < x < 300 and 260 < y < 300:
                 game_framework.change_mode(play_mode_normal)
+                background_bgm.stop()
             elif 100 < x < 300 and 190 < y < 230:
                 game_framework.change_mode(play_mode_hard)
+                background_bgm.stop()
             elif 100 < x < 300 and 120 < y < 160:
                 game_framework.change_mode(play_mode_hell)
-            else:
-                pass
+                background_bgm.stop()
 
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            game_framework.quit()
-    pass
+        elif event.type == SDL_KEYDOWN:
+            if event.key == SDLK_EQUALS:  # '=' 키
+                volume += 10
+                background_bgm.set_volume(volume)
+            elif event.key == SDLK_MINUS:  # '-' 키
+                volume -= 10
+                background_bgm.set_volume(volume)
+            elif event.key == SDLK_ESCAPE:
+                game_framework.quit()
 
 
 def update():
