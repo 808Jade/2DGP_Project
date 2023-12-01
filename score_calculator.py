@@ -1,4 +1,4 @@
-from pico2d import load_font
+from pico2d import *
 
 
 class ScoreCalculator:
@@ -25,6 +25,20 @@ class ScoreCalculator:
         self.font = load_font('BMDOHYEON_ttf.ttf', 100)
         self.font_num = load_font('Lobster.ttf', 100)
         self.font_rank = load_font('28DaysLater.ttf', 600)
+
+        self.S_bgm = load_music('rank_S.mp3')
+        self.A_bgm = load_music('rank_A.mp3')
+        self.B_bgm = load_music('rank_B.mp3')
+        self.C_bgm = load_music('rank_C.mp3')
+        self.DE_bgm = load_music('rank_DE.mp3')
+        self.F_bgm = load_music('rank_f.mp3')
+
+        self.S_bgm.set_volume(20)
+        self.A_bgm.set_volume(20)
+        self.B_bgm.set_volume(20)
+        self.C_bgm.set_volume(20)
+        self.DE_bgm.set_volume(20)
+        self.F_bgm.set_volume(20)
 
     def culculating(self):
         self.result = ((self.max - abs(self.ball_x - self.hit_x)) + (self.max - abs(self.ball_y - self.hit_y))
@@ -64,7 +78,7 @@ class ScoreCalculator:
         self.font_num.draw(590, 420, f'HIT : {self.hit_count} times',(255, 255, 255))
         self.font_num.draw(590, 270, f'TOTAL : {self.total_score}',(255, 255, 255))
 
-        self.font_rank.draw(150,420, f'{self.rank}',(self.rank_rgb))
+        self.font_rank.draw(140,420, f'{self.rank}',(self.rank_rgb))
 
     def update(self):
         pass

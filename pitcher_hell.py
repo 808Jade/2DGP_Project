@@ -126,8 +126,11 @@ class Pitcher:
         self.image = load_image('penguin.png')
         self.state_machine = StateMachine(self)
         self.state_machine.start()
+        self.pitching_sound = load_wav('pitching_sound.wav')
+        self.pitching_sound.set_volume(50)
 
     def pitching(self):
+        self.pitching_sound.play(1)
         ball = Ball_HELL(self.x + 30, self.y)
         game_world.add_object(ball, 2)
 

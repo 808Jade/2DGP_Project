@@ -25,6 +25,19 @@ def init():
 
     score_calculator_flag = 0
 
+    if title_mode.score_calculator.rank == 'S':
+        title_mode.score_calculator.S_bgm.play()
+    elif title_mode.score_calculator.rank == 'A':
+        title_mode.score_calculator.A_bgm.play()
+    elif title_mode.score_calculator.rank == 'B':
+        title_mode.score_calculator.B_bgm.play()
+    elif title_mode.score_calculator.rank == 'C':
+        title_mode.score_calculator.C_bgm.play()
+    elif title_mode.score_calculator.rank == 'DE':
+        title_mode.score_calculator.DE_bgm.play()
+    elif title_mode.score_calculator.rank == 'F':
+        title_mode.score_calculator.F_bgm.play()
+
 
 def handle_events():
     events = get_events()
@@ -48,6 +61,8 @@ def update():
         game_world.add_object(title_mode.score_calculator, 3)
         score_calculator_flag = 1
 
+    print("update")
+
 
 def draw():
     clear_canvas()
@@ -61,19 +76,3 @@ def pause(): pass
 
 
 def resume(): pass
-
-
-class ShowScore:
-    def __init__(self):
-        self.top_score = 0
-        self.hit_count = 0
-        self.total_score = 0
-
-    def update(self):
-        pass
-
-    def handle_event(self):
-        pass
-
-    def draw(self):
-        pass

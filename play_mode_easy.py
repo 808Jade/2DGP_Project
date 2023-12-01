@@ -28,7 +28,6 @@ def init():
     global pitcher
     global strike_zone
     global strike_counter
-    global background_bgm, volume
     global outsign, outsign_flag
 
     playground = Playground()
@@ -47,6 +46,7 @@ def init():
     strike_counter = Strike_counter()
     game_world.add_object(strike_counter, 2)
 
+    global background_bgm
     background_bgm = load_music('playmode_background.mp3')
     background_bgm.set_volume(30)
     background_bgm.repeat_play()
@@ -56,6 +56,7 @@ def init():
 
 
 def finish():
+    background_bgm.stop()
     game_world.clear()
     pass
 

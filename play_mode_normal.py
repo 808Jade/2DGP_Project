@@ -48,12 +48,17 @@ def init():
     strike_counter = Strike_counter()
     game_world.add_object(strike_counter, 2)
 
+    global background_bgm
+    background_bgm = load_music('playmode_background.mp3')
+    background_bgm.set_volume(30)
+    background_bgm.repeat_play()
 
     outsign = Outsign()
     outsign_flag = False
 
 
 def finish():
+    background_bgm.stop()
     game_world.clear()
     pass
 
