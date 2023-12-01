@@ -54,6 +54,8 @@ class Ball_HELL:
         self.Knuckle_size = 1.5
 
         self.hit_sound = load_wav('Hit_sound.wav')
+        self.strike_sound = load_wav('referee-whistle.wav')
+        self.meat_sound = load_wav('strike_and_ball.wav')
 
         if self.mode == 'Straight':
             self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Straight_size)
@@ -120,6 +122,8 @@ class Ball_HELL:
 # ----------------------------------------Behavior-Tree----------------------------------------
     def is_ball_reach(self):
         if self.size > 62:
+            self.meat_sound.set_volume(50)
+            self.meat_sound.play(1)
             return BehaviorTree.SUCCESS
         else:
             return BehaviorTree.FAIL
@@ -168,6 +172,8 @@ class Ball_HELL:
         game_world.add_object(strike_sign, 2)
         strike_sign.sign_on()
         play_mode_hell.strike_counter.count += 1
+        self.strike_sound.set_volume(50)
+        self.strike_sound.play(1)
         return BehaviorTree.SUCCESS
 
     def hit_action(self):  # 공을 때린 X 좌표의 위치에 따라 날아가는 방향 결정

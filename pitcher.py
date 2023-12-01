@@ -126,8 +126,11 @@ class Pitcher:
         self.state_machine = StateMachine(self)
         self.state_machine.start()
         self.current_mode = 'NULL'
+        self.pitching_sound = load_wav('pitching_sound.wav')
+        self.pitching_sound.set_volume(50)
 
     def pitching(self):
+        self.pitching_sound.play(1)
         if self.current_mode == 'easy':
             from ball_easy import Ball_EASY
             ball = Ball_EASY(self.x - 30, self.y + 25)

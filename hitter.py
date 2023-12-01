@@ -81,7 +81,7 @@ class Swing:
         hitter.swing_x, hitter.swing_y = e[1].x, 720 - e[1].y
         hitter.swing_mem_x = e[1].x
         hitter.swing_mem_y = 720 - e[1].y
-        pass
+        hitter.swing_sound.play(1)
 
     @staticmethod
     def exit(hitter, e):
@@ -174,6 +174,11 @@ class Hitter:
         self.state_machine.start()
         self.swing_x, self.swing_y = 0, 0
         self.swing_mem_x, self.swing_mem_y = 0,0
+        self.swing_sound = load_wav('swing.wav')
+        self.swing_sound.set_volume(100)
+        self.entering_sound = load_wav('play_mode_start.wav')
+        self.entering_sound.set_volume(30)
+        self.entering_sound.play(1)
 
     def swing_point(self):
         return self.swing_x, self.swing_y, self.swing_x + 20, self.swing_y + 20
