@@ -52,6 +52,8 @@ class Ball_NORMAL:
         self.Slider_size = 2
         self.Knuckle_size = 1.5
 
+        self.hit_sound = load_wav('Hit_sound.wav')
+
         if self.mode == 'Straight':
             self.move_x = (self.start_point_x - self.arrive_x) // (50 // self.Straight_size)
             self.move_y = (self.start_point_y - self.arrive_y) // (50 // self.Straight_size)
@@ -181,6 +183,10 @@ class Ball_NORMAL:
         title_mode.score_calculator.handle_total_score()
         print(title_mode.score_calculator.result)
         print(title_mode.score_calculator.total_score)
+
+        self.hit_sound.set_volume(50)
+        self.hit_sound.play(1)
+
         self.hit_sign = True
         self.hit_pos = swing_x - self.x
         return BehaviorTree.SUCCESS
