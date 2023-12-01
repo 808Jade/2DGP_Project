@@ -29,11 +29,11 @@ def init():
 
     global background_bgm, volume, picking_bgm
     background_bgm = load_music('titlemode_background.mp3')
-    volume = 30
+    volume = 20
     background_bgm.set_volume(volume)
     background_bgm.repeat_play()
     picking_bgm = load_wav('menu_pick.wav')
-    picking_bgm.set_volume(volume+20)
+    picking_bgm.set_volume(volume + 20)
 
     global score_calculator
     score_calculator = ScoreCalculator()
@@ -95,17 +95,17 @@ def handle_events():
         elif event.type == SDL_MOUSEBUTTONDOWN:
             x, y = event.x, canvas_y - 1 - event.y
             if 100 < x < 300 and 330 < y < 370:
+                background_bgm.stop()
                 game_framework.change_mode(play_mode_easy)
-                background_bgm.stop()
             elif 100 < x < 300 and 260 < y < 300:
+                background_bgm.stop()
                 game_framework.change_mode(play_mode_normal)
-                background_bgm.stop()
             elif 100 < x < 300 and 190 < y < 230:
+                background_bgm.stop()
                 game_framework.change_mode(play_mode_hard)
-                background_bgm.stop()
             elif 100 < x < 300 and 120 < y < 160:
-                game_framework.change_mode(play_mode_hell)
                 background_bgm.stop()
+                game_framework.change_mode(play_mode_hell)
 
         elif event.type == SDL_KEYDOWN:
             if event.key == SDLK_EQUALS:  # '=' 키

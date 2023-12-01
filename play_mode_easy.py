@@ -9,7 +9,6 @@ from pitcher import Pitcher
 from playground import Playground
 from strike_zone import Strike_zone
 from strike_counter import Strike_counter
-from score_calculator import ScoreCalculator
 
 
 def handle_events():
@@ -29,7 +28,7 @@ def init():
     global pitcher
     global strike_zone
     global strike_counter
-    global score_calculator
+    global background_bgm, volume
     global outsign, outsign_flag
 
     playground = Playground()
@@ -47,6 +46,10 @@ def init():
 
     strike_counter = Strike_counter()
     game_world.add_object(strike_counter, 2)
+
+    background_bgm = load_music('playmode_background.mp3')
+    background_bgm.set_volume(30)
+    background_bgm.repeat_play()
 
     outsign = Outsign()
     outsign_flag = False
