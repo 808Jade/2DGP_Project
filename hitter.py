@@ -193,3 +193,4 @@ class Hitter:
 
     def title_mode_hitter(self):
         self.x, self.y = 700, 250
+        
