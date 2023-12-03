@@ -22,3 +22,4 @@ class Strike_counter:
 
     def update(self):
         pass
+    
